@@ -1,0 +1,58 @@
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Node.jsをインストール
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Gitのユーザーを設定
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: バージョンを更新
+        run: |
+          npm version ${{ github.event.inputs.bump_type }}
+          echo VERSION="v$(cat package.json | jq -r '.version')" >> "${GITHUB_ENV}"
+
+      - name: パッケージを公開
+        run: |
+          npm install
+          npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: リポジトリへプッシュ
+        run: |
+          git push
+          git push --tags
+
+      - name: GitHubへリリース
+        run: |
+          gh release create "${VERSION}" \
+            -t "$(cat ./package.json | jq -r '.name') ${VERSION}" \
+            --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

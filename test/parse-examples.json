@@ -1,0 +1,1015 @@
+[
+  {
+    "id": 1,
+    "input": "ダンジョン飯　第１９話　「山姥／夢魔」",
+    "title": "ダンジョン飯",
+    "episode": {
+      "text": "第19話",
+      "number": 19
+    },
+    "subtitle": "山姥/夢魔"
+  },
+
+  {
+    "id": 2,
+    "input": "姫様“拷問”の時間です 第1話 姫様“拷問”の時間です",
+    "title": "姫様“拷問”の時間です",
+    "episode": {
+      "text": "第1話",
+      "number": 1
+    },
+    "subtitle": "姫様“拷問”の時間です"
+  },
+
+  {
+    "id": 3,
+    "input": "キミと僕の最後の戦場、あるいは世界が始まる聖戦 Season Ⅱ 第12話「暁星 ―拍手と喝采で出迎えよ―」",
+    "title": "キミと僕の最後の戦場、あるいは世界が始まる聖戦",
+    "season": {
+      "text": "Season II",
+      "number": 2
+    },
+    "episode": {
+      "text": "第12話",
+      "number": 12
+    },
+    "subtitle": "暁星 -拍手と喝采で出迎えよ-"
+  },
+
+  {
+    "id": 4,
+    "input": "ウィッチウォッチ 第14話 うろんミラージュ　第１１９話「ファジー討伐-４」/推し絵師日誌",
+    "title": "ウィッチウォッチ",
+    "episode": {
+      "text": "第14話",
+      "number": 14
+    },
+    "subtitle": "うろんミラージュ 第119話「ファジー討伐-4」/推し絵師日誌"
+  },
+
+  {
+    "id": 5,
+    "input": "転生したらスライムだった件 第3期 第65.5話 閑話：ルミナスメモリーズ",
+    "title": "転生したらスライムだった件",
+    "season": {
+      "text": "第3期",
+      "number": 3
+    },
+    "episode": {
+      "text": "第65.5話",
+      "number": 65.5
+    },
+    "subtitle": "閑話:ルミナスメモリーズ"
+  },
+
+  {
+    "id": 6,
+    "input": "まちカドまぞく 2丁目 第1話 対決ふたたび！　魔法少女の新たなる姿！？",
+    "title": "まちカドまぞく",
+    "season": {
+      "text": "2丁目",
+      "number": 2
+    },
+    "episode": {
+      "text": "第1話",
+      "number": 1
+    },
+    "subtitle": "対決ふたたび! 魔法少女の新たなる姿!?"
+  },
+
+  {
+    "id": 7,
+    "input": "わたしが恋人になれるわけないじゃん、ムリムリ!（※ムリじゃなかった!?）　5話　恋人とか、ぜったいにムリ!その２",
+    "title": "わたしが恋人になれるわけないじゃん、ムリムリ!(※ムリじゃなかった!?)",
+    "episode": {
+      "text": "5話",
+      "number": 5
+    },
+    "subtitle": "恋人とか、ぜったいにムリ!その2"
+  },
+
+  {
+    "id": 8,
+    "input": "タコピーの原罪 第5話「2022年のきみへ」",
+    "title": "タコピーの原罪",
+    "episode": {
+      "text": "第5話",
+      "number": 5
+    },
+    "subtitle": "2022年のきみへ"
+  },
+
+  {
+    "id": 9,
+    "input": "DEVIL SURVIVOR 2 the ANIMATION　第1話「1ST DAY 憂鬱の日曜日」",
+    "title": "DEVIL SURVIVOR 2 the ANIMATION",
+    "episode": {
+      "text": "第1話",
+      "number": 1
+    },
+    "subtitle": "1ST DAY 憂鬱の日曜日"
+  },
+
+  {
+    "id": 10,
+    "input": "Dr.STONE SCIENCE FUTURE（第4期）　第16話　MEDUSA MECHANISM",
+    "title": "Dr.STONE SCIENCE FUTURE",
+    "season": {
+      "text": "第4期",
+      "number": 4
+    },
+    "episode": {
+      "text": "第16話",
+      "number": 16
+    },
+    "subtitle": "MEDUSA MECHANISM"
+  },
+
+  {
+    "id": 11,
+    "input": "ひみつのアイプリ リング編 第13話 (64話) 「マイメロディとクロミがやってきた」",
+    "title": "ひみつのアイプリ リング編",
+    "episode": {
+      "text": "第13話",
+      "number": 13
+    },
+    "episodeAlt": {
+      "text": "64話",
+      "number": 64
+    },
+    "subtitle": "マイメロディとクロミがやってきた"
+  },
+
+  {
+    "id": 12,
+    "input": "彼女、お借りします Season4 第5話（41話）「「その時と彼女」 ―バッカノ―」",
+    "title": "彼女、お借りします",
+    "season": {
+      "text": "Season4",
+      "number": 4
+    },
+    "episode": {
+      "text": "第5話",
+      "number": 5
+    },
+    "episodeAlt": {
+      "text": "41話",
+      "number": 41
+    },
+    "subtitle": "「その時と彼女」 -バッカノ-"
+  },
+
+  {
+    "id": 13,
+    "input": "テレビアニメ「鬼滅の刃」竈門炭治郎 立志編 　第一話　残酷",
+    "title": "鬼滅の刃 竈門炭治郎 立志編",
+    "episode": {
+      "text": "第一話",
+      "number": 1
+    },
+    "subtitle": "残酷"
+  },
+
+  {
+    "id": 15,
+    "input": "シュタインズ・ゲート 第1話「始まりと終わりのプロローグ -Turning Point- 」",
+    "title": "シュタインズ・ゲート",
+    "episode": {
+      "text": "第1話",
+      "number": 1
+    },
+    "subtitle": "始まりと終わりのプロローグ -Turning Point-"
+  },
+
+  {
+    "id": 16,
+    "input": "STEINS;GATE　第1話　始まりと終わりのプロローグ",
+    "title": "STEINS;GATE",
+    "episode": {
+      "text": "第1話",
+      "number": 1
+    },
+    "subtitle": "始まりと終わりのプロローグ"
+  },
+
+  {
+    "id": 17,
+    "input": "杖と剣のウィストリア 第ニ話 不屈のごとく",
+    "title": "杖と剣のウィストリア",
+    "episode": {
+      "text": "第ニ話",
+      "number": 2
+    },
+    "subtitle": "不屈のごとく"
+  },
+
+  {
+    "id": 18,
+    "input": "機動戦士Gundam GQuuuuuuX（ジークアクス） 1話 赤いガンダム",
+    "title": "機動戦士Gundam GQuuuuuuX(ジークアクス)",
+    "episode": {
+      "text": "1話",
+      "number": 1
+    },
+    "subtitle": "赤いガンダム"
+  },
+
+  {
+    "id": 19,
+    "input": "陰の実力者になりたくて！ 2nd season(第2期) #01 無法都市",
+    "title": "陰の実力者になりたくて!",
+    "season": {
+      "text": "2nd season",
+      "number": 2
+    },
+    "seasonAlt": {
+      "text": "第2期",
+      "number": 2
+    },
+    "episode": {
+      "text": "#01",
+      "number": 1
+    },
+    "subtitle": "無法都市"
+  },
+
+  {
+    "id": 20,
+    "input": "ポプテピピック TVアニメーション作品第二シリーズ　#3　POPUTAN",
+    "title": "ポプテピピック",
+    "season": {
+      "text": "第二シリーズ",
+      "number": 2
+    },
+    "episode": {
+      "text": "#3",
+      "number": 3
+    },
+    "subtitle": "POPUTAN"
+  },
+
+  {
+    "id": 21,
+    "input": "フードコートで、また明日。 ＃4『キャラメルリボン』『別方向だけど』『臭くはない』『一般的和田』",
+    "title": "フードコートで、また明日。",
+    "episode": {
+      "text": "#4",
+      "number": 4
+    },
+    "subtitle": "『キャラメルリボン』『別方向だけど』『臭くはない』『一般的和田』"
+  },
+
+  {
+    "id": 22,
+    "input": "「その着せ替え人形（ビスク・ドール）は恋をする」Season 2 #15「日常パートめっちゃすこ〰〰〰〰♡♡♡」",
+    "title": "その着せ替え人形(ビスク・ドール)は恋をする",
+    "season": {
+      "text": "Season 2",
+      "number": 2
+    },
+    "episode": {
+      "text": "#15",
+      "number": 15
+    },
+    "subtitle": "日常パートめっちゃすこ〜〜〜〜♡♡♡"
+  },
+
+  {
+    "id": 23,
+    "input": "「その着せ替え人形は恋をする」Season 2　#15　日常パートめっちゃすこ〰〰〰〰♡♡♡",
+    "title": "その着せ替え人形は恋をする",
+    "season": {
+      "text": "Season 2",
+      "number": 2
+    },
+    "episode": {
+      "text": "#15",
+      "number": 15
+    },
+    "subtitle": "日常パートめっちゃすこ〜〜〜〜♡♡♡"
+  },
+
+  {
+    "id": 24,
+    "input": "Lv2からチートだった元勇者候補のまったり異世界ライフ　episode.6　光と闇の魔人ヒヤ",
+    "title": "Lv2からチートだった元勇者候補のまったり異世界ライフ",
+    "episode": {
+      "text": "episode.6",
+      "number": 6
+    },
+    "subtitle": "光と闇の魔人ヒヤ"
+  },
+
+  {
+    "id": 25,
+    "input": "ツンデレ悪役令嬢リーゼロッテと実況の遠藤くんと解説の小林さん chapter 1 ツンデレと王子と天の声",
+    "title": "ツンデレ悪役令嬢リーゼロッテと実況の遠藤くんと解説の小林さん",
+    "episode": {
+      "text": "chapter 1",
+      "number": 1
+    },
+    "subtitle": "ツンデレと王子と天の声"
+  },
+
+  {
+    "id": 26,
+    "input": "中二病でも恋がしたい!　第11話「片翼の･･･堕天使（フォーリン・エンジェル）」",
+    "title": "中二病でも恋がしたい!",
+    "episode": {
+      "text": "第11話",
+      "number": 11
+    },
+    "subtitle": "片翼の・・・堕天使(フォーリン・エンジェル)"
+  },
+
+  {
+    "id": 27,
+    "input": "中二病でも恋がしたい！　Episode XI　片翼の堕天使(フォーリン・エンジェル)",
+    "title": "中二病でも恋がしたい!",
+    "episode": {
+      "text": "Episode XI",
+      "number": 11
+    },
+    "subtitle": "片翼の堕天使(フォーリン・エンジェル)"
+  },
+
+  {
+    "id": 28,
+    "input": "魔法科高校の劣等生 第3シーズン 01「ダブル・セブン編Ⅰ」",
+    "title": "魔法科高校の劣等生",
+    "season": {
+      "text": "第3シーズン",
+      "number": 3
+    },
+    "episode": {
+      "text": "01",
+      "number": 1
+    },
+    "subtitle": "ダブル・セブン編I"
+  },
+
+  {
+    "id": 29,
+    "input": "魔法科高校の劣等生 3期 01 ダブル・セブン編Ⅰ",
+    "title": "魔法科高校の劣等生",
+    "season": {
+      "text": "3期",
+      "number": 3
+    },
+    "subtitle": "ダブル・セブン編I"
+  },
+
+  {
+    "id": 30,
+    "input": "シャングリラ・フロンティア 2nd Season 27「融通知らずの門番」",
+    "title": "シャングリラ・フロンティア",
+    "season": {
+      "text": "2nd Season",
+      "number": 2
+    },
+    "episode": {
+      "text": "27",
+      "number": 27
+    },
+    "subtitle": "融通知らずの門番"
+  },
+
+  {
+    "id": 31,
+    "input": "イジらないで、長瀞さん 2nd Attack 1 センパイと私の仲なんスから～",
+    "title": "イジらないで、長瀞さん",
+    "season": {
+      "text": "2nd Attack",
+      "number": 2
+    },
+    "episode": {
+      "text": "1",
+      "number": 1
+    },
+    "subtitle": "センパイと私の仲なんスから〜"
+  },
+
+  {
+    "id": 32,
+    "input": "炎炎ノ消防隊 壱ノ章 第参話 消防官新人大会",
+    "title": "炎炎ノ消防隊",
+    "season": {
+      "text": "壱ノ章",
+      "number": 1
+    },
+    "episode": {
+      "text": "第参話",
+      "number": 3
+    },
+    "subtitle": "消防官新人大会"
+  },
+
+  {
+    "id": 33,
+    "input": "炎炎ノ消防隊 弐ノ章 第伍話 \"悪魔の型\"/秘策",
+    "title": "炎炎ノ消防隊",
+    "season": {
+      "text": "弐ノ章",
+      "number": 2
+    },
+    "episode": {
+      "text": "第伍話",
+      "number": 5
+    },
+    "subtitle": "\"悪魔の型\"/秘策"
+  },
+
+  {
+    "id": 34,
+    "input": "美男高校地球防衛部ハイカラ！ 第肆話「お母さんって　ハイカラだぜ！」",
+    "title": "美男高校地球防衛部ハイカラ!",
+    "episode": {
+      "text": "第肆話",
+      "number": 4
+    },
+    "subtitle": "お母さんって ハイカラだぜ!"
+  },
+
+  {
+    "id": 35,
+    "input": "ご注文はうさぎですか？？ 第1羽 笑顔とフラッシュがやかましい　これが私の自称姉です",
+    "title": "ご注文はうさぎですか??",
+    "episode": {
+      "text": "第1羽",
+      "number": 1
+    },
+    "subtitle": "笑顔とフラッシュがやかましい これが私の自称姉です"
+  },
+
+  {
+    "id": 36,
+    "input": "月が導く異世界道中　第二幕　第一夜　え？荒城の月？",
+    "title": "月が導く異世界道中",
+    "season": {
+      "text": "第二幕",
+      "number": 2
+    },
+    "episode": {
+      "text": "第一夜",
+      "number": 1
+    },
+    "subtitle": "え?荒城の月?"
+  },
+
+  {
+    "id": 37,
+    "input": "本好きの下剋上 司書になるためには手段を選んでいられません　第九章『ギルド長の孫娘』",
+    "title": "本好きの下剋上 司書になるためには手段を選んでいられません",
+    "episode": {
+      "text": "第九章",
+      "number": 9
+    },
+    "subtitle": "ギルド長の孫娘"
+  },
+
+  {
+    "id": 38,
+    "input": "クレバテス-魔獣の王と赤子と屍の勇者-　第6幕　虫を操る魔道士",
+    "title": "クレバテス-魔獣の王と赤子と屍の勇者-",
+    "episode": {
+      "text": "第6幕",
+      "number": 6
+    },
+    "subtitle": "虫を操る魔道士"
+  },
+
+  {
+    "id": 39,
+    "input": "響け!ユーフォニアム3 第一回 あらたなユーフォニアム",
+    "title": "響け!ユーフォニアム",
+    "season": {
+      "text": "3",
+      "number": 3
+    },
+    "episode": {
+      "text": "第一回",
+      "number": 1
+    },
+    "subtitle": "あらたなユーフォニアム"
+  },
+
+  {
+    "id": 40,
+    "input": "地縛少年花子くん２ 第17の怪「アオイとアカネ」",
+    "title": "地縛少年花子くん",
+    "season": {
+      "text": "2",
+      "number": 2
+    },
+    "episode": {
+      "text": "第17の怪",
+      "number": 17
+    },
+    "subtitle": "アオイとアカネ"
+  },
+
+  {
+    "id": 41,
+    "input": "カッコウの許嫁Season2 4羽目「みなさんおそろいで」",
+    "title": "カッコウの許嫁",
+    "season": {
+      "text": "Season2",
+      "number": 2
+    },
+    "episode": {
+      "text": "4羽目",
+      "number": 4
+    },
+    "subtitle": "みなさんおそろいで"
+  },
+
+  {
+    "id": 42,
+    "input": "Turkey!　5投目　すれ違って、フックボール",
+    "title": "Turkey!",
+    "episode": {
+      "text": "5投目",
+      "number": 5
+    },
+    "subtitle": "すれ違って、フックボール"
+  },
+
+  {
+    "id": 43,
+    "input": "名湯『異世界の湯』開拓記 ～アラフォー温泉マニアの転生先は、のんびり温泉天国でした～ 1番湯 狐少女と温泉の作法",
+    "title": "名湯『異世界の湯』開拓記 〜アラフォー温泉マニアの転生先は、のんびり温泉天国でした〜",
+    "episode": {
+      "text": "1番湯",
+      "number": 1
+    },
+    "subtitle": "狐少女と温泉の作法"
+  },
+
+  {
+    "id": 44,
+    "input": "うらら迷路帖 一占 少女と占い、時々おなか",
+    "title": "うらら迷路帖",
+    "episode": {
+      "text": "一占",
+      "number": 1
+    },
+    "subtitle": "少女と占い、時々おなか"
+  },
+
+  {
+    "id": 45,
+    "input": "TVアニメ「空色ユーティリティ」 9th shot スペシャルなバズ",
+    "title": "空色ユーティリティ",
+    "episode": {
+      "text": "9th shot",
+      "number": 9
+    },
+    "subtitle": "スペシャルなバズ"
+  },
+
+  {
+    "id": 46,
+    "input": "ニートくノ一となぜか同棲はじめました Ex.02「なぜか元高等妖魔と仲良くなりました」",
+    "title": "ニートくノ一となぜか同棲はじめました",
+    "episode": {
+      "text": "Ex.02",
+      "number": 2
+    },
+    "subtitle": "なぜか元高等妖魔と仲良くなりました"
+  },
+
+  {
+    "id": 47,
+    "input": "ATRI -My Dear Moments- Log 03 「ヒットマン・ザコ・スクール」",
+    "title": "ATRI -My Dear Moments-",
+    "episode": {
+      "text": "Log 03",
+      "number": 3
+    },
+    "subtitle": "ヒットマン・ザコ・スクール"
+  },
+
+  {
+    "id": 48,
+    "input": "僕の心のヤバイやつ 2期 karte13／僕らは探している",
+    "title": "僕の心のヤバイやつ",
+    "season": {
+      "text": "2期",
+      "number": 2
+    },
+    "episode": {
+      "text": "karte13",
+      "number": 13
+    },
+    "subtitle": "/僕らは探している"
+  },
+
+  {
+    "id": 49,
+    "input": "SPY×FAMILY Season 2　【MISSION：26】　ちちとははをびこうせよ",
+    "title": "SPY×FAMILY",
+    "season": {
+      "text": "Season 2",
+      "number": 2
+    },
+    "episode": {
+      "text": "MISSION:26",
+      "number": 26
+    },
+    "subtitle": "ちちとははをびこうせよ"
+  },
+
+  {
+    "id": 50,
+    "input": "ブサメンガチファイター Mission 01「爆誕ガチゴッド」",
+    "title": "ブサメンガチファイター",
+    "episode": {
+      "text": "Mission 01",
+      "number": 1
+    },
+    "subtitle": "爆誕ガチゴッド"
+  },
+
+  {
+    "id": 51,
+    "input": "ホテル・インヒューマンズ request 5.「リメンバー・ミー」",
+    "title": "ホテル・インヒューマンズ",
+    "episode": {
+      "text": "request 5.",
+      "number": 5
+    },
+    "subtitle": "リメンバー・ミー"
+  },
+
+  {
+    "id": 52,
+    "input": "ゼーガペイン　entanglement 01　エンタングル",
+    "title": "ゼーガペイン",
+    "episode": {
+      "text": "entanglement 01",
+      "number": 1
+    },
+    "subtitle": "エンタングル"
+  },
+
+  {
+    "id": 53,
+    "input": "弱キャラ友崎くん 2nd STAGE 【2nd STAGE】Lv.1 情報収集パートが退屈じゃないゲームは名作",
+    "title": "弱キャラ友崎くん",
+    "season": {
+      "text": "2nd STAGE",
+      "number": 2
+    },
+    "seasonAlt": {
+      "text": "2nd STAGE",
+      "number": 2
+    },
+    "episode": {
+      "text": "Lv.1",
+      "number": 1
+    },
+    "subtitle": "情報収集パートが退屈じゃないゲームは名作"
+  },
+
+  {
+    "id": 54,
+    "input": "ブラッククローバー ページ9 獣(けもの)",
+    "title": "ブラッククローバー",
+    "episode": {
+      "text": "ページ9",
+      "number": 9
+    },
+    "subtitle": "獣(けもの)"
+  },
+
+  {
+    "id": 55,
+    "input": "えんどろ～！ ろ～る１ エンドロールにはまだ早い～！",
+    "title": "えんどろ〜!",
+    "episode": {
+      "text": "ろ〜る1",
+      "number": 1
+    },
+    "subtitle": "エンドロールにはまだ早い〜!"
+  },
+
+  {
+    "id": 56,
+    "input": "まじもじるるも　その１「あなたののぞみかなえます」",
+    "title": "まじもじるるも",
+    "episode": {
+      "text": "その1",
+      "number": 1
+    },
+    "subtitle": "あなたののぞみかなえます"
+  },
+
+  {
+    "id": 57,
+    "input": "かげじつ！せかんど オペレーション.1 七陰はブランド力を強化したい！",
+    "title": "かげじつ!せかんど",
+    "episode": {
+      "text": "オペレーション.1",
+      "number": 1
+    },
+    "subtitle": "七陰はブランド力を強化したい!"
+  },
+
+  {
+    "id": 58,
+    "input": "私がモテないのはどう考えてもお前らが悪い！ 喪1 モテないし、ちょっとイメチェンするわ",
+    "title": "私がモテないのはどう考えてもお前らが悪い!",
+    "episode": {
+      "text": "喪1",
+      "number": 1
+    },
+    "subtitle": "モテないし、ちょっとイメチェンするわ"
+  },
+
+  {
+    "id": 59,
+    "input": "ジャヒー様はくじけない！ 復興計画その1 「ジャヒー様はもどれない！」",
+    "title": "ジャヒー様はくじけない!",
+    "episode": {
+      "text": "復興計画その1",
+      "number": 1
+    },
+    "subtitle": "ジャヒー様はもどれない!"
+  },
+
+  {
+    "id": 60,
+    "input": "幻影ヲ駆ケル太陽　episodio Ⅶ 「華麗なる休暇」",
+    "title": "幻影ヲ駆ケル太陽",
+    "episode": {
+      "text": "episodio VII",
+      "number": 7
+    },
+    "subtitle": "華麗なる休暇"
+  },
+
+  {
+    "id": 61,
+    "input": "ロクでなし魔術講師と禁忌教典 　Lecture Ⅸ「生きる意味」",
+    "title": "ロクでなし魔術講師と禁忌教典",
+    "episode": {
+      "text": "Lecture IX",
+      "number": 9
+    },
+    "subtitle": "生きる意味"
+  },
+
+  {
+    "id": 62,
+    "input": "ロクでなし魔術講師と禁忌教典 　LectureⅣ「魔術競技祭」",
+    "title": "ロクでなし魔術講師と禁忌教典",
+    "episode": {
+      "text": "LectureIV",
+      "number": 4
+    },
+    "subtitle": "魔術競技祭"
+  },
+
+  {
+    "id": 63,
+    "input": "魔法先生ネギま！　VIII 時間目　Omnes una manet nox",
+    "title": "魔法先生ネギま!",
+    "episode": {
+      "text": "VIII 時間目",
+      "number": 8
+    },
+    "subtitle": "Omnes una manet nox"
+  },
+
+  {
+    "id": 64,
+    "input": "アイドルマスター シンデレラガールズ劇場 第1話～第4話 ネコミミの回／水着の回／ラジオの回／ウェディング回",
+    "title": "アイドルマスター シンデレラガールズ劇場",
+    "episodes": [
+      {
+        "text": "第1話",
+        "number": 1
+      },
+      {
+        "text": "第4話",
+        "number": 4
+      }
+    ],
+    "episodesDivider": "〜",
+    "subtitle": "ネコミミの回/水着の回/ラジオの回/ウェディング回"
+  },
+
+  {
+    "id": 65,
+    "input": "ヤマノススメ 一合目～四合目 山だけはダメ！／ふたりで行こう！／登山って命がけ！？／対決！山料理！？",
+    "title": "ヤマノススメ",
+    "episodes": [
+      {
+        "text": "一合目",
+        "number": 1
+      },
+      {
+        "text": "四合目",
+        "number": 4
+      }
+    ],
+    "episodesDivider": "〜",
+    "subtitle": "山だけはダメ!/ふたりで行こう!/登山って命がけ!?/対決!山料理!?"
+  },
+
+  {
+    "id": 66,
+    "input": "おとなの防具屋さん #1～#3 「防具屋の鍵貸します」／「ライフ・イズ・防具フル」／「君の防具を食べたい」",
+    "title": "おとなの防具屋さん",
+    "episodes": [
+      {
+        "text": "#1",
+        "number": 1
+      },
+      {
+        "text": "#3",
+        "number": 3
+      }
+    ],
+    "episodesDivider": "〜",
+    "subtitle": "「防具屋の鍵貸します」/「ライフ・イズ・防具フル」/「君の防具を食べたい」"
+  },
+
+  {
+    "id": 67,
+    "input": "となりの関くん 1時限目～4時限目 ドミノ／将棋／机みがき／囲碁",
+    "title": "となりの関くん",
+    "episodes": [
+      {
+        "text": "1時限目",
+        "number": 1
+      },
+      {
+        "text": "4時限目",
+        "number": 4
+      }
+    ],
+    "episodesDivider": "〜",
+    "subtitle": "ドミノ/将棋/机みがき/囲碁"
+  },
+
+  {
+    "id": 68,
+    "input": "ポンコツクエスト～魔王と派遣の魔物たち～　シーズン3 第二十五章～第三十章 第3シーズン前半",
+    "title": "ポンコツクエスト〜魔王と派遣の魔物たち〜",
+    "season": {
+      "text": "シーズン3",
+      "number": 3
+    },
+    "episodes": [
+      {
+        "text": "第二十五章",
+        "number": 25
+      },
+      {
+        "text": "第三十章",
+        "number": 30
+      }
+    ],
+    "episodesDivider": "〜",
+    "subtitle": "第3シーズン前半"
+  },
+
+  {
+    "id": 69,
+    "input": "ヘタリア World★Stars #1～3 変なヤツら・前編／変なヤツら・後編／チェコとスロバキア・前編",
+    "title": "ヘタリア World★Stars",
+    "episodes": [
+      {
+        "text": "#1",
+        "number": 1
+      },
+      {
+        "text": "3",
+        "number": 3
+      }
+    ],
+    "episodesDivider": "〜",
+    "subtitle": "変なヤツら・前編/変なヤツら・後編/チェコとスロバキア・前編"
+  },
+
+  {
+    "id": 70,
+    "input": "わかば＊ガール 一葉～三葉 「夢は女子高生です」／「Dカップでお願いします」／「ギャルへの道のりは遠い」",
+    "title": "わかば*ガール",
+    "episodes": [
+      {
+        "text": "一葉",
+        "number": 1
+      },
+      {
+        "text": "三葉",
+        "number": 3
+      }
+    ],
+    "episodesDivider": "〜",
+    "subtitle": "「夢は女子高生です」/「Dカップでお願いします」/「ギャルへの道のりは遠い」"
+  },
+
+  {
+    "id": 71,
+    "input": "犬と猫どっちも飼ってると毎日たのしい #1-8 #1「毎日たのしい」、#2「どっちも優しい」、#3「タクシーで」、#4「こどものころ」、#5「今日は出るかな」、#6「びょういん」、#7「前の犬」、#8「うたっておどる」",
+    "title": "犬と猫どっちも飼ってると毎日たのしい",
+    "episodes": [
+      {
+        "text": "#1",
+        "number": 1
+      },
+      {
+        "text": "8",
+        "number": 8
+      }
+    ],
+    "episodesDivider": "-",
+    "subtitle": "#1「毎日たのしい」、#2「どっちも優しい」、#3「タクシーで」、#4「こどものころ」、#5「今日は出るかな」、#6「びょういん」、#7「前の犬」、#8「うたっておどる」"
+  },
+
+  {
+    "id": 72,
+    "input": "ねこねこ日本史 第2期 第33話・第34話 めざせ豊作、弥生人！／みんな大好き、上杉謙信！～毘沙門天編～",
+    "title": "ねこねこ日本史",
+    "season": {
+      "text": "第2期",
+      "number": 2
+    },
+    "episodes": [
+      {
+        "text": "第33話",
+        "number": 33
+      },
+      {
+        "text": "第34話",
+        "number": 34
+      }
+    ],
+    "episodesDivider": "・",
+    "subtitle": "めざせ豊作、弥生人!/みんな大好き、上杉謙信!〜毘沙門天編〜"
+  },
+
+  {
+    "id": 73,
+    "input": "ヤマノススメ セカンドシーズン 新一合目・新二合目 テントに泊まろう！／富士山を見に行こう！！",
+    "title": "ヤマノススメ",
+    "season": {
+      "text": "セカンドシーズン",
+      "number": 2
+    },
+    "episodes": [
+      {
+        "text": "新一合目",
+        "number": 1
+      },
+      {
+        "text": "新二合目",
+        "number": 2
+      }
+    ],
+    "episodesDivider": "・",
+    "subtitle": "テントに泊まろう!/富士山を見に行こう!!"
+  },
+
+  {
+    "id": 74,
+    "input": "SUPER SHIRO（スーパーシロ） #1／#2 シロはスーパーヒーロー／おかしなおかし工場",
+    "title": "SUPER SHIRO(スーパーシロ)",
+    "episodes": [
+      {
+        "text": "#1",
+        "number": 1
+      },
+      {
+        "text": "#2",
+        "number": 2
+      }
+    ],
+    "episodesDivider": "/",
+    "subtitle": "シロはスーパーヒーロー/おかしなおかし工場"
+  },
+
+  {
+    "id": 75,
+    "input": "New PANTY ＆ STOCKING with GARTERBELT【CENSORED版】EPISODE.4/EPISODE.5/EPISODE.6 「プロジェクトS　史上最悪の道場／ビッチ・パーフェクト／F*CK & FURIOUS」",
+    "title": "New PANTY & STOCKING with GARTERBELT【CENSORED版】",
+    "episodes": [
+      {
+        "text": "EPISODE.4",
+        "number": 4
+      },
+      {
+        "text": "EPISODE.5",
+        "number": 5
+      },
+      {
+        "text": "EPISODE.6",
+        "number": 6
+      }
+    ],
+    "episodesDivider": "/",
+    "subtitle": "プロジェクトS 史上最悪の道場/ビッチ・パーフェクト/F*CK & FURIOUS"
+  }
+]

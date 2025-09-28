@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "input": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "titleStripped": {
+        "type": "string"
+      },
+      "season": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "number": {
+            "type": "number"
+          }
+        }
+      },
+      "seasonAlt": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "number": {
+            "type": "number"
+          }
+        }
+      },
+      "episode": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "number": {
+            "type": "number"
+          }
+        }
+      },
+      "episodeAlt": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "number": {
+            "type": "number"
+          }
+        }
+      },
+      "episodes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "number": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "episodesDivider": {
+        "type": "string"
+      },
+      "subtitle": {
+        "type": "string"
+      },
+      "subtitleStripped": {
+        "type": "string"
+      }
+    }
+  }
+}
