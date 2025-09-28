@@ -40,9 +40,13 @@ jobs:
           npm version ${{ github.event.inputs.bump_type }}
           echo VERSION="v$(cat package.json | jq -r '.version')" >> "${GITHUB_ENV}"
 
+      - name: パッケージをビルド
+        run: |
+          bun install
+          bun run build
+
       - name: パッケージを公開
         run: |
-          npm install
           npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
