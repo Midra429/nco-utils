@@ -57,9 +57,6 @@ jobs:
           git push --tags
 
       - name: GitHubへリリース
-        run: |
-          gh release create "${VERSION}" \
-            -t "$(cat ./package.json | jq -r '.name') ${VERSION}" \
-            --generate-notes
+        run: gh release create "${VERSION}" --generate-notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
