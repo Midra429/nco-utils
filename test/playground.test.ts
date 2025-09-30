@@ -2,7 +2,7 @@ import type { BuildSearchQueryArgs } from '@midra/nco-utils/search/lib/buildSear
 
 import { test } from 'bun:test'
 
-// import { parse } from '@midra/nco-utils/parse'
+import { parse } from '@midra/nco-utils/parse'
 // import { ncoApi } from '@midra/nco-utils/api'
 import { ncoSearch } from '@midra/nco-utils/search'
 import { buildSearchQuery } from '@midra/nco-utils/search/lib/buildSearchQuery'
@@ -16,6 +16,12 @@ const args: BuildSearchQueryArgs = {
   },
   userAgent: 'api-test',
 }
+
+test('playground:parse', () => {
+  const result = parse('ローゼンメイデン(2004) 第一話 薔薇乙女 Fraulein Rose')
+
+  console.log(JSON.stringify(result, null, 2))
+})
 
 test('playground:buildSearchQuery', () => {
   const query = buildSearchQuery(args)
