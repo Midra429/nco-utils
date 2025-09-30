@@ -18,7 +18,7 @@ const args: BuildSearchQueryArgs = {
 }
 
 test('playground:parse', () => {
-  const result = parse('ローゼンメイデン(2004) 第一話 薔薇乙女 Fraulein Rose')
+  const result = parse('キノの旅-the Beautiful World- 第1話 人の痛みが分かる国 -I See You-')
 
   console.log(JSON.stringify(result, null, 2))
 })

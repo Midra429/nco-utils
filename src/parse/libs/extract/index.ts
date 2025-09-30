@@ -236,6 +236,7 @@ function stripText(input: string): string {
       // ルビ
       .replace(/(?<=[a-zA-Z\p{sc=Hiragana}\p{sc=Han}]+)\s?\(\p{scx=Katakana}+\)/u, '')
       .replace(/(?<=[a-zA-Z\p{sc=Katakana}\p{sc=Han}]+)\s?\(\p{scx=Hiragana}+\)/u, '')
+      .replace(/(?<=^[^\-]+)\s*?\-[a-z\s]+\-$/i, '')
       // 放送年
       .replace(/(?<=.+)\s?\((?:19|20)\d{2}\)$/, '')
   )
