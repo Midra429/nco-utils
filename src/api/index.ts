@@ -7,6 +7,8 @@ import * as netflix from './services/netflix'
 import * as niconico from './services/niconico'
 import * as nhkPlus from './services/nhkPlus'
 import * as tver from './services/tver'
+import * as jikkyo from './services/jikkyo'
+import * as syobocal from './services/syobocal'
 
 export const ncoApi = {
   danime,
@@ -18,4 +20,6 @@ export const ncoApi = {
   niconico,
   nhkPlus,
   tver,
+  jikkyo,
+  syobocal,
 }
