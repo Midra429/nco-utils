@@ -35,15 +35,16 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: バージョンを更新
-        run: |
-          npm version ${{ github.event.inputs.bump_type }}
-          echo VERSION="v$(cat package.json | jq -r '.version')" >> "${GITHUB_ENV}"
-
       - name: パッケージをビルド
         run: |
           bun install
           bun run build
+          bun run gen-exports
+
+      - name: バージョンを更新
+        run: |
+          npm version ${{ github.event.inputs.bump_type }}
+          echo VERSION="v$(cat package.json | jq -r '.version')" >> "${GITHUB_ENV}"
 
       - name: パッケージを公開
         run: |

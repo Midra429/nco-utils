@@ -15,7 +15,7 @@
     "test": "bun test",
     "prebuild": "rimraf dist",
     "build": "NODE_OPTIONS='--max-old-space-size=4096' tsup",
-    "postbuild": "bun scripts/generate-exports.ts"
+    "gen-exports": "bun scripts/generate-exports.ts"
   },
   "type": "module",
   "module": "./dist/index.js",
