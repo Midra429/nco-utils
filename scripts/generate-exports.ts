@@ -14,28 +14,28 @@ packageJson.exports = {}
 
 files.forEach((file) => {
   const dirSplited = path.relative(outDir, file).split('/')
-  const fileName = path.basename(file, '.js')
+  const fileName = path.basename(dirSplited.pop()!, '.js')
 
   if (/^chunk-[A-Z0-9]{8}$/.test(fileName)) return
+
+  const basePath = dirSplited.join('/')
 
   let alias: string
   let importPath: string
   let typesPath: string
 
-  if (dirSplited.length === 1) {
+  if (!dirSplited.length) {
     alias = fileName === 'index' ? '.' : `./${fileName}`
     importPath = `${fileName}.js`
     typesPath = `${fileName}.d.ts`
+  } else if (fileName === 'index') {
+    alias = `./${basePath}`
+    importPath = `${basePath}/index.js`
+    typesPath = `${basePath}/index.d.ts`
   } else {
-    if (fileName === 'index') {
-      alias = './*'
-      importPath = `*/index.js`
-      typesPath = `*/index.d.ts`
-    } else {
-      alias = `./${dirSplited[0]}/*`
-      importPath = `${dirSplited[0]}/*.js`
-      typesPath = `${dirSplited[0]}/*.d.ts`
-    }
+    alias = `./${basePath}/*`
+    importPath = `${basePath}/*.js`
+    typesPath = `${basePath}/*.d.ts`
   }
 
   importPath = `./${outDirName}/${importPath}`
