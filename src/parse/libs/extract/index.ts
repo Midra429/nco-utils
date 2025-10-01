@@ -1,5 +1,3 @@
-import equal from 'fast-deep-equal'
-
 import { CERTAINTY } from '@/parse/constants'
 import { extractSeasons, extractSeasonFromTitle } from './season'
 import { extractEpisodes } from './episode'
@@ -464,7 +462,9 @@ export function extract(input: string): ExtractedResult {
     const episodeSeg =
       segments.episode.high[0] ??
       segments.episode.mid[0] ??
-      segments.episode.low.find((seg) => !seasonSegIndices.some((v) => equal(v, seg.indices)))
+      segments.episode.low.find(
+        ({ indices }) => !seasonSegIndices.some((v) => v[0] === indices[0] && v[1] === indices[1])
+      )
 
     if (episodeSeg) {
       episode = segmentToResultEpisode(episodeSeg)

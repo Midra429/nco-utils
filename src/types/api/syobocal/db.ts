@@ -6,16 +6,10 @@ export type SyoboCalCommand = keyof SyoboCalDb
 // TitleLookup
 type SyoboCalTitleDb = SyoboCalTitleFull
 
-export type SyoboCalTitleItem = {
-  [key in keyof SyoboCalTitleDb]: {
-    _text: SyoboCalTitleDb[key]
-  }
-}
-
 export type SyoboCalTitleDbRaw = {
   TitleLookupResponse: {
     TitleItems: {
-      TitleItem: SyoboCalTitleItem | SyoboCalTitleItem[]
+      TitleItem: SyoboCalTitleDb | SyoboCalTitleDb[]
     }
   }
 }
@@ -39,16 +33,10 @@ export type SyoboCalProgramDb = {
   STSubTitle?: string
 }
 
-export type SyoboCalProgItem = {
-  [key in keyof SyoboCalProgramDb]: {
-    _text: SyoboCalProgramDb[key]
-  }
-}
-
 export type SyoboCalProgramDbRaw = {
   ProgLookupResponse: {
     ProgItems: {
-      ProgItem: SyoboCalProgItem | SyoboCalProgItem[]
+      ProgItem: SyoboCalProgramDb | SyoboCalProgramDb[]
     }
   }
 }

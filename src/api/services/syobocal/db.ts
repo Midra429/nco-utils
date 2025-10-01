@@ -5,10 +5,12 @@ import type {
   SyoboCalResponseJson,
 } from '@/types/api/syobocal/db'
 
-import { xml2json } from 'xml-js'
+import { XMLParser } from 'fast-xml-parser'
 import { logger } from '@/utils/logger'
 
 const API_BASE_URL = 'https://cal.syoboi.jp/db.php'
+
+const xmlParser = new XMLParser()
 
 export async function db<Command extends SyoboCalCommand>(
   command: Command,
@@ -36,7 +38,7 @@ export async function db<Command extends SyoboCalCommand>(
     const res = await fetch(url, { headers })
     const text = await res.text()
 
-    const xml: SyoboCalResponseXml<Command> = JSON.parse(xml2json(text, { compact: true }))
+    const xml = text && (xmlParser.parse(text) as SyoboCalResponseXml<Command>)
 
     if (xml) {
       switch (command) {
@@ -45,10 +47,7 @@ export async function db<Command extends SyoboCalCommand>(
             .TitleItems.TitleItem
 
           return Object.fromEntries(
-            (Array.isArray(titleItem) ? titleItem : [titleItem]).map((item) => [
-              item.TID._text,
-              Object.fromEntries(Object.entries(item).map(([key, val]) => [key, val._text])),
-            ])
+            (Array.isArray(titleItem) ? titleItem : [titleItem]).map((item) => [item.TID, item])
           ) as SyoboCalResponseJson<'TitleLookup'>
         }
 
@@ -57,10 +56,7 @@ export async function db<Command extends SyoboCalCommand>(
             .ProgItem
 
           return Object.fromEntries(
-            (Array.isArray(progItem) ? progItem : [progItem]).map((item) => [
-              item.PID._text,
-              Object.fromEntries(Object.entries(item).map(([key, val]) => [key, val._text])),
-            ])
+            (Array.isArray(progItem) ? progItem : [progItem]).map((item) => [item.PID, item])
           ) as SyoboCalResponseJson<'ProgLookup'>
         }
       }
