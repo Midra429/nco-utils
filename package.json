@@ -35,93 +35,45 @@
       "import": "./dist/api/services/abema/index.js",
       "types": "./dist/api/services/abema/index.d.ts"
     },
-    "./api/services/abema/*": {
-      "import": "./dist/api/services/abema/*.js",
-      "types": "./dist/api/services/abema/*.d.ts"
-    },
     "./api/services/danime": {
       "import": "./dist/api/services/danime/index.js",
       "types": "./dist/api/services/danime/index.d.ts"
-    },
-    "./api/services/danime/*": {
-      "import": "./dist/api/services/danime/*.js",
-      "types": "./dist/api/services/danime/*.d.ts"
     },
     "./api/services/dmmTv": {
       "import": "./dist/api/services/dmmTv/index.js",
       "types": "./dist/api/services/dmmTv/index.d.ts"
     },
-    "./api/services/dmmTv/*": {
-      "import": "./dist/api/services/dmmTv/*.js",
-      "types": "./dist/api/services/dmmTv/*.d.ts"
-    },
     "./api/services/fod": {
       "import": "./dist/api/services/fod/index.js",
       "types": "./dist/api/services/fod/index.d.ts"
-    },
-    "./api/services/fod/*": {
-      "import": "./dist/api/services/fod/*.js",
-      "types": "./dist/api/services/fod/*.d.ts"
     },
     "./api/services/jikkyo": {
       "import": "./dist/api/services/jikkyo/index.js",
       "types": "./dist/api/services/jikkyo/index.d.ts"
     },
-    "./api/services/jikkyo/*": {
-      "import": "./dist/api/services/jikkyo/*.js",
-      "types": "./dist/api/services/jikkyo/*.d.ts"
-    },
     "./api/services/netflix": {
       "import": "./dist/api/services/netflix/index.js",
       "types": "./dist/api/services/netflix/index.d.ts"
-    },
-    "./api/services/netflix/*": {
-      "import": "./dist/api/services/netflix/*.js",
-      "types": "./dist/api/services/netflix/*.d.ts"
     },
     "./api/services/nhkPlus": {
       "import": "./dist/api/services/nhkPlus/index.js",
       "types": "./dist/api/services/nhkPlus/index.d.ts"
     },
-    "./api/services/nhkPlus/*": {
-      "import": "./dist/api/services/nhkPlus/*.js",
-      "types": "./dist/api/services/nhkPlus/*.d.ts"
-    },
     "./api/services/niconico": {
       "import": "./dist/api/services/niconico/index.js",
       "types": "./dist/api/services/niconico/index.d.ts"
-    },
-    "./api/services/niconico/*": {
-      "import": "./dist/api/services/niconico/*.js",
-      "types": "./dist/api/services/niconico/*.d.ts"
     },
     "./api/services/syobocal": {
       "import": "./dist/api/services/syobocal/index.js",
       "types": "./dist/api/services/syobocal/index.d.ts"
     },
-    "./api/services/syobocal/*": {
-      "import": "./dist/api/services/syobocal/*.js",
-      "types": "./dist/api/services/syobocal/*.d.ts"
-    },
     "./api/services/tver": {
       "import": "./dist/api/services/tver/index.js",
       "types": "./dist/api/services/tver/index.d.ts"
     },
-    "./api/services/tver/*": {
-      "import": "./dist/api/services/tver/*.js",
-      "types": "./dist/api/services/tver/*.d.ts"
-    },
     "./api/services/unext": {
       "import": "./dist/api/services/unext/index.js",
       "types": "./dist/api/services/unext/index.d.ts"
-    },
-    "./api/services/unext/*": {
-      "import": "./dist/api/services/unext/*.js",
-      "types": "./dist/api/services/unext/*.d.ts"
-    },
-    "./api/utils/*": {
-      "import": "./dist/api/utils/*.js",
-      "types": "./dist/api/utils/*.d.ts"
     },
     "./compare": {
       "import": "./dist/compare/index.js",
@@ -131,13 +83,13 @@
       "import": "./dist/parse/index.js",
       "types": "./dist/parse/index.d.ts"
     },
+    "./parse/*": {
+      "import": "./dist/parse/*.js",
+      "types": "./dist/parse/*.d.ts"
+    },
     "./parse/constants": {
       "import": "./dist/parse/constants/index.js",
       "types": "./dist/parse/constants/index.d.ts"
-    },
-    "./parse/constants/*": {
-      "import": "./dist/parse/constants/*.js",
-      "types": "./dist/parse/constants/*.d.ts"
     },
     "./parse/libs/clean": {
       "import": "./dist/parse/libs/clean/index.js",
@@ -147,21 +99,9 @@
       "import": "./dist/parse/libs/extract/index.js",
       "types": "./dist/parse/libs/extract/index.d.ts"
     },
-    "./parse/libs/extract/*": {
-      "import": "./dist/parse/libs/extract/*.js",
-      "types": "./dist/parse/libs/extract/*.d.ts"
-    },
     "./parse/libs/normalize": {
       "import": "./dist/parse/libs/normalize/index.js",
       "types": "./dist/parse/libs/normalize/index.d.ts"
-    },
-    "./parse/libs/normalize/*": {
-      "import": "./dist/parse/libs/normalize/*.js",
-      "types": "./dist/parse/libs/normalize/*.d.ts"
-    },
-    "./parse/utils/*": {
-      "import": "./dist/parse/utils/*.js",
-      "types": "./dist/parse/utils/*.d.ts"
     },
     "./search": {
       "import": "./dist/search/index.js",
@@ -171,65 +111,9 @@
       "import": "./dist/search/*.js",
       "types": "./dist/search/*.d.ts"
     },
-    "./search/lib/*": {
-      "import": "./dist/search/lib/*.js",
-      "types": "./dist/search/lib/*.d.ts"
-    },
-    "./search/services/*": {
-      "import": "./dist/search/services/*.js",
-      "types": "./dist/search/services/*.d.ts"
-    },
     "./types/*": {
       "import": "./dist/types/*.js",
       "types": "./dist/types/*.d.ts"
-    },
-    "./types/api/*": {
-      "import": "./dist/types/api/*.js",
-      "types": "./dist/types/api/*.d.ts"
-    },
-    "./types/api/abema/*": {
-      "import": "./dist/types/api/abema/*.js",
-      "types": "./dist/types/api/abema/*.d.ts"
-    },
-    "./types/api/danime/*": {
-      "import": "./dist/types/api/danime/*.js",
-      "types": "./dist/types/api/danime/*.d.ts"
-    },
-    "./types/api/dmmTv/*": {
-      "import": "./dist/types/api/dmmTv/*.js",
-      "types": "./dist/types/api/dmmTv/*.d.ts"
-    },
-    "./types/api/fod/*": {
-      "import": "./dist/types/api/fod/*.js",
-      "types": "./dist/types/api/fod/*.d.ts"
-    },
-    "./types/api/jikkyo/*": {
-      "import": "./dist/types/api/jikkyo/*.js",
-      "types": "./dist/types/api/jikkyo/*.d.ts"
-    },
-    "./types/api/netflix/*": {
-      "import": "./dist/types/api/netflix/*.js",
-      "types": "./dist/types/api/netflix/*.d.ts"
-    },
-    "./types/api/nhkPlus/*": {
-      "import": "./dist/types/api/nhkPlus/*.js",
-      "types": "./dist/types/api/nhkPlus/*.d.ts"
-    },
-    "./types/api/niconico/*": {
-      "import": "./dist/types/api/niconico/*.js",
-      "types": "./dist/types/api/niconico/*.d.ts"
-    },
-    "./types/api/syobocal/*": {
-      "import": "./dist/types/api/syobocal/*.js",
-      "types": "./dist/types/api/syobocal/*.d.ts"
-    },
-    "./types/api/tver/*": {
-      "import": "./dist/types/api/tver/*.js",
-      "types": "./dist/types/api/tver/*.d.ts"
-    },
-    "./types/api/unext/*": {
-      "import": "./dist/types/api/unext/*.js",
-      "types": "./dist/types/api/unext/*.d.ts"
     },
     "./utils/*": {
       "import": "./dist/utils/*.js",
