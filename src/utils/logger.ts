@@ -1,5 +1,4 @@
-const LOGGER_NAME = '[nco-utils]'
-
+let $name: string = 'nco-utils'
 let $levels: {
   verbose?: boolean
   info?: boolean
@@ -12,6 +11,9 @@ let $levels: {
   errors: true,
 }
 
+export function setLoggerName(name: typeof $name) {
+  $name = name
+}
 export function setLoggerLevels(levels: typeof $levels) {
   $levels = levels
 }
@@ -22,7 +24,7 @@ export const logger = {
   // Verbose
   debug(label: string, ...data: any[]): void {
     if ($levels.verbose) {
-      data.unshift(`${LOGGER_NAME} ${label}:`)
+      data.unshift(`[${$name}] ${label}:`)
 
       console.log(...data)
     }
@@ -31,7 +33,7 @@ export const logger = {
   // Info
   info(label: string, ...data: any[]): void {
     if ($levels.info) {
-      data.unshift(`${LOGGER_NAME} ${label}:`)
+      data.unshift(`[${$name}] ${label}:`)
 
       console.log(...data)
     }
@@ -43,7 +45,7 @@ export const logger = {
   // Warnings
   warn(label: string, ...data: any[]): void {
     if ($levels.warnings) {
-      data.unshift(`${LOGGER_NAME} ${label}:`)
+      data.unshift(`[${$name}] ${label}:`)
 
       console.warn(...data)
     }
@@ -52,7 +54,7 @@ export const logger = {
   // Errors
   error(label: string, ...data: any[]): void {
     if ($levels.errors) {
-      data.unshift(`${LOGGER_NAME} ${label}:`)
+      data.unshift(`[${$name}] ${label}:`)
 
       console.error(...data)
     }
