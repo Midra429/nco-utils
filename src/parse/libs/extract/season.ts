@@ -168,10 +168,15 @@ const SEASON_SP_PROB_LOW: RegExp[] = [
 /**
  * シーズン (タイトルの末尾の数字)
  */
-const SEASON_FROM_TITLE = new RegExp(
-  `(?<=\\S+)` + `(?:(?<number>\\d)|(?<romannum>${ROMAN_NUM_SHORT}))` + `(?=$)`,
-  'du'
-)
+const SEASON_FROM_TITLE: RegExp[] = [
+  // 響け!ユーフォニアム3
+  new RegExp(`(?<=\\S+\\s?)` + `(?<number>\\d)` + `(?=$)`, 'd'),
+  // 魔王学院の不適合者 II
+  new RegExp(
+    `(?<=[\\p{sc=Hiragana}\\p{sc=Katakana}\\p{sc=Han}]+\\s?)` + `(?<romannum>IV|I{0,3})` + `(?=$)`,
+    'du'
+  ),
+]
 
 /**
  * `RegExpExecArray` -> `ExtractedSegment (type: season)`
@@ -326,14 +331,16 @@ export function extractSeasons(input: string): ExtractedSegment[] {
  * タイトルからシーズンを抽出
  */
 export function extractSeasonFromTitle(title: string): ExtractedSegment | null {
-  const matched = SEASON_FROM_TITLE.exec(title)
+  for (const re of SEASON_FROM_TITLE) {
+    const matched = re.exec(title)
 
-  if (matched) {
-    try {
-      const seg = convertRegExpExecArray(matched)
+    if (matched) {
+      try {
+        const seg = convertRegExpExecArray(matched)
 
-      return seg
-    } catch {}
+        return seg
+      } catch {}
+    }
   }
 
   return null
