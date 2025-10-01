@@ -231,11 +231,15 @@ function isSameAffix(seg1: ExtractedSegment, seg2: ExtractedSegment): boolean {
 function stripText(input: string): string {
   return (
     input
-      // ルビ
+      // 片翼の･･･堕天使（フォーリン・エンジェル）
       .replace(/(?<=[a-zA-Z\p{sc=Hiragana}\p{sc=Han}]+)\s?\(\p{scx=Katakana}+\)/u, '')
+      // 相生のホメオスタシス (そうせい)
       .replace(/(?<=[a-zA-Z\p{sc=Katakana}\p{sc=Han}]+)\s?\(\p{scx=Hiragana}+\)/u, '')
+      // 始まりと終わりのプロローグ -Turning Point-
       .replace(/(?<=^[^\-]+)\s*?\-[a-z][a-z'\s]+\-$/i, '')
-      // 放送年
+      // 魔王学院の不適合者 ～史上最強の魔王の始祖、転生して子孫たちの学校へ通う～
+      .replace(/(?<=^[^〜]+)\s〜[^〜]+〜$/i, '')
+      // ゴジラ キングオブモンスターズ(2019)
       .replace(/(?<=.+)\s?\((?:19|20)\d{2}\)$/, '')
   )
 }
