@@ -10,7 +10,9 @@ import { logger } from '@/utils/logger'
 
 const API_BASE_URL = 'https://cal.syoboi.jp/db.php'
 
-const xmlParser = new XMLParser()
+const xmlParser = new XMLParser({
+  parseTagValue: false,
+})
 
 export async function db<Command extends SyoboCalCommand>(
   command: Command,
