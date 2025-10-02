@@ -25,7 +25,7 @@ export function clean(input: string): string {
 
   // アニメ
   input = input.replace(
-    /^(tv|テレビ)?アニメ(ーション)?\s?(「(?<title>.+)」|『(?<title>.+)』|(?<title>.+))/i,
+    /^(tv|テレビ)?アニメ(ーション)?\s?(「(?<title>.+?)」|『(?<title>.+?)』|(?<title>.+))/i,
     '$<title> '
   )
   input = input.replace(/(tv|テレビ)アニメ(ーション)?(作品)?/i, '')
