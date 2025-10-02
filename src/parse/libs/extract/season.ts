@@ -9,6 +9,7 @@ import { romanToInteger } from '@/parse/utils/roman-num'
 
 const DIVIDER = '\\.:'
 const BEFORE_PREFIX = '^.+'
+const BEFORE_PREFIX_SP_PROB_LOW = '^\\S+\\s|[\\(\\)\\[\\]【】〜\\-/・]'
 const AFTER_SUFFIX = '$|[^\\p{Letter}\\p{Number}]'
 const NUMBER = '\\d{1,2}'
 const LETTER_EP_SEASON = `第話期章幕${KANSUJI}${KANSUJI_OLD}`
@@ -149,7 +150,7 @@ const SEASON_PROB_LOW: RegExp[] = [
 const SEASON_SP_PROB_LOW: RegExp[] = [
   // 2nd Attack, 3rd STAGE
   new RegExp(
-    `(?<=${BEFORE_PREFIX})` +
+    `(?<=${BEFORE_PREFIX_SP_PROB_LOW})` +
       `(?<number>${NUMBER}(?:st|nd|rd|th))` +
       `(?<suffix>\\s[a-zA-Z]+|\\s?[A-Z][a-zA-Z]+)` +
       `(?=${AFTER_SUFFIX})`,
@@ -157,7 +158,7 @@ const SEASON_SP_PROB_LOW: RegExp[] = [
   ),
   // 2丁目
   new RegExp(
-    `(?<=${BEFORE_PREFIX})` +
+    `(?<=${BEFORE_PREFIX_SP_PROB_LOW})` +
       `(?<number>${NUMBER})` +
       `(?<suffix>${KANJI_AFFIX}+)` +
       `(?=${AFTER_SUFFIX})`,

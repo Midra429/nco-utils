@@ -1011,5 +1011,16 @@
     ],
     "episodesDivider": "/",
     "subtitle": "プロジェクトS 史上最悪の道場/ビッチ・パーフェクト/F*CK & FURIOUS"
+  },
+
+  {
+    "id": 76,
+    "input": "怪獣８号 第21話 予兆",
+    "title": "怪獣8号",
+    "episode": {
+      "text": "第21話",
+      "number": 21
+    },
+    "subtitle": "予兆"
   }
 ]
