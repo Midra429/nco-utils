@@ -1,4 +1,4 @@
-let $name: string = 'nco-utils'
+let $name: string = '[nco-utils]'
 let $levels: {
   verbose?: boolean
   info?: boolean
@@ -12,7 +12,7 @@ let $levels: {
 }
 
 export function setLoggerName(name: typeof $name) {
-  $name = name
+  $name = `[${name}]`
 }
 export function setLoggerLevels(levels: typeof $levels) {
   $levels = levels
@@ -24,7 +24,12 @@ export const logger = {
   // Verbose
   debug(label: string, ...data: any[]): void {
     if ($levels.verbose) {
-      data.unshift(`[${$name}] ${label}:`)
+      if (data.length) {
+        data.unshift(`${$name} ${label}:`)
+      } else {
+        data.unshift($name)
+        data.push(label)
+      }
 
       console.log(...data)
     }
@@ -33,7 +38,12 @@ export const logger = {
   // Info
   info(label: string, ...data: any[]): void {
     if ($levels.info) {
-      data.unshift(`[${$name}] ${label}:`)
+      if (data.length) {
+        data.unshift(`${$name} ${label}:`)
+      } else {
+        data.unshift($name)
+        data.push(label)
+      }
 
       console.log(...data)
     }
@@ -45,7 +55,12 @@ export const logger = {
   // Warnings
   warn(label: string, ...data: any[]): void {
     if ($levels.warnings) {
-      data.unshift(`[${$name}] ${label}:`)
+      if (data.length) {
+        data.unshift(`${$name} ${label}:`)
+      } else {
+        data.unshift($name)
+        data.push(label)
+      }
 
       console.warn(...data)
     }
@@ -54,7 +69,12 @@ export const logger = {
   // Errors
   error(label: string, ...data: any[]): void {
     if ($levels.errors) {
-      data.unshift(`[${$name}] ${label}:`)
+      if (data.length) {
+        data.unshift(`${$name} ${label}:`)
+      } else {
+        data.unshift($name)
+        data.push(label)
+      }
 
       console.error(...data)
     }
