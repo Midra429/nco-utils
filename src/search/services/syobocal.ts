@@ -4,7 +4,7 @@ import type { SyoboCalProgramDb } from '@/types/api/syobocal/db'
 import type { ExtractedResult } from '@/parse/libs/extract'
 
 import { parse } from '@/parse'
-import { normalizeAll } from '@/parse/libs/normalize'
+import { normalize, normalizeAll } from '@/parse/libs/normalize'
 import { CHANNEL_IDS_JIKKYO_SYOBOCAL } from '@/api/constants'
 import * as syobocalApi from '@/api/services/syobocal'
 import { similarity } from '@/utils/levenshtein'
@@ -25,7 +25,7 @@ export async function syobocal(args: {
 
   const { input: parsed, channelIds, userAgent } = args
 
-  if (!parsed.isSingleEpisode || !parsed.episode) {
+  if (!parsed.isSingleEpisode || !parsed.title) {
     return null
   }
 
@@ -46,6 +46,9 @@ export async function syobocal(args: {
   }
 
   const title = normalizeAll(parsed.titleStripped)
+  let episodeNumber = parsed.episode
+    ? Math.max(parsed.episode.number, parsed.episodeAlt?.number ?? -1)
+    : undefined
 
   // 検索結果を軽くフィルタ
   const searchResultTitles = Object.values(searchResponse.Titles)
@@ -58,7 +61,9 @@ export async function syobocal(args: {
 
     if (
       scParsed.title &&
-      SIMILARITY_THRESHHOLD <= similarity(parsed.titleStripped, scParsed.titleStripped)
+      (episodeNumber != null
+        ? SIMILARITY_THRESHHOLD <= similarity(parsed.titleStripped, scParsed.titleStripped)
+        : parsed.titleStripped === scParsed.titleStripped)
     ) {
       searchResults.push(val)
 
@@ -68,7 +73,7 @@ export async function syobocal(args: {
     const scInput = normalizeAll(scParsed.input)
 
     // タイトルが一致 (一部)
-    if (scInput.includes(title) || title.includes(scInput)) {
+    if (episodeNumber != null && (scInput.includes(title) || title.includes(scInput))) {
       searchResultsPartial.push(val)
 
       return
@@ -81,10 +86,40 @@ export async function syobocal(args: {
     return null
   }
 
+  let tids = searchResultsAll.map((v) => v.TID)
+
+  // 話数を取得
+  if (episodeNumber == null && parsed.subtitle) {
+    const subtitlesResponse = await syobocalApi.json(['SubTitles'], {
+      TID: tids,
+    })
+
+    if (subtitlesResponse) {
+      outer: for (const tid in subtitlesResponse.SubTitles) {
+        const subtitles = subtitlesResponse.SubTitles[tid]
+
+        if (!subtitles) continue
+
+        for (const [count, subtitle] of Object.entries(subtitles)) {
+          if (normalize(subtitle) === parsed.subtitle) {
+            episodeNumber = Number(count)
+            tids = [tid]
+
+            break outer
+          }
+        }
+      }
+    }
+
+    if (episodeNumber == null) {
+      return null
+    }
+  }
+
   // 放送情報とサブタイトルを取得
   const progLookupResult = await syobocalApi.db('ProgLookup', {
-    TID: searchResultsAll.map((v) => v.TID),
-    Count: Math.max(parsed.episode.number, parsed.episodeAlt?.number ?? -1),
+    TID: tids,
+    Count: episodeNumber,
     ChID: channelIds ?? CHANNEL_IDS_JIKKYO_SYOBOCAL.map((v) => v[1]),
     JOIN: 'SubTitles',
   })
@@ -126,8 +161,8 @@ export async function syobocal(args: {
       }
     }
 
+    // 作品名比較
     if (!programs.length) {
-      // 作品名比較
       for (const val of searchResults) {
         const progs = scPrograms.filter((prog) => prog.TID === val.TID)
 
