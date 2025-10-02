@@ -177,6 +177,8 @@ const SEASON_FROM_TITLE: RegExp[] = [
     `(?<=[\\p{sc=Hiragana}\\p{sc=Katakana}\\p{sc=Han}]+\\s?)` + `(?<romannum>IV|I{0,3})` + `(?=$)`,
     'du'
   ),
+  // 真の仲間じゃないと勇者のパーティーを追い出されたので、辺境でスローライフすることにしました 2nd
+  new RegExp(`(?<=\\S+\\s?)` + `(?<number>${NUMBER}(?:st|nd|rd|th))` + `(?=$)`, 'dgu'),
 ]
 
 /**
