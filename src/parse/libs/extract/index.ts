@@ -361,10 +361,8 @@ export function extract(input: string): ExtractedResult {
 
     if (title) {
       return title
-        .replace(
-          /^(?:(?!.*」.*「)「(?<inner>[\s\S]*)」|(?!.*』.*『)『(?<inner>[\s\S]*)』)$/,
-          '$<inner>'
-        )
+        .replace(/^(?!.*」.*「)「(?<inner>[\s\S]*)」$/, '$<inner>')
+        .replace(/^(?!.*』.*『)『(?<inner>[\s\S]*)』$/, '$<inner>')
         .trim()
     }
 
@@ -388,10 +386,8 @@ export function extract(input: string): ExtractedResult {
 
     if (subtitle) {
       return subtitle
-        .replace(
-          /^(?:(?!.*」.*「)「(?<inner>[\s\S]*)」|(?!.*』.*『)『(?<inner>[\s\S]*)』)$/,
-          '$<inner>'
-        )
+        .replace(/^(?!.*」.*「)「(?<inner>[\s\S]*)」$/, '$<inner>')
+        .replace(/^(?!.*』.*『)『(?<inner>[\s\S]*)』$/, '$<inner>')
         .trim()
     }
 
