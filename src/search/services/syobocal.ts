@@ -140,7 +140,8 @@ export async function syobocal(args: {
   } else {
     // サブタイトル比較
     if (parsed.subtitle) {
-      const subtitle = normalizeAll(parsed.subtitleStripped)
+      const subtitle = normalizeAll(parsed.subtitle)
+      const subtitleStripped = normalizeAll(parsed.subtitleStripped)
 
       for (const prog of scPrograms) {
         if (!prog.STSubTitle) continue
@@ -148,7 +149,8 @@ export async function syobocal(args: {
         const scSubtitle = normalizeAll(prog.STSubTitle)
 
         if (
-          SIMILARITY_THRESHHOLD <= similarity(subtitle, scSubtitle) ||
+          SIMILARITY_THRESHHOLD <= similarity(scSubtitle, subtitle) ||
+          SIMILARITY_THRESHHOLD <= similarity(scSubtitle, subtitleStripped) ||
           subtitle.includes(scSubtitle) ||
           scSubtitle.includes(subtitle)
         ) {
