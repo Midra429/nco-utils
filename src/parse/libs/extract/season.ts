@@ -108,10 +108,19 @@ const SEASON_PROB_HIGH: RegExp[] = [
   // セカンドシーズン
   new RegExp(
     `(?<=${BEFORE_PREFIX})` +
-      `(?<katakana>セカンド|サード)` +
+      `(?<katakana>ファースト|セカンド|サード)` +
       `(?<suffix>シーズン)` +
       `(?=${AFTER_SUFFIX})`,
     'dgu'
+  ),
+  // FINAL SEASON
+  new RegExp(
+    `(?<=${BEFORE_PREFIX})` +
+      `(?<prefix>the\\s)?` +
+      `(?<english>first|second|third|final)` +
+      `(?<suffix>\\sseason)` +
+      `(?=${AFTER_SUFFIX})`,
+    'dgiu'
   ),
 ]
 
@@ -204,7 +213,10 @@ function convertRegExpExecArray(
     number = romanToInteger(numberText)
   } else if (groups['katakana']) {
     numberText = groups['katakana']
-    number = ['セカンド', 'サード'].indexOf(numberText) + 2
+    number = ['ファースト', 'セカンド', 'サード'].indexOf(numberText) + 1
+  } else if (groups['english']) {
+    numberText = groups['english']
+    number = ['final', 'first', 'second', 'third'].indexOf(numberText.toLowerCase()) || -1
   } else {
     throw new Error()
   }
