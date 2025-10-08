@@ -21,9 +21,9 @@ export type ExtractedSegment = {
   /** 括弧内 */
   _isInsideBracket?: boolean
   /** 括弧が付属している対象の内部ID */
-  _bracketTargetId?: string
-  /** 付属している括弧の内部ID */
-  _bracketId?: string
+  _attachedTargetId?: string
+  /** 付属しているセグメントの内部ID */
+  _attachedIds?: string[]
 }
 
 /**
@@ -290,27 +290,36 @@ export function extract(input: string): ExtractedResult {
   segments.season.all = extractSeasons(input)
   segments.episode.all = extractEpisodes(input)
 
-  segments.all.forEach((seg, _, ary) => {
-    const prevIdx = seg.indices[0] - 1
-    const nextIdx = seg.indices[1] + 1
-    const prevNextChars = `${input[prevIdx]}${input[nextIdx - 1]}`
+  input.matchAll(/\(.+?\)|\[.+?\]|【.+?】/dg).forEach(({ indices }) => {
+    const [startIdx, endIdx] = indices![0]!
 
-    // 括弧内にシーズンやエピソードなどが含まれる
-    if (['()', '[]', '【】'].includes(prevNextChars)) {
+    // 括弧内に含まれるシーズンやエピソード
+    const segsInsideBracket = segments.all.filter(
+      (v) => startIdx < v.indices[0] && v.indices[1] < endIdx
+    )
+
+    if (
+      !segsInsideBracket.length ||
+      2 <= segsInsideBracket.filter((v) => v.type === 'season').length ||
+      2 <= segsInsideBracket.filter((v) => v.type === 'episode').length
+    ) {
+      return
+    }
+
+    // 括弧が付属している対象
+    const targetSeg = segments.all.find((v) => [startIdx, startIdx - 1].includes(v.indices[1]))
+
+    segsInsideBracket.forEach((seg) => {
       // 対象のインデックスを更新
-      seg.indices = [prevIdx, nextIdx]
+      seg.indices = indices![0]!
       seg._isInsideBracket = true
 
-      // 括弧が付属している対象
-      const targetSeg = ary.find(
-        (v) => v.type === seg.type && (v.indices[1] === prevIdx || v.indices[1] === prevIdx - 1)
-      )
-
       if (targetSeg) {
-        targetSeg._bracketId = seg._id
-        seg._bracketTargetId = targetSeg._id
+        targetSeg._attachedIds ??= []
+        targetSeg._attachedIds.push(seg._id)
+        seg._attachedTargetId = targetSeg._id
       }
-    }
+    })
   })
 
   let title: ExtractedResult['title'] = null
@@ -469,11 +478,13 @@ export function extract(input: string): ExtractedResult {
     if (episodeSeg) {
       episode = segmentToResultEpisode(episodeSeg)
 
-      if (episodeSeg._bracketId) {
-        // 付属している括弧
-        const bracketSeg = segments.episode.all.find((v) => v._id === episodeSeg._bracketId)!
+      // 付属しているセグメント
+      const attachedSegs = segments.episode.all.find((seg) => {
+        return seg.type === 'episode' && episodeSeg._attachedIds?.includes(seg._id)
+      })
 
-        episodeAlt = segmentToResultEpisode(bracketSeg)
+      if (attachedSegs) {
+        episodeAlt = segmentToResultEpisode(attachedSegs)
       }
     }
   }
@@ -492,20 +503,22 @@ export function extract(input: string): ExtractedResult {
   }
 
   if (seasonSeg) {
-    if (seasonSeg._bracketTargetId) {
-      // 括弧が付属している対象
-      const targetSeg = segments.season.all.find((v) => v._id === seasonSeg._bracketTargetId)!
+    if (seasonSeg._attachedTargetId) {
+      // 付属している対象
+      const targetSeg = segments.season.all.find((v) => v._id === seasonSeg._attachedTargetId)!
 
       season = segmentToResultSeason(targetSeg)
       seasonAlt = segmentToResultSeason(seasonSeg)
     } else {
       season = segmentToResultSeason(seasonSeg)
 
-      if (seasonSeg._bracketId) {
-        // 付属している括弧
-        const bracketSeg = segments.season.all.find((v) => v._id === seasonSeg._bracketId)!
+      // 付属しているセグメント
+      const attachedSegs = segments.season.all.find((seg) => {
+        return seg.type === 'season' && seasonSeg._attachedIds?.includes(seg._id)
+      })
 
-        seasonAlt = segmentToResultSeason(bracketSeg)
+      if (attachedSegs) {
+        seasonAlt = segmentToResultSeason(attachedSegs)
       }
     }
   }
@@ -519,11 +532,13 @@ export function extract(input: string): ExtractedResult {
     if (episodeSeg) {
       episode = segmentToResultEpisode(episodeSeg)
 
-      if (episodeSeg._bracketId) {
-        // 付属している括弧
-        const bracketSeg = segments.episode.all.find((v) => v._id === episodeSeg._bracketId)!
+      // 付属しているセグメント
+      const attachedSegs = segments.episode.all.find((seg) => {
+        return seg.type === 'episode' && episodeSeg._attachedIds?.includes(seg._id)
+      })
 
-        episodeAlt = segmentToResultEpisode(bracketSeg)
+      if (attachedSegs) {
+        episodeAlt = segmentToResultEpisode(attachedSegs)
       }
     }
   }
