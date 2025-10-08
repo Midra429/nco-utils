@@ -37,10 +37,13 @@ export function compare(
   const similarityThreshold = strict ? 1 : 0.85
 
   const result: {
+    title: boolean
     season?: boolean | null
     episode?: boolean | null
     subtitle?: boolean | null
-  } = {}
+  } = {
+    title: false,
+  }
 
   // タイトル
   const titleA = removeSpaces(parsedA.title)
@@ -54,9 +57,7 @@ export function compare(
     compareTitleVariants(parsedA.titleStripped, parsedB.titleStripped) ? 1 : 0
   )
 
-  if (titleScore < similarityThreshold) {
-    return false
-  }
+  result.title = similarityThreshold <= titleScore
 
   // シーズン
   if (parsedA.season && parsedB.season) {
@@ -138,6 +139,16 @@ export function compare(
   }
 
   if (!strict) {
+    // シーズン、エピソード、サブタイトルの一致時、タイトルの一致判定を緩くする
+    if (
+      !result.title &&
+      (result.season || result.season === null) &&
+      result.episode &&
+      result.subtitle
+    ) {
+      result.title = similarityThreshold - 0.15 <= titleScore
+    }
+
     // 片方のみシーズンあり
     if (result.season === undefined) {
       if (result.episode && result.subtitle) {
@@ -158,6 +169,7 @@ export function compare(
   }
 
   return (
+    result.title &&
     (result.season || result.season === null) &&
     (result.episode || result.episode === null) &&
     (result.subtitle || result.subtitle === null)
