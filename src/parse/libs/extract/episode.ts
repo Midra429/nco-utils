@@ -85,7 +85,7 @@ const EP_SP_PROB_HIGH: RegExp[] = [
     `(?<=${BEFORE_PREFIX})` +
       `(?<prefix>第)` +
       `(?<number>${NUMBER})` +
-      `(?<suffix>(?!シーズン|シリーズ)${LETTER_JP_AFFIX}(?:${LETTER_JP_EX_AFFIX}{0,2}${LETTER_JP_AFFIX})?)` +
+      `(?<suffix>(?!クール|シーズン|シリーズ)${LETTER_JP_AFFIX}(?:${LETTER_JP_EX_AFFIX}{0,2}${LETTER_JP_AFFIX})?)` +
       `(?=${AFTER_SUFFIX})`,
     'dgu'
   ),
@@ -94,7 +94,7 @@ const EP_SP_PROB_HIGH: RegExp[] = [
     `(?<=${BEFORE_PREFIX})` +
       `(?<prefix>第)` +
       `(?<kansuji>[${KANSUJI}]{1,6})` +
-      `(?<suffix>(?!シーズン|シリーズ)${LETTER_JP_AFFIX}(?:${LETTER_JP_EX_AFFIX}{0,2}${LETTER_JP_AFFIX})?)` +
+      `(?<suffix>(?!クール|シーズン|シリーズ)${LETTER_JP_AFFIX}(?:${LETTER_JP_EX_AFFIX}{0,2}${LETTER_JP_AFFIX})?)` +
       `(?=${AFTER_SUFFIX})`,
     'dgu'
   ),

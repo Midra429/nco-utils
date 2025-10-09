@@ -7,6 +7,13 @@ import { removeSpaces } from '@/utils/remove'
 
 import titleVariants from './title-variants.json'
 
+const SIMILARITY_THRESHOLD = {
+  STRICT: 1,
+  HIGH: 0.85,
+  MID: 0.7,
+  LOW: 0.55,
+} as const
+
 function compareTitleVariants(titleA: string, titleB: string): boolean {
   return titleVariants.find((v) => v.includes(titleA))?.includes(titleB) || false
 }
@@ -34,7 +41,7 @@ export function compare(
     return false
   }
 
-  const similarityThreshold = strict ? 1 : 0.85
+  const similarityThreshold = strict ? SIMILARITY_THRESHOLD.STRICT : SIMILARITY_THRESHOLD.HIGH
 
   const result: {
     title: boolean
@@ -146,7 +153,10 @@ export function compare(
       result.episode &&
       result.subtitle
     ) {
-      result.title = similarityThreshold - 0.15 <= titleScore
+      result.title =
+        SIMILARITY_THRESHOLD.MID <= titleScore ||
+        (SIMILARITY_THRESHOLD.LOW <= titleScore &&
+          (titleStrippedA.startsWith(titleStrippedB) || titleStrippedB.startsWith(titleStrippedA)))
     }
 
     // 片方のみシーズンあり
