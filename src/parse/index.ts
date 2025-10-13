@@ -5,10 +5,15 @@ import { clean } from './libs/clean'
 import { extract } from './libs/extract'
 
 /**
+ * 解析結果
+ */
+export type ParsedResult = ExtractedResult
+
+/**
  * アニメタイトルを解析
  * @description `normalize` -> `clean` -> `extract`
  */
-export function parse(input: string | ExtractedResult): ExtractedResult {
+export function parse(input: string | ParsedResult): ParsedResult {
   if (typeof input !== 'string') {
     return input
   }

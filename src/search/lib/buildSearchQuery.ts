@@ -1,6 +1,6 @@
 import type { SearchQuery, SearchQueryJsonFilter } from '@/types/api/niconico/search'
 import type { SearchTarget } from '@/types/search'
-import type { ExtractedResult } from '@/parse/libs/extract'
+import type { ParsedResult } from '@/parse'
 
 import { number2kanji } from '@geolonia/japanese-numeral'
 import { zeroPadding } from '@/utils/zeroPadding'
@@ -12,7 +12,7 @@ import titleVariants from '@/compare/title-variants.json'
 
 export type BuildSearchQueryArgs = {
   /** 動画タイトル or 解析結果 */
-  input: string | ExtractedResult
+  input: string | ParsedResult
 
   /** 動画の長さ */
   duration: number

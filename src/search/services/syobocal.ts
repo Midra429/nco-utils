@@ -1,7 +1,7 @@
 import type { SyoboCalChannelId } from '@/types/api/constants'
 import type { SyoboCalTitleSearch } from '@/types/api/syobocal/json'
 import type { SyoboCalProgramDb } from '@/types/api/syobocal/db'
-import type { ExtractedResult } from '@/parse/libs/extract'
+import type { ParsedResult } from '@/parse'
 
 import { parse } from '@/parse'
 import { normalize, normalizeAll } from '@/parse/libs/normalize'
@@ -17,7 +17,7 @@ function normalizeScTitle(title: string) {
 }
 
 export async function syobocal(args: {
-  input: string | ExtractedResult
+  input: string | ParsedResult
   channelIds?: SyoboCalChannelId[]
   userAgent: string
 }) {

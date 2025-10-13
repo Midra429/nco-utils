@@ -1,4 +1,4 @@
-import type { ExtractedResult } from '@/parse/libs/extract'
+import type { ParsedResult } from '@/parse'
 
 import { parse } from '@/parse'
 import { normalizeAll } from '@/parse/libs/normalize'
@@ -26,8 +26,8 @@ export type CompareOptions = {
  * アニメタイトルを比較
  */
 export function compare(
-  inputA: string | ExtractedResult,
-  inputB: string | ExtractedResult,
+  inputA: string | ParsedResult,
+  inputB: string | ParsedResult,
   { strict }: CompareOptions = {}
 ): boolean {
   const parsedA = parse(inputA)
