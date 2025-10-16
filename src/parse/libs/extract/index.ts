@@ -1,4 +1,5 @@
 import { CERTAINTY } from '@/parse/constants'
+import { KANSUJI } from '@/parse/constants/regexps'
 import { extractSeasons, extractSeasonFromTitle } from './season'
 import { extractEpisodes } from './episode'
 
@@ -231,6 +232,8 @@ function isSameAffix(seg1: ExtractedSegment, seg2: ExtractedSegment): boolean {
 function stripText(input: string): string {
   return (
     input
+      // 第2クール
+      .replace(new RegExp(`(?<=.+)\\s?第[\\d${KANSUJI}]クール$`, 'u'), '')
       // 片翼の･･･堕天使（フォーリン・エンジェル）
       .replace(/(?<=[a-zA-Z\p{sc=Hiragana}\p{sc=Han}]+)\s?\(\p{scx=Katakana}+\)/u, '')
       // 相生のホメオスタシス (そうせい)
