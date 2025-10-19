@@ -96,6 +96,7 @@ export type DataComment = {
   ng: Ng
   isAttentionRequired: boolean
   nvComment: NvComment
+  assist: Assist
 }
 
 export type Keys = {
@@ -143,6 +144,16 @@ export type NvComment = {
   threadKey: string
   server: string
   params: Params
+}
+
+export type Assist = {
+  sectionDurationSec: number
+  minMatchCharacters: number
+  ignorePostElapsedTimeSec: number
+  ignoreCommentNgScoreThreshold: number
+  commentCountThresholdList: [number, number][]
+  buttonDisplayDurationSec: number
+  buttonDisplayOffsetSec: number
 }
 
 export type Params = {
