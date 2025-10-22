@@ -226,25 +226,48 @@ function isSameAffix(seg1: ExtractedSegment, seg2: ExtractedSegment): boolean {
   return seg1.prefix === seg2.prefix && seg1.suffix === seg2.suffix
 }
 
+const TITLE_VERSION_SUFFIX = '(?:版|ver\\.?)'
+
+const STRIP_TEXT_REGEXPS: RegExp[] = [
+  // 片翼の･･･堕天使（フォーリン・エンジェル）
+  /(?<=[a-zA-Z\p{sc=Hiragana}\p{sc=Han}]+)\s?\(\p{scx=Katakana}+\)/u,
+  // 相生のホメオスタシス (そうせい)
+  /(?<=[a-zA-Z\p{sc=Katakana}\p{sc=Han}]+)\s?\(\p{scx=Hiragana}+\)/u,
+  // 始まりと終わりのプロローグ -Turning Point-
+  /(?<=^[^\-]+)\s*?\-[a-z][a-z'\s]+\-$/i,
+  // 魔王学院の不適合者 ～史上最強の魔王の始祖、転生して子孫たちの学校へ通う～
+  /(?<=^[^〜]+)\s〜[^〜]+〜$/i,
+]
+const STRIP_TITLE_REGEXPS: RegExp[] = [
+  // 【オンエア版】, 《あこがれVer.》, ＜Hネルギー解放版＞
+  new RegExp(
+    `(?<=.+)\\s?` +
+      `(?:${[
+        `\\(.+?${TITLE_VERSION_SUFFIX}\\)`,
+        `<.+?${TITLE_VERSION_SUFFIX}>`,
+        `【.+?${TITLE_VERSION_SUFFIX}】`,
+        `《.+?${TITLE_VERSION_SUFFIX}》`,
+      ].join('|')})` +
+      `$`,
+    'iu'
+  ),
+  // 第2クール
+  new RegExp(`(?<=.+)\\s?第[\\d${KANSUJI}]クール$`, 'u'),
+  // ゴジラ キングオブモンスターズ(2019)
+  /(?<=.+)\s?\((?:19|20)\d{2}\)$/,
+]
+
 /**
  * 不要な要素を取り除く
  */
 function stripText(input: string): string {
-  return (
-    input
-      // 第2クール
-      .replace(new RegExp(`(?<=.+)\\s?第[\\d${KANSUJI}]クール$`, 'u'), '')
-      // 片翼の･･･堕天使（フォーリン・エンジェル）
-      .replace(/(?<=[a-zA-Z\p{sc=Hiragana}\p{sc=Han}]+)\s?\(\p{scx=Katakana}+\)/u, '')
-      // 相生のホメオスタシス (そうせい)
-      .replace(/(?<=[a-zA-Z\p{sc=Katakana}\p{sc=Han}]+)\s?\(\p{scx=Hiragana}+\)/u, '')
-      // 始まりと終わりのプロローグ -Turning Point-
-      .replace(/(?<=^[^\-]+)\s*?\-[a-z][a-z'\s]+\-$/i, '')
-      // 魔王学院の不適合者 ～史上最強の魔王の始祖、転生して子孫たちの学校へ通う～
-      .replace(/(?<=^[^〜]+)\s〜[^〜]+〜$/i, '')
-      // ゴジラ キングオブモンスターズ(2019)
-      .replace(/(?<=.+)\s?\((?:19|20)\d{2}\)$/, '')
-  )
+  return STRIP_TEXT_REGEXPS.reduce((prev, re) => prev.replace(re, ''), input).trim()
+}
+/**
+ * 不要な要素を取り除く (タイトル)
+ */
+function stripTitle(title: string): string {
+  return stripText(STRIP_TITLE_REGEXPS.reduce((prev, re) => prev.replace(re, ''), title).trim())
 }
 
 /**
@@ -562,7 +585,7 @@ export function extract(input: string): ExtractedResult {
   }
 
   if (title) {
-    titleStripped = stripText(title)
+    titleStripped = stripTitle(title)
   }
 
   // サブタイトルを切り抜き
