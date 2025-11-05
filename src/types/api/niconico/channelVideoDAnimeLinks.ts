@@ -2,7 +2,7 @@ export type ChannelVideoDAnimeLinksResponse =
   | ChannelVideoDAnimeLinksResponseOk
   | ChannelVideoDAnimeLinksResponseError
 
-export type ChannelVideoDAnimeLinksResponseOk = {
+export interface ChannelVideoDAnimeLinksResponseOk {
   meta: {
     status: 200
   }
@@ -11,7 +11,7 @@ export type ChannelVideoDAnimeLinksResponseOk = {
   }
 }
 
-export type ChannelVideoDAnimeLinksResponseError = {
+export interface ChannelVideoDAnimeLinksResponseError {
   meta: {
     status: number
     errorCode?: string
@@ -20,13 +20,13 @@ export type ChannelVideoDAnimeLinksResponseError = {
   }
 }
 
-export type Item = {
+export interface Item {
   channel: Channel
   isChannelMember: boolean
   linkedVideoId: string
 }
 
-export type Channel = {
+export interface Channel {
   id: number
   name: string
   description: string

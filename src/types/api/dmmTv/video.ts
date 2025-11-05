@@ -1,12 +1,12 @@
-export type Video = {
+export interface Video {
   data: Data
 }
 
-export type Data = {
+export interface Data {
   video: DataVideo
 }
 
-export type DataVideo = {
+export interface DataVideo {
   id: string
   seasonType: string
   titleName: string
@@ -46,7 +46,7 @@ export type DataVideo = {
   pvEpisode: PVEpisode
 }
 
-export type Cast = {
+export interface Cast {
   castName: string
   actorName: string
   person: Person
@@ -55,14 +55,14 @@ export type Cast = {
 
 export type CastTypename = 'Cast'
 
-export type Person = {
+export interface Person {
   id: string
   __typename: PersonTypename
 }
 
 export type PersonTypename = 'Person'
 
-export type CategoryElement = {
+export interface CategoryElement {
   name: string
   id: string
   __typename: CategoryTypename
@@ -70,7 +70,7 @@ export type CategoryElement = {
 
 export type CategoryTypename = 'VideoCategory' | 'VideoGenre'
 
-export type Episode = {
+export interface Episode {
   id: string
   episodeTitle: string
   episodeImage: string
@@ -87,17 +87,17 @@ export type Episode = {
   __typename: string
 }
 
-export type DRMLevel = {
+export interface DRMLevel {
   hasStrictProtection: boolean
   __typename: string
 }
 
-export type FreeProduct = {
+export interface FreeProduct {
   contentId: string
   __typename: string
 }
 
-export type EpisodePlayInfo = {
+export interface EpisodePlayInfo {
   highestQuality: string
   isSupportHDR: boolean
   highestAudioChannelLayout: string
@@ -108,36 +108,36 @@ export type EpisodePlayInfo = {
   __typename: string
 }
 
-export type PurplePart = {
+export interface PurplePart {
   contentId: string
   number: number
   duration: number
   __typename: string
 }
 
-export type SvodProduct = {
+export interface SvodProduct {
   startDeliveryAt: Date
   __typename: string
 }
 
-export type ViewingRights = {
+export interface ViewingRights {
   isDownloadable: boolean
   isStreamable: boolean
   __typename: string
 }
 
-export type Episodes = {
+export interface Episodes {
   edges: EpisodesEdge[]
   total: number
   __typename: string
 }
 
-export type EpisodesEdge = {
+export interface EpisodesEdge {
   node: PurpleNode
   __typename: string
 }
 
-export type PurpleNode = {
+export interface PurpleNode {
   id: string
   sampleMovie: string
   episodeTitle: string
@@ -153,7 +153,7 @@ export type PurpleNode = {
   __typename: string
 }
 
-export type PurplePlayInfo = {
+export interface PurplePlayInfo {
   highestQuality: string
   isSupportHDR: boolean
   highestAudioChannelLayout: string
@@ -164,41 +164,41 @@ export type PurplePlayInfo = {
   __typename: string
 }
 
-export type FluffyPart = {
+export interface FluffyPart {
   number: number
   __typename: string
 }
 
-export type NextDeliveryEpisode = {
+export interface NextDeliveryEpisode {
   isBeforeDelivered: boolean
   startDeliveryAt: Date | null
   __typename: string
 }
 
-export type PVEpisode = {
+export interface PVEpisode {
   edges: PVEpisodeEdge[]
   total: number
   __typename: string
 }
 
-export type PVEpisodeEdge = {
+export interface PVEpisodeEdge {
   node: FluffyNode
   __typename: string
 }
 
-export type FluffyNode = {
+export interface FluffyNode {
   id: string
   sampleMovie: string
   playInfo: FluffyPlayInfo
   __typename: string
 }
 
-export type FluffyPlayInfo = {
+export interface FluffyPlayInfo {
   duration: number
   __typename: string
 }
 
-export type Rating = {
+export interface Rating {
   category: CategoryEnum
   __typename: RatingTypename
 }
@@ -207,7 +207,7 @@ export type RatingTypename = 'VideoRating'
 
 export type CategoryEnum = 'G' | 'NR'
 
-export type RelatedItems = {
+export interface RelatedItems {
   videos: VideoElement[]
   books: Book[]
   mono: Mono | null
@@ -216,7 +216,7 @@ export type RelatedItems = {
   __typename: string
 }
 
-export type Book = {
+export interface Book {
   seriesId: string
   title: string
   thumbnail: string
@@ -226,19 +226,19 @@ export type Book = {
 
 export type BookTypename = 'RelatedBook'
 
-export type Mono = {
+export interface Mono {
   banner: string
   url: string
   __typename: string
 }
 
-export type VideoElement = {
+export interface VideoElement {
   seasonId: string
   video: VideoVideo
   __typename: string
 }
 
-export type VideoVideo = {
+export interface VideoVideo {
   id: string
   titleName: string
   packageImage: string
@@ -249,25 +249,25 @@ export type VideoVideo = {
   __typename: string
 }
 
-export type RelatedSeason = {
+export interface RelatedSeason {
   id: string
   title: string
   __typename: string
 }
 
-export type ReviewSummary = {
+export interface ReviewSummary {
   averagePoint: number
   reviewerCount: number
   reviewCommentCount: number
   __typename: string
 }
 
-export type SpecialEpisode = {
+export interface SpecialEpisode {
   total: number
   __typename: string
 }
 
-export type Staff = {
+export interface Staff {
   roleName: string
   staffName: string
   person: Person

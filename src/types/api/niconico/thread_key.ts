@@ -1,13 +1,13 @@
-export type ThreadKey = {
+export interface ThreadKey {
   meta: ThreadKeyMeta
   data?: ThreadKeyData
 }
 
-export type ThreadKeyMeta = {
+export interface ThreadKeyMeta {
   status: number
   errorCode?: string
 }
 
-export type ThreadKeyData = {
+export interface ThreadKeyData {
   threadKey: string
 }

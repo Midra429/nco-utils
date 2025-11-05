@@ -1,6 +1,6 @@
 import type { TVerChannelId } from '@/types/api/constants'
 
-export type EPGv2Response = {
+export interface EPGv2Response {
   api_version: string
   code: number
   message: string
@@ -8,7 +8,7 @@ export type EPGv2Response = {
   result: EPGv2Result
 }
 
-export type EPGv2Result = {
+export interface EPGv2Result {
   date: string
   area: string
   type: 'ota' | 'bs'
@@ -17,18 +17,18 @@ export type EPGv2Result = {
   allowViewDate: string[]
 }
 
-export type Content = {
+export interface Content {
   broadcaster: Broadcaster
   programs: Program[]
 }
 
-export type Broadcaster = {
+export interface Broadcaster {
   id: TVerChannelId
   name: string
   label: string
 }
 
-export type Program = {
+export interface Program {
   seriesTitle: string
   title: string
   startAt: number
@@ -58,7 +58,7 @@ export type Genre =
   | '0xE' //
   | '0xF' // その他
 
-export type Icon = {
+export interface Icon {
   /** 新番組 */
   new: boolean
   /** 再放送 */
@@ -67,7 +67,7 @@ export type Icon = {
   last: boolean
 }
 
-export type GenreColor = {
+export interface GenreColor {
   genre: Genre
   name: string
   color: string

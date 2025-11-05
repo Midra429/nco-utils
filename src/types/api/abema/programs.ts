@@ -1,4 +1,4 @@
-export type Program = {
+export interface Program {
   id: string
   series: Series
   season?: Season
@@ -25,49 +25,49 @@ export type Program = {
   episodeGroupId: string
 }
 
-export type Credit = {
+export interface Credit {
   released: number
   casts: string[]
   crews: string[]
   copyrights: string[]
 }
 
-export type Download = {
+export interface Download {
   enable: boolean
 }
 
-export type Episode = {
+export interface Episode {
   number: number
   title: string
   content: string
 }
 
-export type ExternalContent = {
+export interface ExternalContent {
   marks: MediaStatus
 }
 
-export type MediaStatus = {}
+export interface MediaStatus {}
 
-export type Genre = {
+export interface Genre {
   id: string
   name: string
   subGenres: SubGenre[]
 }
 
-export type SubGenre = {
+export interface SubGenre {
   id: string
   name: string
 }
 
-export type Info = {
+export interface Info {
   duration: number
 }
 
-export type ProgramLabel = {
+export interface ProgramLabel {
   free?: boolean
 }
 
-export type NextProgramInfo = {
+export interface NextProgramInfo {
   programId: string
   title: string
   thumbImg: string
@@ -78,24 +78,24 @@ export type NextProgramInfo = {
   terms: Term[]
 }
 
-export type Term = {
+export interface Term {
   onDemandType: number
   endAt: number
 }
 
-export type Playback = {
+export interface Playback {
   hls: string
   dash: string
   hlsPreview?: string
   dashIPTV: string
 }
 
-export type ProvidedInfo = {
+export interface ProvidedInfo {
   thumbImg: string
   sceneThumbImgs?: string[]
 }
 
-export type Season = {
+export interface Season {
   id: string
   sequence: number
   name: string
@@ -103,7 +103,7 @@ export type Season = {
   order: number
 }
 
-export type Series = {
+export interface Series {
   id: string
   title: string
   label: SeriesLabel
@@ -111,19 +111,19 @@ export type Series = {
   thumbPortraitComponent: ThumbComponent
 }
 
-export type SeriesLabel = {
+export interface SeriesLabel {
   someFree?: boolean
   newest?: boolean
 }
 
-export type ThumbComponent = {
+export interface ThumbComponent {
   urlPrefix: string
   filename: string
   query: string
   extension: string
 }
 
-export type SharedLink = {
+export interface SharedLink {
   twitter: string
   facebook: string
   google: string
@@ -132,11 +132,11 @@ export type SharedLink = {
   instagram: string
 }
 
-export type TimelineThumbComponent = {
+export interface TimelineThumbComponent {
   urlPrefix: string
   extension: string
 }
 
-export type ViewingPoint = {
+export interface ViewingPoint {
   suggestion: number
 }

@@ -1,6 +1,6 @@
 export type VideoResponse = VideoResponseOk | VideoResponseError
 
-export type VideoResponseOk = {
+export interface VideoResponseOk {
   meta: {
     status: 200
     code: string
@@ -12,7 +12,7 @@ export type VideoResponseOk = {
   }
 }
 
-export type VideoResponseError = {
+export interface VideoResponseError {
   meta: {
     status: number
     code: string
@@ -27,7 +27,7 @@ export type VideoResponseError = {
   }
 }
 
-export type VideoData = {
+export interface VideoData {
   ads: null
   category: null
   channel: Channel | null
@@ -57,7 +57,7 @@ export type VideoData = {
   waku: Waku
 }
 
-export type Channel = {
+export interface Channel {
   id: string
   name: string
   isOfficialAnime: boolean
@@ -66,29 +66,29 @@ export type Channel = {
   viewer: ChannelViewer | null
 }
 
-export type ChannelThumbnail = {
+export interface ChannelThumbnail {
   url: string
   smallUrl: string
 }
 
-export type ChannelViewer = {
+export interface ChannelViewer {
   follow: Follow
 }
 
-export type Follow = {
+export interface Follow {
   isFollowed: boolean
   isBookmarked: boolean
   token: string
   tokenTimestamp: number
 }
 
-export type Client = {
+export interface Client {
   nicosid: string
   watchId: string
   watchTrackId: string
 }
 
-export type DataComment = {
+export interface DataComment {
   server: Server
   keys: Keys
   layers: Layer[]
@@ -99,17 +99,17 @@ export type DataComment = {
   assist: Assist
 }
 
-export type Keys = {
+export interface Keys {
   userKey: string
 }
 
-export type Layer = {
+export interface Layer {
   index: number
   isTranslucent: boolean
   threadIds: ThreadId[]
 }
 
-export type ThreadId = {
+export interface ThreadId {
   id: number
   fork: number
   forkLabel: Fork
@@ -117,36 +117,36 @@ export type ThreadId = {
 
 export type Fork = 'owner' | 'main' | 'easy'
 
-export type Ng = {
+export interface Ng {
   ngScore: NgScore
   channel: []
   owner: []
   viewer: NgViewer | null
 }
 
-export type NgScore = {
+export interface NgScore {
   isDisabled: boolean
 }
 
-export type NgViewer = {
+export interface NgViewer {
   revision: number
   count: number
   items: ViewerItem[]
 }
 
-export type ViewerItem = {
+export interface ViewerItem {
   type: 'word' | 'id' | 'command'
   source: string
   registeredAt: string
 }
 
-export type NvComment = {
+export interface NvComment {
   threadKey: string
   server: string
   params: Params
 }
 
-export type Assist = {
+export interface Assist {
   sectionDurationSec: number
   minMatchCharacters: number
   ignorePostElapsedTimeSec: number
@@ -156,21 +156,21 @@ export type Assist = {
   buttonDisplayOffsetSec: number
 }
 
-export type Params = {
+export interface Params {
   targets: Target[]
   language: 'ja-jp'
 }
 
-export type Target = {
+export interface Target {
   id: string
   fork: Fork
 }
 
-export type Server = {
+export interface Server {
   url: string
 }
 
-export type Thread = {
+export interface Thread {
   id: number
   fork: number
   forkLabel: Fork
@@ -197,36 +197,36 @@ export type ThreadLabel =
   | 'extra-community'
   | 'extra-easy'
 
-export type EasyComment = {
+export interface EasyComment {
   phrases: Phrase[]
 }
 
-export type Phrase = {
+export interface Phrase {
   text: string
   nicodic: Nicodic | null
 }
 
-export type Nicodic = {
+export interface Nicodic {
   title: string
   viewTitle: string
   summary: string
   link: string
 }
 
-export type External = {
+export interface External {
   commons: Commons
   ichiba: Ichiba
 }
 
-export type Commons = {
+export interface Commons {
   hasContentTree: boolean
 }
 
-export type Ichiba = {
+export interface Ichiba {
   isEnabled: boolean
 }
 
-export type DataGenre = {
+export interface DataGenre {
   key: string
   label: GenreEnum
   isImmoral: boolean
@@ -254,25 +254,25 @@ export type GenreEnum =
   | 'その他'
   | 'R-18'
 
-export type Marquee = {
+export interface Marquee {
   isDisabled: boolean
   tagRelatedLead: null
 }
 
-export type Media = {
+export interface Media {
   domand: Domand | null
   delivery: null
   deliveryLegacy: null
 }
 
-export type Domand = {
+export interface Domand {
   videos: VideoElement[]
   audios: Audio[]
   isStoryboardAvailable: boolean
   accessRightKey: string
 }
 
-export type Audio = {
+export interface Audio {
   id: AudioId
   isAvailable: boolean
   bitRate: number
@@ -285,7 +285,7 @@ export type Audio = {
 
 export type AudioId = 'audio-aac-64kbps' | 'audio-aac-128kbps' | 'audio-aac-192kbps'
 
-export type LoudnessCollection = {
+export interface LoudnessCollection {
   type: LoudnessCollectionType
   value: number
 }
@@ -305,7 +305,7 @@ export type LoudnessCollectionType =
   | 'nicoadBillboard'
   | 'marquee'
 
-export type VideoElement = {
+export interface VideoElement {
   id: VideoId
   isAvailable: boolean
   label: VideoLabel
@@ -328,7 +328,7 @@ export type VideoLabel = '低画質' | '144p' | '360p' | '480p' | '720p' | '1080
 
 export type OkReason = 'PURELY' | 'PAYMENT_PREVIEW_SUPPORTED'
 
-export type DataOwner = {
+export interface DataOwner {
   id: number
   nickname: string
   iconUrl: string
@@ -340,19 +340,19 @@ export type DataOwner = {
   viewer: null
 }
 
-export type Payment = {
+export interface Payment {
   video: PaymentVideo
   preview: Preview
 }
 
-export type Preview = {
+export interface Preview {
   ppv: Ichiba
   admission: Ichiba
   continuationBenefit: Ichiba
   premium: Ichiba
 }
 
-export type PaymentVideo = {
+export interface PaymentVideo {
   isPpv: boolean
   isAdmission: boolean
   isContinuationBenefit: boolean
@@ -366,7 +366,7 @@ export type BillingType = 'free' | 'custom'
 
 export type CommentableUserTypeForPayment = 'all' | 'purchaser'
 
-export type PcWatchPage = {
+export interface PcWatchPage {
   tagRelatedBanner: null
   videoEnd: VideoEnd
   showOwnerMenu: boolean
@@ -374,37 +374,37 @@ export type PcWatchPage = {
   showMymemoryEditingLink: boolean
 }
 
-export type VideoEnd = {
+export interface VideoEnd {
   bannerIn: null
   overlay: null
 }
 
-export type Player = {
+export interface Player {
   initialPlayback: null
   comment: PlayerComment
   layerMode: number
 }
 
-export type PlayerComment = {
+export interface PlayerComment {
   isDefaultInvisible: boolean
 }
 
-export type Ppv = {
+export interface Ppv {
   accessFrom: null
 }
 
-export type Ranking = {
+export interface Ranking {
   genre: RankingGenre | null
   popularTag: PopularTag[]
 }
 
-export type RankingGenre = {
+export interface RankingGenre {
   rank: number
   genre: GenreEnum
   dateTime: string
 }
 
-export type PopularTag = {
+export interface PopularTag {
   tag: string
   regularizedTag: string
   rank: number
@@ -412,7 +412,7 @@ export type PopularTag = {
   dateTime: string
 }
 
-export type Series = {
+export interface Series {
   id: number
   title: string
   description: string
@@ -420,13 +420,13 @@ export type Series = {
   video: SeriesVideo
 }
 
-export type SeriesVideo = {
+export interface SeriesVideo {
   prev: First | null
   next: First
   first: First
 }
 
-export type First = {
+export interface First {
   'type': string
   'id': string
   'title': string
@@ -447,14 +447,14 @@ export type First = {
   'acf68865': boolean
 }
 
-export type Count = {
+export interface Count {
   view: number
   comment: number
   mylist: number
   like: number
 }
 
-export type FirstOwner = {
+export interface FirstOwner {
   ownerType: string
   type: string
   visibility: string
@@ -463,7 +463,7 @@ export type FirstOwner = {
   iconUrl: string
 }
 
-export type FirstThumbnail = {
+export interface FirstThumbnail {
   url: string
   middleUrl: string
   largeUrl: string
@@ -471,13 +471,13 @@ export type FirstThumbnail = {
   nHdUrl: string
 }
 
-export type System = {
+export interface System {
   serverTime: string
   isPeakTime: boolean
   isStellaAlive: boolean
 }
 
-export type Tag = {
+export interface Tag {
   items: TagItem[]
   hasR18Tag: boolean
   isPublishedNicoscript: boolean
@@ -485,7 +485,7 @@ export type Tag = {
   viewer: Edit | null
 }
 
-export type Edit = {
+export interface Edit {
   isEditable: boolean
   uneditableReason: UneditableReason
   editKey: null | string
@@ -493,7 +493,7 @@ export type Edit = {
 
 export type UneditableReason = 'PREMIUM_ONLY' | 'NEED_LOGIN' | 'USER_FORBIDDEN'
 
-export type TagItem = {
+export interface TagItem {
   name: string
   isCategory: boolean
   isCategoryCandidate: boolean
@@ -501,7 +501,7 @@ export type TagItem = {
   isLocked: boolean
 }
 
-export type DataVideo = {
+export interface DataVideo {
   'id': string
   'title': string
   'description': string
@@ -522,11 +522,11 @@ export type DataVideo = {
   '9d091f87': boolean
 }
 
-export type Rating = {
+export interface Rating {
   isAdult: boolean
 }
 
-export type VideoThumbnail = {
+export interface VideoThumbnail {
   url: string
   middleUrl: null | string
   largeUrl: null | string
@@ -534,23 +534,23 @@ export type VideoThumbnail = {
   ogp: string
 }
 
-export type VideoViewer = {
+export interface VideoViewer {
   isOwner: boolean
   like: Like
 }
 
-export type Like = {
+export interface Like {
   isLiked: boolean
   count: null
 }
 
-export type VideoAds = {
+export interface VideoAds {
   additionalParams: VideoAdsAdditionalParams
   items: VideoAdsItem[]
   reason: null | string
 }
 
-export type VideoAdsAdditionalParams = {
+export interface VideoAdsAdditionalParams {
   videoId: string
   videoDuration: number
   isAdultRatingNG: boolean
@@ -565,13 +565,13 @@ export type VideoAdsAdditionalParams = {
   age?: number
 }
 
-export type VideoAdsItem = {
+export interface VideoAdsItem {
   type: LinearTypeEnum
   timingMs: number | null
   additionalParams: ItemAdditionalParams
 }
 
-export type ItemAdditionalParams = {
+export interface ItemAdditionalParams {
   linearType: LinearTypeEnum
   adIdx: number
   skipType: number
@@ -581,13 +581,13 @@ export type ItemAdditionalParams = {
 
 export type LinearTypeEnum = 'preroll' | 'midroll' | 'postroll'
 
-export type VideoLive = {
+export interface VideoLive {
   programId: string
   beginAt: string
   endAt: string
 }
 
-export type DataViewer = {
+export interface DataViewer {
   id: number
   nickname: string
   isPremium: boolean
@@ -595,13 +595,13 @@ export type DataViewer = {
   existence: Existence
 }
 
-export type Existence = {
+export interface Existence {
   age: number
   prefecture: string
   sex: string
 }
 
-export type Waku = {
+export interface Waku {
   information: null
   bgImages: any[]
   addContents: null
@@ -610,7 +610,7 @@ export type Waku = {
   tagRelatedMarquee: null
 }
 
-export type TagRelatedBanner = {
+export interface TagRelatedBanner {
   title: string
   imageUrl: string
   description: string

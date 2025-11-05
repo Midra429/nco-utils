@@ -1,11 +1,11 @@
-export type Part = {
+export interface Part {
   resultCd: string
   version: string
   selfLink: string
   data: PartData
 }
 
-export type PartData = {
+export interface PartData {
   appType: string
   partId: string
   workTitle: string
@@ -82,7 +82,7 @@ export type PartData = {
   opSkipAvailable: string
 }
 
-export type ContentUrls = {
+export interface ContentUrls {
   highest: string
   high: string
   middle: string

@@ -4,9 +4,9 @@ import type { SyoboCalTitleFull } from './json'
 export type SyoboCalCommand = keyof SyoboCalDb
 
 // TitleLookup
-type SyoboCalTitleDb = SyoboCalTitleFull
+interface SyoboCalTitleDb extends SyoboCalTitleFull {}
 
-export type SyoboCalTitleDbRaw = {
+export interface SyoboCalTitleDbRaw {
   TitleLookupResponse: {
     TitleItems: {
       TitleItem: SyoboCalTitleDb | SyoboCalTitleDb[]
@@ -15,7 +15,7 @@ export type SyoboCalTitleDbRaw = {
 }
 
 // ProgLookup
-export type SyoboCalProgramDb = {
+export interface SyoboCalProgramDb {
   LastUpdate: string
   PID: string
   TID: string
@@ -33,7 +33,7 @@ export type SyoboCalProgramDb = {
   STSubTitle?: string
 }
 
-export type SyoboCalProgramDbRaw = {
+export interface SyoboCalProgramDbRaw {
   ProgLookupResponse: {
     ProgItems: {
       ProgItem: SyoboCalProgramDb | SyoboCalProgramDb[]
@@ -41,7 +41,7 @@ export type SyoboCalProgramDbRaw = {
   }
 }
 
-type SyoboCalDb = {
+interface SyoboCalDb {
   TitleLookup: {
     parameters: {
       TID?: string | string[]

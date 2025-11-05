@@ -1,4 +1,4 @@
-export type StreamsResponse = {
+export interface StreamsResponse {
   playlist_id: string
   playlist_name: string
   playlist_description: null
@@ -18,13 +18,13 @@ export type StreamsResponse = {
   body: Body[]
 }
 
-export type Behavior = {
+export interface Behavior {
   if_empty: string
   if_expired: string
   if_finished: string
 }
 
-export type Body = {
+export interface Body {
   stream_id: string
   stream_fmt: string
   stream_name: string
@@ -35,20 +35,20 @@ export type Body = {
   play_mode: PlayMode
 }
 
-export type PlayControl = {
+export interface PlayControl {
   simul: boolean
   dvr: boolean
   vod: boolean
   multi: null
 }
 
-export type PlayMode = {
+export interface PlayMode {
   has_controls: boolean
   is_mute: boolean
   autoplay_delay: number
 }
 
-export type StreamType = {
+export interface StreamType {
   type: string
   current_position: number
   program_id: string
@@ -58,7 +58,7 @@ export type StreamType = {
   program: Program
 }
 
-export type Program = {
+export interface Program {
   id: string
   area: Area
   date: string
@@ -90,27 +90,27 @@ export type Program = {
   extra: Extra
 }
 
-export type Area = {
+export interface Area {
   id: string
   name: string
 }
 
-export type Ch = {
+export interface Ch {
   id: string
   name: string
   station: string
 }
 
-export type Codes = {
+export interface Codes {
   code: string
   split1: string[]
 }
 
-export type Extra = {
+export interface Extra {
   pr_movies: any[]
 }
 
-export type Flags = {
+export interface Flags {
   sound: string
   teletext: string
   databroad: string
@@ -135,7 +135,7 @@ export type Flags = {
   nod: string
 }
 
-export type ProgramHsk = {
+export interface ProgramHsk {
   system_unique_id: string
   concurrent_delivery: string
   early_back_delivery: string
@@ -178,14 +178,14 @@ export type ProgramHsk = {
   nol: Nol
 }
 
-export type EpgInfo = {
+export interface EpgInfo {
   event_id: string
   title: string
   start_time: string
   end_time: string
 }
 
-export type Nol = {
+export interface Nol {
   seriesId: string
   seriesName: string
   episodeId: string
@@ -193,35 +193,35 @@ export type Nol = {
   image: string
 }
 
-export type Icis = {
+export interface Icis {
   series_id: string
   contents_id: string
 }
 
-export type ProgramImages = {
+export interface ProgramImages {
   logo_l: BadgeClass
   thumbnail_m: BadgeClass
   hsk_posterframe: HskPosterframeClass
   nol_image: HskPosterframeClass
 }
 
-export type HskPosterframeClass = {
+export interface HskPosterframeClass {
   url: string
 }
 
-export type BadgeClass = {
+export interface BadgeClass {
   url: string
   width: string
   height: string
 }
 
-export type Service = {
+export interface Service {
   id: string
   name: string
   images: ServiceImages
 }
 
-export type ServiceImages = {
+export interface ServiceImages {
   logo_s: BadgeClass
   logo_m: BadgeClass
   logo_l: BadgeClass
@@ -231,19 +231,19 @@ export type ServiceImages = {
   badge9x4: BadgeClass
 }
 
-export type Url = {
+export interface Url {
   pc: string
   short: string
   nod: string
   nod_portal: string
 }
 
-export type HskElement = {
+export interface HskElement {
   service_id: string
   qf_mode: string
 }
 
-export type StreamsResponseImages = {
+export interface StreamsResponseImages {
   logo_l: HskPosterframeClass
   thumbnail_m: HskPosterframeClass
 }

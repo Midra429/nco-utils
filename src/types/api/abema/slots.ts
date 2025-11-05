@@ -1,8 +1,8 @@
-export type Slots = {
+export interface Slots {
   slot: Slot
 }
 
-export type Slot = {
+export interface Slot {
   id: string
   title: string
   startAt: number
@@ -32,41 +32,41 @@ export type Slot = {
   chasePlayFeatureAuthorityIds: string[]
 }
 
-export type BroadcastRegionPolicies = {
+export interface BroadcastRegionPolicies {
   linear: number
   timeshift: number
 }
 
-export type Playback = {
+export interface Playback {
   hls: string
   dash: string
   dashIPTV: string
   arin?: string
 }
 
-export type Download = {
+export interface Download {
   enable: boolean
 }
 
-export type ExternalContent = {
+export interface ExternalContent {
   buttonText: string
   marks: Marks
 }
 
-export type Marks = {}
+export interface Marks {}
 
-export type Flags = {
+export interface Flags {
   timeshift: boolean
   chasePlay: boolean
   archiveComment: boolean
 }
 
-export type Mark = {
+export interface Mark {
   newcomer?: boolean
   recommendation?: boolean
 }
 
-export type Program = {
+export interface Program {
   id: string
   episode: Episode
   credit: Credit
@@ -74,23 +74,23 @@ export type Program = {
   providedInfo: ProvidedInfo
 }
 
-export type Credit = {
+export interface Credit {
   casts: string[]
   crews: string[]
   copyrights: string[]
 }
 
-export type Episode = {
+export interface Episode {
   sequence: number
 }
 
-export type ProvidedInfo = {
+export interface ProvidedInfo {
   thumbImg: string
   sceneThumbImgs: string[]
   updatedAt: number
 }
 
-export type Series = {
+export interface Series {
   id: string
   themeColor: Marks
   genreId: string
@@ -98,7 +98,7 @@ export type Series = {
   updatedAt: number
 }
 
-export type SharedLink = {
+export interface SharedLink {
   twitter: string
   facebook: string
   google: string
@@ -108,7 +108,7 @@ export type SharedLink = {
   instagram: string
 }
 
-export type SlotGroup = {
+export interface SlotGroup {
   id: string
   lastSlotId: string
   title: string
@@ -116,13 +116,13 @@ export type SlotGroup = {
   expireAt: number
 }
 
-export type ThumbComponent = {
+export interface ThumbComponent {
   urlPrefix: string
   filename: string
   extension: string
 }
 
-export type TimelineThumbComponent = {
+export interface TimelineThumbComponent {
   urlPrefix: string
   extension: string
 }

@@ -8,7 +8,7 @@ import type { NiconicoGenre } from '@/types/api/constants'
 /**
  * フィールド
  */
-export type SearchFields = {
+export interface SearchFields {
   /**
    * コンテンツID。\
    * `https://nico.ms/`の後に連結することでコンテンツへのURLになります。
@@ -89,7 +89,7 @@ export type SearchQuerySort = `${'-' | '+'}${SearchQuerySortKey}`
 /**
  * クエリパラメータ
  */
-export type SearchQuery<FieldKey extends SearchQueryFieldKey = never> = {
+export interface SearchQuery<FieldKey extends SearchQueryFieldKey = never> {
   /**
    * 検索キーワードです。
    * @example 'ゲーム'
@@ -224,7 +224,7 @@ export type SearchResponse<FieldKey extends SearchQueryFieldKey = never> =
 /**
  * レスポンス (成功)
  */
-export type SearchResponseOk<FieldKey extends SearchQueryFieldKey = never> = {
+export interface SearchResponseOk<FieldKey extends SearchQueryFieldKey = never> {
   /**
    * レスポンスのメタ情報フィールド
    */
@@ -249,7 +249,7 @@ export type SearchResponseOk<FieldKey extends SearchQueryFieldKey = never> = {
 /**
  * レスポンス (エラー)
  */
-export type SearchResponseError = {
+export interface SearchResponseError {
   /**
    * レスポンスのメタ情報フィールド
    */

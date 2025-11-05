@@ -6,7 +6,7 @@ export type JikkyoKakologFormat = 'xml' | 'json'
 /**
  * パラメータ
  */
-export type JikkyoKakologParams<Format extends JikkyoKakologFormat> = {
+export interface JikkyoKakologParams<Format extends JikkyoKakologFormat> {
   starttime: number | Date
   endtime: number | Date
   format: Format
@@ -15,7 +15,7 @@ export type JikkyoKakologParams<Format extends JikkyoKakologFormat> = {
 /**
  * コメントデータ
  */
-export type JikkyoKakologChatData = {
+export interface JikkyoKakologChatData {
   /**
    * コメントのスレッド ID
    */
@@ -78,13 +78,13 @@ export type JikkyoKakologChatData = {
   deleted?: string
 }
 
-export type JikkyoKakologResponseJsonOk = {
+export interface JikkyoKakologResponseJsonOk {
   packet: {
     chat: JikkyoKakologChatData
   }[]
 }
 
-export type JikkyoKakologResponseJsonError = {
+export interface JikkyoKakologResponseJsonError {
   error: string
 }
 

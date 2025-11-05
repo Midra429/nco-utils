@@ -6,7 +6,7 @@ import { extractEpisodes } from './episode'
 /**
  * 抽出した一部分
  */
-export type ExtractedSegment = {
+export interface ExtractedSegment {
   type: 'season' | 'episode'
   text: string
   number: number
@@ -30,7 +30,7 @@ export type ExtractedSegment = {
 /**
  * シーズン
  */
-type Season = {
+interface Season {
   /**
    * シーズン (表記)
    * @description `prefix + numberText + suffix`
@@ -67,7 +67,7 @@ type Season = {
 /**
  * エピソード
  */
-type Episode = {
+interface Episode {
   /**
    * エピソード (表記)
    * @example "第13話"

@@ -1,16 +1,16 @@
 import type { V1Thread } from '@xpadev-net/niconicomments'
 
-export type Threads = {
+export interface Threads {
   meta: ThreadsMeta
   data?: ThreadsData
 }
 
-export type ThreadsMeta = {
+export interface ThreadsMeta {
   status: number
   errorCode?: string
 }
 
-export type ThreadsData = {
+export interface ThreadsData {
   globalComments: {
     id: string
     count: number

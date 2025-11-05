@@ -1,15 +1,15 @@
-export type Metadata = {
+export interface Metadata {
   version?: string
   trackIds?: TrackIds
   video?: Video
 }
 
-export type TrackIds = {
+export interface TrackIds {
   nextEpisode: number
   episodeSelector: number
 }
 
-export type Video = {
+export interface Video {
   title: string
   synopsis: string
   matchScore: MatchScore
@@ -44,39 +44,39 @@ export type Video = {
   stills?: Artwork[]
 }
 
-export type Artwork = {
+export interface Artwork {
   w: number
   h: number
   url: string
 }
 
-export type Bookmark = {
+export interface Bookmark {
   watchedDate: number
   offset: number
 }
 
-export type Cinematch = {
+export interface Cinematch {
   type: string
   value: string
 }
 
-export type LiveEvent = {
+export interface LiveEvent {
   hasLiveEvent: boolean
 }
 
-export type MatchScore = {
+export interface MatchScore {
   isNewForPvr: boolean
   computeId: string
   trackingInfo: TrackingInfo
 }
 
-export type TrackingInfo = {
+export interface TrackingInfo {
   matchScore: string
   tooNewForMatchScore: string
   matchRequestId: string
 }
 
-export type Season = {
+export interface Season {
   year: number
   shortName: string
   longName: string
@@ -87,7 +87,7 @@ export type Season = {
   episodes: Episode[]
 }
 
-export type Episode = {
+export interface Episode {
   start: number
   end: number
   synopsis: string
@@ -113,24 +113,24 @@ export type Episode = {
   hiddenEpisodeNumbers: boolean
 }
 
-export type SkipMarkers = {
+export interface SkipMarkers {
   credit: Credit
   recap: Credit
 }
 
-export type Credit = {
+export interface Credit {
   start: number | null
   end: number | null
 }
 
-export type TaglineMessages = {
+export interface TaglineMessages {
   tagline: string
   classification: Classification
 }
 
 export type Classification = 'REGULAR' | 'MOST_LIKED'
 
-export type UserRating = {
+export interface UserRating {
   type: string
   userRating: number
 }

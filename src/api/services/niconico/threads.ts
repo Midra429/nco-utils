@@ -5,7 +5,7 @@ import { logger } from '@/utils/logger'
 
 import { thread_key } from './thread_key'
 
-export type ThreadsRequestBody = {
+export interface ThreadsRequestBody {
   params: NvComment['params']
   threadKey: NvComment['threadKey']
   additionals: {

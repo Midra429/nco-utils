@@ -1,4 +1,4 @@
-export type Episode = {
+export interface Episode {
   ep_id: string
   lu_id: string
   lu_title: string
@@ -30,18 +30,18 @@ export type Episode = {
   ep_hash_id: string
 }
 
-export type Genre = {
+export interface Genre {
   genre_id: string
   genre_name: string
   genre_eng_name: string
 }
 
-export type Person = {
+export interface Person {
   person_id: string
   person_name: string
 }
 
-export type SubtitleOption = {
+export interface SubtitleOption {
   ep_id: string
   subtitle_option: string
   ep_title: string

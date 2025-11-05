@@ -10,7 +10,7 @@ import { removeSymbols } from '../../utils/remove'
 
 import titleVariants from '@/compare/title-variants.json'
 
-export type BuildSearchQueryArgs = {
+export interface BuildSearchQueryArgs {
   /** 動画タイトル or 解析結果 */
   input: string | ParsedResult
 
