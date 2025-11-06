@@ -22,7 +22,7 @@ function isResponseJsonOk(
  * コマンド付きコメント判定
  */
 function isCommentWithCommand(cmt: string) {
-  return /\/[a-z]+\s/.test(cmt)
+  return /^\/[a-z_]+(?:\s|$)/.test(cmt)
 }
 
 export async function kakolog<
