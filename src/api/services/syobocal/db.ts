@@ -40,7 +40,7 @@ export async function db<Command extends SyoboCalCommand>(
     const res = await fetch(url, { headers })
     const text = await res.text()
 
-    const xml = text && (xmlParser.parse(text) as SyoboCalResponseXml<Command>)
+    const xml: SyoboCalResponseXml<Command> = xmlParser.parse(text)
 
     if (xml) {
       switch (command) {
