@@ -5,7 +5,7 @@ import type {
   JikkyoKakologResponse,
   JikkyoKakologResponseOk,
 } from '@/types/api/jikkyo/kakolog'
-import type { V1Thread } from '@xpadev-net/niconicomments'
+import type { V1Thread, V1Comment } from '@xpadev-net/niconicomments'
 
 import { logger } from '@/utils/logger'
 import { toISOStringTz } from '@/utils/toISOStringTz'
@@ -80,37 +80,39 @@ export async function kakolog<
           if (options?.compatV1Thread) {
             const starttime_ms = starttime * 1000
 
-            const comments: V1Thread['comments'] = json.packet.flatMap(({ chat }, idx) => {
-              if (chat.deleted || !chat.content || isCommentWithCommand(chat.content)) {
-                return []
-              }
+            const comments = json.packet
+              .filter(({ chat }) => {
+                return !chat.deleted && chat.content && !isCommentWithCommand(chat.content)
+              })
+              .map<V1Comment>(({ chat }, idx) => {
+                const date_ms = Math.trunc(
+                  parseInt(chat.date) * 1000 +
+                    (chat.date_usec ? parseInt(chat.date_usec) / 1000 : 0)
+                )
+                const vposMs = date_ms - starttime_ms
 
-              const date_ms = Math.trunc(
-                parseInt(chat.date) * 1000 + (chat.date_usec ? parseInt(chat.date_usec) / 1000 : 0)
-              )
-              const vposMs = date_ms - starttime_ms
-
-              return {
-                id: `${chat.thread}:${chat.no}`,
-                no: idx + 1,
-                vposMs: vposMs,
-                body: chat.content,
-                commands: chat.mail?.split(' ') ?? [],
-                userId: chat.user_id,
-                isPremium: chat.premium === '1',
-                score: 0,
-                postedAt: toISOStringTz(new Date(date_ms)),
-                nicoruCount: 0,
-                nicoruId: null,
-                source: 'truck',
-                isMyPost: false,
-              }
-            })
+                return {
+                  id: `${chat.thread}:${chat.no}`,
+                  no: idx + 1,
+                  vposMs: vposMs,
+                  body: chat.content,
+                  commands: chat.mail?.split(' ') ?? [],
+                  userId: chat.user_id,
+                  isPremium: chat.premium === '1',
+                  score: 0,
+                  postedAt: toISOStringTz(new Date(date_ms)),
+                  nicoruCount: 0,
+                  nicoruId: null,
+                  source: 'truck',
+                  isMyPost: false,
+                }
+              })
+            const commentCount = comments.length
 
             const v1Thread: V1Thread = {
               id: `${jkChId}:${starttime}-${endtime}`,
               fork: 'jikkyo',
-              commentCount: comments.length,
+              commentCount,
               comments,
             }
 
