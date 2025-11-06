@@ -67,6 +67,12 @@ export interface JikkyoKakologChatData {
   anonymity?: '1'
 
   /**
+   * NX-Jikkyo に投稿されたコメントであれば 1 (過去ログ API 独自のフィールド)
+   * ニコニコ実況に投稿されたコメントでは省略される
+   */
+  nx_jikkyo?: '1'
+
+  /**
    * コメント本文
    * @description AA など、まれに複数行コメントがあるので注意
    */
