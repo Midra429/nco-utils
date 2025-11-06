@@ -59,6 +59,10 @@
       "import": "./dist/api/services/nhkPlus/index.js",
       "types": "./dist/api/services/nhkPlus/index.d.ts"
     },
+    "./api/services/nicolog": {
+      "import": "./dist/api/services/nicolog/index.js",
+      "types": "./dist/api/services/nicolog/index.d.ts"
+    },
     "./api/services/niconico": {
       "import": "./dist/api/services/niconico/index.js",
       "types": "./dist/api/services/niconico/index.d.ts"
