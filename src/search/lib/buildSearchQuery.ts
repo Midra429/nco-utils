@@ -9,6 +9,7 @@ import { parse } from '@/parse'
 import { removeSymbols } from '../../utils/remove'
 
 import titleVariants from '@/compare/title-variants.json'
+import { similarity } from '@/utils/levenshtein'
 
 export interface BuildSearchQueryArgs {
   /** 動画タイトル or 解析結果 */
@@ -170,8 +171,9 @@ export function buildSearchQuery(
       const epKansuji = Number.isInteger(epNumber) && number2kanji(epNumber)
 
       const episodeKeywords = (
-        !subtitleStripped?.includes(titleStripped)
-          ? [
+        subtitleStripped && 0.85 <= similarity(titleStripped, subtitleStripped)
+          ? [epNumber, zeroPadding(epNumber, 2), epKansuji]
+          : [
               `${epNumber}話`,
               epKansuji && `${epKansuji}話`,
               `エピソード${epNumber}`,
@@ -183,7 +185,6 @@ export function buildSearchQuery(
 
               subtitleStripped && `"${subtitleStripped}"`,
             ]
-          : [epNumber, epKansuji]
       ).filter((v) => v != null)
 
       keywords.push([...new Set(episodeKeywords)].join(' OR '))
