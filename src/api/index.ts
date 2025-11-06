@@ -9,6 +9,7 @@ import * as nhkPlus from './services/nhkPlus'
 import * as tver from './services/tver'
 import * as jikkyo from './services/jikkyo'
 import * as syobocal from './services/syobocal'
+import * as nicolog from './services/nicolog'
 
 export const ncoApi = {
   danime,
@@ -22,4 +23,5 @@ export const ncoApi = {
   tver,
   jikkyo,
   syobocal,
+  nicolog,
 }
