@@ -24,11 +24,13 @@ export function parseXml(data: string | LegacyApiXml): LegacyApiXml | null {
 }
 
 export function chatItemToV1Comment(chat: ChatItem): V1Comment {
-  const date_ms = Math.trunc(Number(chat.date) * 1000 + Number(chat.date_usec) / 1000)
+  const date_ms = Math.trunc(
+    Number(chat.date) * 1000 + (chat.date_usec ? Number(chat.date_usec) / 1000 : 0)
+  )
 
   return {
     id: `${chat.thread}:${chat.no}`,
-    no: Number(chat.no!),
+    no: Number(chat.no),
     vposMs: Number(chat.vpos),
     body: chat.content,
     commands: chat.mail?.split(' ') ?? [],
