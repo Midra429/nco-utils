@@ -32,7 +32,7 @@ export function chatItemToV1Comment(chat: ChatItem): V1Comment {
   return {
     id: `${chat.thread}:${chat.no}`,
     no: Number(chat.no),
-    vposMs: Number(chat.vpos),
+    vposMs: Number(chat.vpos) * 10,
     body: chat.content,
     commands: chat.mail?.split(' ') ?? [],
     userId: chat.user_id!,
