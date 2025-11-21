@@ -9,6 +9,7 @@ const xmlParser = new XMLParser({
   textNodeName: 'content',
   ignoreAttributes: false,
   attributeNamePrefix: '',
+  parseTagValue: false,
 })
 
 function isCommentWithCommand(cmt: string) {
