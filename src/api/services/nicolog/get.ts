@@ -11,7 +11,11 @@ export interface GetRequestBody {
   refresh?: boolean
 }
 
-export async function get(body: GetRequestBody): Promise<GetDataFormatted | null> {
+interface GetFunction {
+  (body: GetRequestBody): Promise<GetDataFormatted | null>
+}
+
+export const get: GetFunction = async (body) => {
   const url = new URL(API_BASE_URL)
 
   try {

@@ -5,17 +5,21 @@ import type { GetDataFormatted } from '@/types/api/nicolog/get'
 import { logger } from '@/utils/logger'
 import { parseXml, legacyApiXmlToV1Thread } from '@/api/utils/niconico/legacy'
 
-export async function file<
-  Result extends
-    | (Compat extends true ? V1Thread : never)
-    | (Compat extends false ? LegacyApiXml : never),
-  Compat extends boolean = false
->(
-  { name, raw_url }: GetDataFormatted,
-  options?: {
-    compatV1Thread?: Compat
-  }
-): Promise<Result | null> {
+interface FileFunction {
+  <
+    Result extends
+      | (Compat extends true ? V1Thread : never)
+      | (Compat extends false ? LegacyApiXml : never),
+    Compat extends boolean = false
+  >(
+    { name, raw_url }: GetDataFormatted,
+    options?: {
+      compatV1Thread?: Compat
+    }
+  ): Promise<Result | null>
+}
+
+export const file: FileFunction = async ({ name, raw_url }, options) => {
   try {
     const res = await fetch(raw_url)
     const text = await res.text()
@@ -30,9 +34,9 @@ export async function file<
       return legacyApiXmlToV1Thread(xml, {
         id: name,
         fork: 'nicolog',
-      }) as Result
+      })
     } else {
-      return xml as Result
+      return xml as any
     }
   } catch (err) {
     logger.error('api/nicolog/file', err)

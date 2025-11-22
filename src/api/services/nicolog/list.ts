@@ -13,7 +13,11 @@ export interface ListRequestBody {
   refresh?: boolean
 }
 
-export async function list(body?: ListRequestBody): Promise<ListDataFormatted | null> {
+interface ListFunction {
+  (body?: ListRequestBody): Promise<ListDataFormatted | null>
+}
+
+export const list: ListFunction = async (body) => {
   body ??= {}
   body.path ||= NICO_LIVE_ANIME_ROOT
 
