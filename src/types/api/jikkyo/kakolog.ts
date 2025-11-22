@@ -24,13 +24,18 @@ export interface JikkyoKakologResponseJsonError {
   error: string
 }
 
-export type JikkyoKakologResponseOk<Format extends JikkyoKakologFormat> =
-  | (Format extends 'xml' ? string : never)
-  | (Format extends 'json' ? JikkyoKakologResponseJsonOk : never)
+export type JikkyoKakologResponseOk<Format extends JikkyoKakologFormat> = Format extends 'xml'
+  ? string
+  : Format extends 'json'
+  ? JikkyoKakologResponseJsonOk
+  : never
 
 export type JikkyoKakologResponseError<Format extends JikkyoKakologFormat> =
-  | (Format extends 'xml' ? undefined : never)
-  | (Format extends 'json' ? JikkyoKakologResponseJsonError : never)
+  | Format extends 'xml'
+      ? undefined
+      : Format extends 'json'
+      ? JikkyoKakologResponseJsonError
+      : never
 
 export type JikkyoKakologResponse<Format extends JikkyoKakologFormat> =
   | JikkyoKakologResponseOk<Format>

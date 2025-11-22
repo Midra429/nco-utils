@@ -6,18 +6,14 @@ const API_BASE_URL = 'http://nicolog.ecchi.club/api/fs/list'
 
 export const NICO_LIVE_ANIME_ROOT = '/nico-live-anime'
 
-export interface ListRequestBody {
+interface ListRequestBody {
   path?: string
   page?: number
   per_page?: number
   refresh?: boolean
 }
 
-interface ListFunction {
-  (body?: ListRequestBody): Promise<ListDataFormatted | null>
-}
-
-export const list: ListFunction = async (body) => {
+export async function list(body?: ListRequestBody): Promise<ListDataFormatted | null> {
   body ??= {}
   body.path ||= NICO_LIVE_ANIME_ROOT
 

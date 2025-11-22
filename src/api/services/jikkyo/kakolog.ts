@@ -25,20 +25,21 @@ function isCommentWithCommand(cmt: string) {
   return /^\/[a-z_]+(?:\s|$)/.test(cmt)
 }
 
-export async function kakolog<
-  Format extends JikkyoKakologFormat,
-  Result extends
-    | (Compat extends true ? V1Thread : never)
-    | (Compat extends false ? JikkyoKakologResponseOk<Format> : never),
-  Compat extends boolean = false
->(
+export async function kakolog<Format extends JikkyoKakologFormat, Compat extends boolean = false>(
   jkChId: JikkyoChannelId,
   params: JikkyoKakologParams<Format>,
   options?: {
     compatV1Thread?: Compat
     userAgent?: string
   }
-): Promise<Result | null> {
+): Promise<
+  | (Compat extends true
+      ? V1Thread
+      : Compat extends false
+      ? JikkyoKakologResponseOk<Format>
+      : never)
+  | null
+> {
   if (params.starttime < params.endtime) {
     const url = new URL(jkChId, API_BASE_URL)
 
@@ -66,7 +67,7 @@ export async function kakolog<
           const xml = (await res.text()) as JikkyoKakologResponse<'xml'>
 
           if (xml) {
-            return xml as Result
+            return xml as any
           }
         }
 
@@ -121,9 +122,9 @@ export async function kakolog<
               comments,
             }
 
-            return v1Thread as Result
+            return v1Thread as any
           } else {
-            return json as Result
+            return json as any
           }
         }
       }

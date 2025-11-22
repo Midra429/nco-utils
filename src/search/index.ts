@@ -6,4 +6,4 @@ export const ncoSearch = {
   niconico,
   syobocal,
   nicolog,
-}
+} as const

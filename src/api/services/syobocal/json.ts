@@ -9,13 +9,17 @@ import { logger } from '@/utils/logger'
 
 const API_BASE_URL = 'https://cal.syoboi.jp/json.php'
 
-export async function json<Command extends SyoboCalReqCommand>(
-  commands: Command[],
-  params: SyoboCalParameters<Command>,
-  options?: {
-    userAgent?: string
-  }
-): Promise<UnionToIntersection<SyoboCalResponse<Command>> | null> {
+interface JsonFunction {
+  <Command extends SyoboCalReqCommand>(
+    commands: Command[],
+    params: SyoboCalParameters<Command>,
+    options?: {
+      userAgent?: string
+    }
+  ): Promise<UnionToIntersection<SyoboCalResponse<Command>> | null>
+}
+
+export const json: JsonFunction = async (commands, params, options) => {
   const url = new URL(API_BASE_URL)
 
   url.searchParams.set('Req', commands.join())

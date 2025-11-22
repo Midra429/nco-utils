@@ -24,4 +24,4 @@ export const ncoApi = {
   jikkyo,
   syobocal,
   nicolog,
-}
+} as const

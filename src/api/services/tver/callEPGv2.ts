@@ -14,7 +14,7 @@ function getCurrentDate() {
   return `${year}/${month}/${day}`
 }
 
-export interface CallEPGv2Params {
+interface CallEPGv2Params {
   date?: string
   area?: string
   type?: 'ota' | 'bs'

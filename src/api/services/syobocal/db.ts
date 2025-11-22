@@ -14,13 +14,17 @@ const xmlParser = new XMLParser({
   parseTagValue: false,
 })
 
-export async function db<Command extends SyoboCalCommand>(
-  command: Command,
-  params: SyoboCalParameters<Command>,
-  options?: {
-    userAgent?: string
-  }
-): Promise<SyoboCalResponseJson<Command> | null> {
+interface DbFunction {
+  <Command extends SyoboCalCommand>(
+    command: Command,
+    params: SyoboCalParameters<Command>,
+    options?: {
+      userAgent?: string
+    }
+  ): Promise<SyoboCalResponseJson<Command> | null>
+}
+
+export const db: DbFunction = async (command, params, options) => {
   const url = new URL(API_BASE_URL)
 
   url.searchParams.set('Command', command)
@@ -40,7 +44,7 @@ export async function db<Command extends SyoboCalCommand>(
     const res = await fetch(url, { headers })
     const text = await res.text()
 
-    const xml: SyoboCalResponseXml<Command> = xmlParser.parse(text)
+    const xml: SyoboCalResponseXml<any> = xmlParser.parse(text)
 
     if (xml) {
       switch (command) {
@@ -50,7 +54,7 @@ export async function db<Command extends SyoboCalCommand>(
 
           return Object.fromEntries(
             (Array.isArray(titleItem) ? titleItem : [titleItem]).map((item) => [item.TID, item])
-          ) as SyoboCalResponseJson<'TitleLookup'>
+          )
         }
 
         case 'ProgLookup': {
@@ -59,7 +63,7 @@ export async function db<Command extends SyoboCalCommand>(
 
           return Object.fromEntries(
             (Array.isArray(progItem) ? progItem : [progItem]).map((item) => [item.PID, item])
-          ) as SyoboCalResponseJson<'ProgLookup'>
+          )
         }
       }
     }

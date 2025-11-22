@@ -18,7 +18,7 @@ function compareTitleVariants(titleA: string, titleB: string): boolean {
   return titleVariants.find((v) => v.includes(titleA))?.includes(titleB) || false
 }
 
-export interface CompareOptions {
+interface CompareOptions {
   strict?: boolean
 }
 

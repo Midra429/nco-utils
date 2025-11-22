@@ -5,17 +5,17 @@ import { logger } from '@/utils/logger'
 
 import { thread_key } from './thread_key'
 
-export interface ThreadsRequestBody {
+function isResponseOk(json: Threads): json is Required<Threads> {
+  return json.meta.status === 200
+}
+
+interface ThreadsRequestBody {
   params: NvComment['params']
   threadKey: NvComment['threadKey']
   additionals: {
     when?: number
     res_from?: number
   }
-}
-
-function isResponseOk(json: Threads): json is Required<Threads> {
-  return json.meta.status === 200
 }
 
 export async function threads(

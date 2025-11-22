@@ -4,18 +4,14 @@ import { logger } from '@/utils/logger'
 
 const API_BASE_URL = 'http://nicolog.ecchi.club/api/fs/get'
 
-export interface GetRequestBody {
+interface GetRequestBody {
   path: string
   page?: number
   per_page?: number
   refresh?: boolean
 }
 
-interface GetFunction {
-  (body: GetRequestBody): Promise<GetDataFormatted | null>
-}
-
-export const get: GetFunction = async (body) => {
+export async function get(body: GetRequestBody): Promise<GetDataFormatted | null> {
   const url = new URL(API_BASE_URL)
 
   try {
