@@ -36,6 +36,7 @@ export interface Related {
 }
 
 export interface GetDataFormatted extends Omit<GetData, 'modified' | 'created' | 'related'> {
+  id: string
   modified: number
   created: number
   related: RelatedFormatted[] | null
