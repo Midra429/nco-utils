@@ -14,17 +14,13 @@ const xmlParser = new XMLParser({
   parseTagValue: false,
 })
 
-interface DbFunction {
-  <Command extends SyoboCalCommand>(
-    command: Command,
-    params: SyoboCalParameters<Command>,
-    options?: {
-      userAgent?: string
-    }
-  ): Promise<SyoboCalResponseJson<Command> | null>
-}
-
-export const db: DbFunction = async (command, params, options) => {
+export async function db<Command extends SyoboCalCommand>(
+  command: Command,
+  params: SyoboCalParameters<Command>,
+  options?: {
+    userAgent?: string
+  }
+): Promise<SyoboCalResponseJson<Command> | null> {
   const url = new URL(API_BASE_URL)
 
   url.searchParams.set('Command', command)

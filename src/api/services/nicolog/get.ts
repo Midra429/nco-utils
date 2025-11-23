@@ -4,7 +4,7 @@ import { logger } from '@/utils/logger'
 
 const API_BASE_URL = 'http://nicolog.ecchi.club/api/fs/get'
 
-interface GetRequestBody {
+export interface GetRequestBody {
   path: string
   page?: number
   per_page?: number

@@ -1,4 +1,5 @@
 import type {
+  Item,
   ChannelVideoDAnimeLinksResponse,
   ChannelVideoDAnimeLinksResponseOk,
 } from '@/types/api/niconico/channelVideoDAnimeLinks'
@@ -13,7 +14,7 @@ function isResponseOk(
   return json.meta.status === 200
 }
 
-export async function channelVideoDAnimeLinks(videoId: string) {
+export async function channelVideoDAnimeLinks(videoId: string): Promise<Item | null> {
   const url = new URL(API_BASE_URL)
 
   url.searchParams.set('videoId', videoId)

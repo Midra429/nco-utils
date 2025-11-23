@@ -9,7 +9,7 @@ function isResponseOk(json: Threads): json is Required<Threads> {
   return json.meta.status === 200
 }
 
-interface ThreadsRequestBody {
+export interface ThreadsRequestBody {
   params: NvComment['params']
   threadKey: NvComment['threadKey']
   additionals: {

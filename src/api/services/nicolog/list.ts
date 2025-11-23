@@ -6,7 +6,7 @@ const API_BASE_URL = 'http://nicolog.ecchi.club/api/fs/list'
 
 export const NICO_LIVE_ANIME_ROOT = '/nico-live-anime'
 
-interface ListRequestBody {
+export interface ListRequestBody {
   path?: string
   page?: number
   per_page?: number

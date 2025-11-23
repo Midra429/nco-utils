@@ -10,7 +10,9 @@ export async function file<Compat extends boolean = false>(
   options?: {
     compatV1Thread?: Compat
   }
-): Promise<(Compat extends true ? V1Thread : Compat extends false ? LegacyApiXml : never) | null> {
+): Promise<
+  (Compat extends true ? V1Thread : never) | (Compat extends false ? LegacyApiXml : never) | null
+> {
   try {
     const res = await fetch(raw_url)
     const text = await res.text()

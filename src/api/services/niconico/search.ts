@@ -13,13 +13,9 @@ function isResponseOk(json: SearchResponse): json is SearchResponseOk {
   return json.meta.status === 200
 }
 
-interface SearchFunction {
-  <FieldKey extends SearchQueryFieldKey = never>(
-    query: SearchQuery<FieldKey>
-  ): Promise<SearchResponseOk<FieldKey> | null>
-}
-
-export const search: SearchFunction = async (query) => {
+export async function search<FieldKey extends SearchQueryFieldKey = never>(
+  query: SearchQuery<FieldKey>
+): Promise<SearchResponseOk<FieldKey> | null> {
   const url = new URL(API_BASE_URL)
 
   url.searchParams.set('q', query.q)

@@ -33,11 +33,8 @@ export async function kakolog<Format extends JikkyoKakologFormat, Compat extends
     userAgent?: string
   }
 ): Promise<
-  | (Compat extends true
-      ? V1Thread
-      : Compat extends false
-      ? JikkyoKakologResponseOk<Format>
-      : never)
+  | (Compat extends true ? V1Thread : never)
+  | (Compat extends false ? JikkyoKakologResponseOk<Format> : never)
   | null
 > {
   if (params.starttime < params.endtime) {
