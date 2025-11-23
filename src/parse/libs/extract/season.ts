@@ -180,7 +180,7 @@ const SEASON_SP_PROB_LOW: RegExp[] = [
  */
 const SEASON_FROM_TITLE: RegExp[] = [
   // 響け!ユーフォニアム3
-  new RegExp(`(?<=\\S+\\s?)` + `(?<number>\\d)` + `(?=$)`, 'd'),
+  new RegExp(`(?<=\\S+\\s?)` + `(?<!\\d+)(?<number>\\d)` + `(?=$)`, 'd'),
   // 魔王学院の不適合者 II
   new RegExp(
     `(?<=[\\p{sc=Hiragana}\\p{sc=Katakana}\\p{sc=Han}]+\\s?)` + `(?<romannum>IV|I{0,3})` + `(?=$)`,
