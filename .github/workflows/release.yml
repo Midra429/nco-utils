@@ -12,12 +12,15 @@ on:
           - minor
           - patch
 
+permissions:
+  id-token: write
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      id-token: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
 
@@ -57,8 +60,6 @@ jobs:
       - name: パッケージを公開
         run: |
           npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: リポジトリへプッシュ
         run: |
@@ -67,5 +68,3 @@ jobs:
 
       - name: GitHubへリリース
         run: gh release create "${VERSION}" --generate-notes
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
