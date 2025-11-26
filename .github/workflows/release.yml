@@ -12,15 +12,12 @@ on:
           - minor
           - patch
 
-permissions:
-  id-token: write
-  contents: write
-
 jobs:
   release:
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      id-token: write
+      contents: write
     steps:
       - uses: actions/checkout@v6
 
@@ -68,3 +65,5 @@ jobs:
 
       - name: GitHubへリリース
         run: gh release create "${VERSION}" --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
