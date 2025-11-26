@@ -6,7 +6,7 @@ import { logger } from '@/utils/logger'
 import { parseXml, legacyApiXmlToV1Thread } from '@/api/utils/niconico/legacy'
 
 export async function file<Compat extends boolean = false>(
-  { name, raw_url }: GetDataFormatted,
+  { id, raw_url }: GetDataFormatted,
   options?: {
     compatV1Thread?: Compat
   }
@@ -25,7 +25,7 @@ export async function file<Compat extends boolean = false>(
 
     if (options?.compatV1Thread) {
       return legacyApiXmlToV1Thread(xml, {
-        id: name,
+        id,
         fork: 'nicolog',
       }) as any
     } else {
