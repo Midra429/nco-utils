@@ -1,11 +1,11 @@
-import type { Threads, ThreadsData } from '@/types/api/niconico/threads'
+import type { V1Threads, V1ThreadsData } from '@/types/api/niconico/v1/threads'
 import type { DataComment, NvComment } from '@/types/api/niconico/video'
 
 import { logger } from '@/utils/logger'
 
-import { thread_key } from './thread_key'
+import { threadKey } from './threadKey'
 
-function isResponseOk(json: Threads): json is Required<Threads> {
+function isResponseOk(json: V1Threads): json is Required<V1Threads> {
   return json.meta.status === 200
 }
 
@@ -22,7 +22,7 @@ export async function threads(
   comment: DataComment | null,
   additionals?: ThreadsRequestBody['additionals'],
   refreshThreadKey: boolean = true
-): Promise<ThreadsData | null> {
+): Promise<V1ThreadsData | null> {
   if (comment) {
     const url = new URL('/v1/threads', comment.nvComment.server)
 
@@ -45,15 +45,15 @@ export async function threads(
         cache: 'no-store',
         body: JSON.stringify(body),
       })
-      const json = (await res.json()) as Threads
+      const json = (await res.json()) as V1Threads
 
       if (!isResponseOk(json)) {
         // threadKeyを再取得
         if (refreshThreadKey && json.meta.errorCode === 'EXPIRED_TOKEN') {
-          const threadKey = await thread_key(comment.threads[0]!.videoId)
+          const key = await threadKey(comment.threads[0]!.videoId)
 
-          if (threadKey) {
-            comment.nvComment.threadKey = threadKey
+          if (key) {
+            comment.nvComment.threadKey = key
 
             return threads(comment, additionals, false)
           }
@@ -74,6 +74,6 @@ export async function threads(
 export function multipleThreads(
   comments: (DataComment | null)[],
   additionals?: ThreadsRequestBody['additionals']
-): Promise<(ThreadsData | null)[]> {
+): Promise<(V1ThreadsData | null)[]> {
   return Promise.all(comments.map((comment) => threads(comment, additionals)))
 }

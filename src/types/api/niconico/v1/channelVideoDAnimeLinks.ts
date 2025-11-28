@@ -1,17 +1,15 @@
-export type ChannelVideoDAnimeLinksResponse =
-  | ChannelVideoDAnimeLinksResponseOk
-  | ChannelVideoDAnimeLinksResponseError
+export type V1DAnimeLinksResponse = V1DAnimeLinksResponseOk | V1DAnimeLinksResponseError
 
-export interface ChannelVideoDAnimeLinksResponseOk {
+export interface V1DAnimeLinksResponseOk {
   meta: {
     status: 200
   }
   data: {
-    items: Item[]
+    items: V1DAnimeLinksItem[]
   }
 }
 
-export interface ChannelVideoDAnimeLinksResponseError {
+export interface V1DAnimeLinksResponseError {
   meta: {
     status: number
     errorCode?: string
@@ -20,7 +18,7 @@ export interface ChannelVideoDAnimeLinksResponseError {
   }
 }
 
-export interface Item {
+export interface V1DAnimeLinksItem {
   channel: Channel
   isChannelMember: boolean
   linkedVideoId: string

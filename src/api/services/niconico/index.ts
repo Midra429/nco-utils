@@ -1,5 +1,3 @@
 export * from './search'
 export * from './video'
-export * from './threads'
-export * from './thread_key'
-export * from './channelVideoDAnimeLinks'
+export * as v1 from './v1'

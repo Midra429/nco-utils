@@ -5,7 +5,7 @@ import type {
   JikkyoKakologResponse,
   JikkyoKakologResponseOk,
 } from '@/types/api/jikkyo/kakolog'
-import type { V1Thread, V1Comment } from '@xpadev-net/niconicomments'
+import type { V1Thread, V1Comment } from '@/types/api/niconico/v1/threads'
 
 import { logger } from '@/utils/logger'
 import { toISOStringTz } from '@/utils/toISOStringTz'

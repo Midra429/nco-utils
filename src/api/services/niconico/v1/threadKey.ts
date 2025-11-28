@@ -1,14 +1,14 @@
-import type { ThreadKey } from '@/types/api/niconico/thread_key'
+import type { V1ThreadKeyResponse } from '@/types/api/niconico/v1/threadKey'
 
 import { logger } from '@/utils/logger'
 
 const API_BASE_URL = 'https://nvapi.nicovideo.jp/v1/comment/keys/thread'
 
-function isResponseOk(json: ThreadKey): json is Required<ThreadKey> {
+function isResponseOk(json: V1ThreadKeyResponse): json is Required<V1ThreadKeyResponse> {
   return json.meta.status === 200
 }
 
-export async function thread_key(videoId: string): Promise<string | null> {
+export async function threadKey(videoId: string): Promise<string | null> {
   const url = new URL(API_BASE_URL)
 
   url.searchParams.set('videoId', videoId)
@@ -22,7 +22,7 @@ export async function thread_key(videoId: string): Promise<string | null> {
         'X-Niconico-Language': 'ja-jp',
       },
     })
-    const json = (await res.json()) as ThreadKey
+    const json = (await res.json()) as V1ThreadKeyResponse
 
     if (!isResponseOk(json)) {
       throw new Error(`${json.meta.status} ${json.meta.errorCode}`)

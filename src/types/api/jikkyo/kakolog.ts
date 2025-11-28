@@ -1,4 +1,4 @@
-import type { ChatItem } from '@/types/api/niconico/legacy'
+import type { LegacyXmlChat } from '@/types/api/niconico/legacy/xml'
 
 /**
  * レスポンスのフォーマット
@@ -16,7 +16,7 @@ export interface JikkyoKakologParams<Format extends JikkyoKakologFormat> {
 
 export interface JikkyoKakologResponseJsonOk {
   packet: {
-    chat: ChatItem
+    chat: LegacyXmlChat
   }[]
 }
 

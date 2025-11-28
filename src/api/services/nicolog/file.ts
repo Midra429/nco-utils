@@ -1,9 +1,9 @@
-import type { V1Thread } from '@xpadev-net/niconicomments'
-import type { LegacyApiXml } from '@/types/api/niconico/legacy'
 import type { GetDataFormatted } from '@/types/api/nicolog/get'
+import type { V1Thread } from '@/types/api/niconico/v1/threads'
+import type { LegacyXml } from '@/types/api/niconico/legacy/xml'
 
 import { logger } from '@/utils/logger'
-import { parseXml, legacyApiXmlToV1Thread } from '@/api/utils/niconico/legacy'
+import { parseLegacyXml, legacyXmlToV1Thread } from '@/api/utils/niconico/legacy/xml'
 
 export async function file<Compat extends boolean = false>(
   { id, raw_url }: GetDataFormatted,
@@ -11,20 +11,16 @@ export async function file<Compat extends boolean = false>(
     compatV1Thread?: Compat
   }
 ): Promise<
-  (Compat extends true ? V1Thread : never) | (Compat extends false ? LegacyApiXml : never) | null
+  (Compat extends true ? V1Thread : never) | (Compat extends false ? LegacyXml : never) | null
 > {
   try {
     const res = await fetch(raw_url)
     const text = await res.text()
 
-    const xml = parseXml(text)
-
-    if (!xml) {
-      return null
-    }
+    const xml = parseLegacyXml(text)
 
     if (options?.compatV1Thread) {
-      return legacyApiXmlToV1Thread(xml, {
+      return legacyXmlToV1Thread(xml, {
         id,
         fork: 'nicolog',
       }) as any
