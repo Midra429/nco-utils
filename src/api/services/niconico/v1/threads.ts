@@ -1,11 +1,11 @@
-import type { V1Threads, V1ThreadsData } from '@/types/api/niconico/v1/threads'
+import type { V1Threads, V1ThreadsOk, V1ThreadsData } from '@/types/api/niconico/v1/threads'
 import type { DataComment, NvComment } from '@/types/api/niconico/video'
 
 import { logger } from '@/utils/logger'
 
 import { threadKey } from './threadKey'
 
-function isResponseOk(json: V1Threads): json is Required<V1Threads> {
+function isResponseOk(json: V1Threads): json is V1ThreadsOk {
   return json.meta.status === 200
 }
 

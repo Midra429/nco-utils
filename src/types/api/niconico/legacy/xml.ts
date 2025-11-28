@@ -2,8 +2,8 @@ import * as v from 'valibot'
 
 export interface LegacyXml {
   packet: {
-    thread?: LegacyXmlThread
-    global_num_res?: LegacyXmlGlobalNumRes
+    thread?: LegacyXmlThread[]
+    global_num_res?: LegacyXmlGlobalNumRes[]
     chat: LegacyXmlChat[]
   }
 }
@@ -25,7 +25,7 @@ export const LegacyXmlChatSchema = v.object({
   /**
    * コメントのスレッド ID
    */
-  thread: v.optional(v.string()),
+  thread: v.string(),
 
   /**
    * コメント番号（コメ番）
@@ -54,7 +54,7 @@ export const LegacyXmlChatSchema = v.object({
    * ユーザー ID
    * @description コマンドに 184 が指定されている場合は匿名化される
    */
-  user_id: v.string(),
+  user_id: v.pipe(v.string(), v.minLength(1)),
 
   /**
    * コメントのコマンド

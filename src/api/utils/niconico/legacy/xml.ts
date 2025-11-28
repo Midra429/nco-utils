@@ -1,4 +1,9 @@
-import type { V1Thread, V1Comment } from '@/types/api/niconico/v1/threads'
+import type {
+  V1ThreadsOk,
+  V1GlobalComment,
+  V1Thread,
+  V1Comment,
+} from '@/types/api/niconico/v1/threads'
 import type { LegacyXml, LegacyXmlChat } from '@/types/api/niconico/legacy/xml'
 
 import * as v from 'valibot'
@@ -24,7 +29,7 @@ function xmlChatToV1Comment(chat: LegacyXmlChat): V1Comment {
   )
 
   return {
-    id: `${chat.thread ?? chat.user_id}:${chat.no}`,
+    id: `${chat.thread}:${chat.no}`,
     no: Number(chat.no),
     vposMs: Number(chat.vpos) * 10,
     body: chat.content,
@@ -43,6 +48,12 @@ function xmlChatToV1Comment(chat: LegacyXmlChat): V1Comment {
 export function parseLegacyXml(text: string): LegacyXml {
   const xml: LegacyXml = xmlParser.parse(text)
 
+  if (xml.packet.thread && !Array.isArray(xml.packet.thread)) {
+    xml.packet.thread = [xml.packet.thread]
+  }
+  if (xml.packet.global_num_res && !Array.isArray(xml.packet.global_num_res)) {
+    xml.packet.global_num_res = [xml.packet.global_num_res]
+  }
   if (!Array.isArray(xml.packet.chat)) {
     xml.packet.chat = [xml.packet.chat]
   }
@@ -58,18 +69,66 @@ export function parseLegacyXml(text: string): LegacyXml {
   return xml
 }
 
-export function legacyXmlToV1Thread(
-  input: LegacyXml,
-  additional: Pick<V1Thread, 'id' | 'fork'>
-): V1Thread | null {
-  const comments = input.packet.chat
-    .filter((chat) => !chat.deleted && chat.user_id && !isCommentWithCommand(chat.content))
-    .map(xmlChatToV1Comment)
-  const commentCount = comments.length
+export function legacyXmlToV1Threads(input: LegacyXml, fork?: string): V1ThreadsOk {
+  fork ??= 'legacy-xml'
+
+  const globalCommentsMap: Record<string, V1GlobalComment> = {}
+  const threadsMap: Record<string, V1Thread> = {}
+
+  let chatOnly = false
+
+  if (input.packet.thread && input.packet.global_num_res) {
+    for (const { thread, num_res } of input.packet.global_num_res) {
+      globalCommentsMap[thread] = {
+        id: thread,
+        count: Number(num_res),
+      }
+    }
+  } else {
+    chatOnly = true
+  }
+
+  let threadId: string | null = null
+
+  for (const chat of input.packet.chat) {
+    if (!chat.deleted && !isCommentWithCommand(chat.content)) {
+      let id: string
+
+      if (chatOnly) {
+        threadId ??= chat.thread
+        id = threadId
+      } else {
+        id = chat.thread
+      }
+
+      chat.thread = id
+
+      threadsMap[id] ??= {
+        id,
+        fork,
+        commentCount: 0,
+        comments: [],
+      }
+
+      threadsMap[id]!.comments.push(xmlChatToV1Comment(chat))
+    }
+  }
+
+  if (threadId) {
+    globalCommentsMap[threadId] = {
+      id: threadId,
+      count: threadsMap[threadId]?.comments.length ?? 0,
+    }
+  }
+
+  const globalComments = Object.values(globalCommentsMap)
+  const threads = Object.values(threadsMap).map((thread) => ({
+    ...thread,
+    commentCount: thread.comments.length,
+  }))
 
   return {
-    ...additional,
-    commentCount,
-    comments,
+    meta: { status: 200 },
+    data: { globalComments, threads },
   }
 }

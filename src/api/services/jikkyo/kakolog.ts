@@ -100,7 +100,7 @@ export async function kakolog<Format extends JikkyoKakologFormat, Compat extends
                   vposMs: vposMs,
                   body: chat.content,
                   commands: chat.mail?.split(' ') ?? [],
-                  userId: chat.user_id!,
+                  userId: chat.user_id,
                   isPremium: chat.premium === '1',
                   score: 0,
                   postedAt: toISOStringTz(new Date(date_ms)),

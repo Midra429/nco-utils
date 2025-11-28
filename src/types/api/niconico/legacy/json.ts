@@ -37,7 +37,7 @@ export const LegacyJsonChatSchema = v.object({
   /**
    * コメントのスレッド ID
    */
-  thread: v.optional(v.string()),
+  thread: v.string(),
 
   /**
    * コメント番号（コメ番）
@@ -80,7 +80,7 @@ export const LegacyJsonChatSchema = v.object({
    * ユーザー ID
    * @description コマンドに 184 が指定されている場合は匿名化される
    */
-  user_id: v.string(),
+  user_id: v.pipe(v.string(), v.minLength(1)),
 
   /**
    * コメントのコマンド

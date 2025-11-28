@@ -1,8 +1,20 @@
 import * as v from 'valibot'
 
-export interface V1Threads {
-  meta: V1ThreadsMeta
-  data?: V1ThreadsData
+export type V1Threads = V1ThreadsOk | V1ThreadsError
+
+export interface V1ThreadsOk {
+  meta: {
+    status: 200
+    errorCode?: string
+  }
+  data: V1ThreadsData
+}
+
+export interface V1ThreadsError {
+  meta: {
+    status: number
+    errorCode?: string
+  }
 }
 
 export interface V1ThreadsMeta {
@@ -11,11 +23,13 @@ export interface V1ThreadsMeta {
 }
 
 export interface V1ThreadsData {
-  globalComments: {
-    id: string
-    count: number
-  }[]
+  globalComments: V1GlobalComment[]
   threads: V1Thread[]
+}
+
+export interface V1GlobalComment {
+  id: string
+  count: number
 }
 
 export interface V1Thread {
