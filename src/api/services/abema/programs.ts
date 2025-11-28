@@ -1,10 +1,10 @@
-import type { Program } from '@/types/api/abema/programs'
+import type { ProgramResponse } from '@/types/api/abema/programs'
 
 import { logger } from '@/utils/logger'
 
 const API_BASE_URL = 'https://api.p-c3-e.abema-tv.com/v1/video/programs/'
 
-export async function programs(id: string, token: string): Promise<Program | null> {
+export async function programs(id: string, token: string): Promise<ProgramResponse | null> {
   const url = new URL(id, API_BASE_URL)
 
   url.searchParams.set('division', '0')
@@ -16,7 +16,7 @@ export async function programs(id: string, token: string): Promise<Program | nul
         Authorization: `Bearer ${token}`,
       },
     })
-    const json = (await res.json()) as Program
+    const json = (await res.json()) as ProgramResponse
 
     if (json) {
       return json

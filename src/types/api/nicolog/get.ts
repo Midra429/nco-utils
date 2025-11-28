@@ -1,4 +1,4 @@
-export interface Get {
+export interface GetResponse {
   code: number
   message: string
   data: GetData

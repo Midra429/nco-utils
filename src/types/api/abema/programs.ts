@@ -1,4 +1,4 @@
-export interface Program {
+export interface ProgramResponse {
   id: string
   series: Series
   season?: Season

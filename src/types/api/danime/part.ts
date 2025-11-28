@@ -1,4 +1,4 @@
-export interface Part {
+export interface PartResponse {
   resultCd: string
   version: string
   selfLink: string
@@ -20,9 +20,9 @@ export interface PartData {
   serviceId: string
   oneTimeKey: string
   viewOneTimeToken: string
-  movieFilename: any
-  movieFileSize: any
-  movieFileSizeList: any
+  movieFilename: null
+  movieFileSize: null
+  movieFileSizeList: null
   title: string
   webInitiatorUri: string
   contentUri: string[]
@@ -48,7 +48,7 @@ export interface PartData {
   snsGoogle: string
   snsHatebu: string
   snsLine: string
-  prevTitle: any
+  prevTitle: string | null
   prevMainScenePath: string
   prevPartDispNumber: string
   prevPartTitle: string
@@ -60,14 +60,17 @@ export interface PartData {
   nextPartTitle: string
   nextPartExp: string
   nextContentInfoUri: string | null
-  previousWebViewUrl: any
-  adPartId: any
-  adContentUri: any
-  advertiser: any
-  adClickUri: any
-  adNotifyUri: any
-  adSkipCount: any
-  recommendContentInfo: any
+  previousWebViewUrl: null
+  adPartId: null
+  adContentUri: null
+  advertiser: null
+  adClickUri: null
+  adNotifyUri: null
+  adSkipCount: null
+  chapters: Chapter[]
+  skipWaitTime: number
+  minTimeToSkip: number
+  recommendContentInfo: any[]
   animeNextContentInfoTitle: string
   animeRecommendInfoTitle: string
   bookWorkInfoTitle: string
@@ -78,7 +81,7 @@ export interface PartData {
   goodsProductsDetailInfoUri: string
   bookSpecifiedVolumeInfoTitle: string
   bookSpecifiedVolumeInfoUri: string
-  afterJoinPromotionBannerUrl: any
+  afterJoinPromotionBannerUrl: null
   opSkipAvailable: string
 }
 
@@ -89,3 +92,12 @@ export interface ContentUrls {
   low: string
   lowest: string
 }
+
+export interface Chapter {
+  type: ChapterType
+  start: number
+  end: number
+  showInterface?: boolean
+}
+
+export type ChapterType = 'none' | 'avant' | 'mainStory' | 'cPart'

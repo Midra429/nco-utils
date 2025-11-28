@@ -1,4 +1,4 @@
-export interface Episode {
+export interface EpisodeResponse {
   ep_id: string
   lu_id: string
   lu_title: string

@@ -1,4 +1,4 @@
-import type { Slots, Slot } from '@/types/api/abema/slots'
+import type { SlotsResponse, Slot } from '@/types/api/abema/slots'
 
 import { logger } from '@/utils/logger'
 
@@ -15,7 +15,7 @@ export async function slots(id: string, token: string): Promise<Slot | null> {
         Authorization: `Bearer ${token}`,
       },
     })
-    const json = (await res.json()) as Slots
+    const json = (await res.json()) as SlotsResponse
 
     if (json) {
       return json.slot

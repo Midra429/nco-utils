@@ -1,10 +1,10 @@
-import type { Episode } from '@/types/api/fod/episode'
+import type { EpisodeResponse } from '@/types/api/fod/episode'
 
 import { logger } from '@/utils/logger'
 
 const API_BASE_URL = 'https://i.fod.fujitv.co.jp/apps/api/episode/detail'
 
-export async function episode(id: string, token: string): Promise<Episode | null> {
+export async function episode(id: string, token: string): Promise<EpisodeResponse | null> {
   const url = new URL(API_BASE_URL)
 
   url.searchParams.set('ep_id', id)
@@ -16,7 +16,7 @@ export async function episode(id: string, token: string): Promise<Episode | null
         'X-Authorization': `Bearer ${token}`,
       },
     })
-    const json = (await res.json()) as Episode
+    const json = (await res.json()) as EpisodeResponse
 
     if (json) {
       return json

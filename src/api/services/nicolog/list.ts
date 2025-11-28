@@ -1,4 +1,4 @@
-import type { List, ListDataFormatted, ContentFormatted } from '@/types/api/nicolog/list'
+import type { ListResponse, ListDataFormatted, ContentFormatted } from '@/types/api/nicolog/list'
 
 import { logger } from '@/utils/logger'
 
@@ -27,7 +27,7 @@ export async function list(body?: ListRequestBody): Promise<ListDataFormatted | 
       },
       body: JSON.stringify(body),
     })
-    const json = (await res.json()) as List
+    const json = (await res.json()) as ListResponse
 
     if (json.code !== 200) {
       throw new Error(`${json.code} ${json.message}`)

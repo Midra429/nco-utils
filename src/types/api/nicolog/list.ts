@@ -1,4 +1,4 @@
-export interface List {
+export interface ListResponse {
   code: number
   message: string
   data: ListData

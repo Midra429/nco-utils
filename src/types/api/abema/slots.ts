@@ -1,4 +1,4 @@
-export interface Slots {
+export interface SlotsResponse {
   slot: Slot
 }
 

@@ -1,4 +1,4 @@
-import type { Metadata, Video } from '@/types/api/netflix/metadata'
+import type { MetadataResponse, Video } from '@/types/api/netflix/metadata'
 
 import { logger } from '@/utils/logger'
 
@@ -12,7 +12,7 @@ export async function metadata(movieid: string | number): Promise<Video | null> 
 
   try {
     const res = await fetch(url)
-    const json = (await res.json()) as Metadata
+    const json = (await res.json()) as MetadataResponse
 
     if (json.video) {
       return json.video

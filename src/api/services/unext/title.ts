@@ -1,4 +1,4 @@
-import type { Title, TitleStage } from '@/types/api/unext/title'
+import type { TitleResponse, TitleStage } from '@/types/api/unext/title'
 
 import { logger } from '@/utils/logger'
 
@@ -36,7 +36,7 @@ export async function title(variables: {
         variables,
       }),
     })
-    const json = (await res.json()) as Title
+    const json = (await res.json()) as TitleResponse
 
     if (json.data.webfront_title_stage) {
       return json.data.webfront_title_stage

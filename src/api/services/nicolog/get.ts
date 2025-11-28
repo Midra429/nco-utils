@@ -1,4 +1,4 @@
-import type { Get, GetDataFormatted, RelatedFormatted } from '@/types/api/nicolog/get'
+import type { GetResponse, GetDataFormatted, RelatedFormatted } from '@/types/api/nicolog/get'
 
 import { logger } from '@/utils/logger'
 
@@ -22,7 +22,7 @@ export async function get(body: GetRequestBody): Promise<GetDataFormatted | null
       },
       body: JSON.stringify(body),
     })
-    const json = (await res.json()) as Get
+    const json = (await res.json()) as GetResponse
 
     if (json.code !== 200) {
       throw new Error(`${json.code} ${json.message}`)

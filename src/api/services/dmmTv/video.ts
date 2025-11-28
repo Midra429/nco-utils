@@ -1,4 +1,4 @@
-import type { Video, DataVideo } from '@/types/api/dmmTv/video'
+import type { VideoResponse, Video } from '@/types/api/dmmTv/video'
 
 import { logger } from '@/utils/logger'
 
@@ -16,7 +16,7 @@ export interface VideoVariables {
   isContentId?: boolean
 }
 
-export async function video(variables: VideoVariables): Promise<DataVideo | null> {
+export async function video(variables: VideoVariables): Promise<Video | null> {
   try {
     const res = await fetch(API_BASE_URL, {
       method: 'POST',
@@ -35,7 +35,7 @@ export async function video(variables: VideoVariables): Promise<DataVideo | null
         },
       }),
     })
-    const json = (await res.json()) as Video
+    const json = (await res.json()) as VideoResponse
 
     if (json.data.video) {
       return json.data.video

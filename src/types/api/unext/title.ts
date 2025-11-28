@@ -1,4 +1,4 @@
-export interface Title {
+export interface TitleResponse {
   data: {
     webfront_title_stage: TitleStage
   }

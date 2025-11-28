@@ -1,4 +1,4 @@
-import type { Part, PartData } from '@/types/api/danime/part'
+import type { PartResponse, PartData } from '@/types/api/danime/part'
 
 import { logger } from '@/utils/logger'
 
@@ -12,7 +12,7 @@ export async function part(partId: string): Promise<PartData | null> {
 
   try {
     const res = await fetch(url)
-    const json = (await res.json()) as Part
+    const json = (await res.json()) as PartResponse
 
     if (json.data) {
       return json.data

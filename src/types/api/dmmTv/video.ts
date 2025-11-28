@@ -1,12 +1,12 @@
+export interface VideoResponse {
+  data: VideoData
+}
+
+export interface VideoData {
+  video: Video
+}
+
 export interface Video {
-  data: Data
-}
-
-export interface Data {
-  video: DataVideo
-}
-
-export interface DataVideo {
   id: string
   seasonType: string
   titleName: string

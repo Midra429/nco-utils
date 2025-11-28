@@ -1,4 +1,4 @@
-export interface Metadata {
+export interface MetadataResponse {
   version?: string
   trackIds?: TrackIds
   video?: Video
