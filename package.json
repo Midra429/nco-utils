@@ -67,6 +67,10 @@
       "import": "./dist/api/services/niconico/index.js",
       "types": "./dist/api/services/niconico/index.d.ts"
     },
+    "./api/services/niconico/v1": {
+      "import": "./dist/api/services/niconico/v1/index.js",
+      "types": "./dist/api/services/niconico/v1/index.d.ts"
+    },
     "./api/services/syobocal": {
       "import": "./dist/api/services/syobocal/index.js",
       "types": "./dist/api/services/syobocal/index.d.ts"
