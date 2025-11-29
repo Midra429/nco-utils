@@ -1,5 +1,5 @@
 import type { GetDataFormatted } from '@/types/api/nicolog/get'
-import type { V1ThreadsOk } from '@/types/api/niconico/v1/threads'
+import type { V1Thread } from '@/types/api/niconico/v1/threads'
 import type { LegacyXml } from '@/types/api/niconico/legacy/xml'
 
 import { logger } from '@/utils/logger'
@@ -11,7 +11,7 @@ export async function file<Compat extends boolean = false>(
     compatV1Thread?: Compat
   }
 ): Promise<
-  (Compat extends true ? V1ThreadsOk : never) | (Compat extends false ? LegacyXml : never) | null
+  (Compat extends true ? V1Thread[] : never) | (Compat extends false ? LegacyXml : never) | null
 > {
   try {
     const res = await fetch(raw_url)

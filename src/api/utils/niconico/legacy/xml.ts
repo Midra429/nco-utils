@@ -1,15 +1,15 @@
+import type { V1Thread, V1Comment } from '@/types/api/niconico/v1/threads'
 import type {
-  V1ThreadsOk,
-  V1GlobalComment,
-  V1Thread,
-  V1Comment,
-} from '@/types/api/niconico/v1/threads'
-import type { LegacyXml, LegacyXmlChat } from '@/types/api/niconico/legacy/xml'
+  LegacyXml,
+  LegacyXmlOutput,
+  LegacyXmlChatOutput,
+} from '@/types/api/niconico/legacy/xml'
 
 import * as v from 'valibot'
 import { XMLParser } from 'fast-xml-parser'
 
 import { LegacyXmlChatSchema } from '@/types/api/niconico/legacy/xml'
+import { uid } from '@/utils/uid'
 import { toISOStringTz } from '@/utils/toISOStringTz'
 
 const xmlParser = new XMLParser({
@@ -23,19 +23,17 @@ function isCommentWithCommand(cmt: string) {
   return /^\/[a-z_]+(?:\s|$)/.test(cmt)
 }
 
-function xmlChatToV1Comment(chat: LegacyXmlChat): V1Comment {
-  const date_ms = Math.trunc(
-    Number(chat.date) * 1000 + (chat.date_usec ? Number(chat.date_usec) / 1000 : 0)
-  )
+function xmlChatToV1Comment(chat: LegacyXmlChatOutput): V1Comment {
+  const date_ms = Math.trunc(chat.date * 1000 + chat.date_usec / 1000)
 
   return {
     id: `${chat.thread}:${chat.no}`,
-    no: Number(chat.no),
-    vposMs: Number(chat.vpos) * 10,
+    no: chat.no,
+    vposMs: chat.vpos * 10,
     body: chat.content,
-    commands: chat.mail?.split(' ') ?? [],
+    commands: chat.mail,
     userId: chat.user_id,
-    isPremium: chat.premium === '1',
+    isPremium: chat.premium === 1,
     score: 0,
     postedAt: toISOStringTz(new Date(date_ms)),
     nicoruCount: 0,
@@ -45,20 +43,20 @@ function xmlChatToV1Comment(chat: LegacyXmlChat): V1Comment {
   }
 }
 
-export function parseLegacyXml(text: string): LegacyXml {
-  const xml: LegacyXml = xmlParser.parse(text)
+export function parseLegacyXml(text: string): LegacyXmlOutput {
+  const { packet }: LegacyXml = xmlParser.parse(text)
 
-  if (xml.packet.thread && !Array.isArray(xml.packet.thread)) {
-    xml.packet.thread = [xml.packet.thread]
+  if (packet.thread && !Array.isArray(packet.thread)) {
+    packet.thread = [packet.thread]
   }
-  if (xml.packet.global_num_res && !Array.isArray(xml.packet.global_num_res)) {
-    xml.packet.global_num_res = [xml.packet.global_num_res]
+  if (packet.global_num_res && !Array.isArray(packet.global_num_res)) {
+    packet.global_num_res = [packet.global_num_res]
   }
-  if (!Array.isArray(xml.packet.chat)) {
-    xml.packet.chat = [xml.packet.chat]
+  if (!Array.isArray(packet.chat)) {
+    packet.chat = [packet.chat]
   }
 
-  xml.packet.chat = xml.packet.chat.flatMap((chat) => {
+  const chat = packet.chat.flatMap<LegacyXmlChatOutput>((chat) => {
     try {
       return v.parse(LegacyXmlChatSchema, chat)
     } catch {
@@ -66,69 +64,45 @@ export function parseLegacyXml(text: string): LegacyXml {
     }
   })
 
-  return xml
+  return {
+    packet: { ...packet, chat },
+  }
 }
 
-export function legacyXmlToV1Threads(input: LegacyXml, fork?: string): V1ThreadsOk {
+export function legacyXmlToV1Threads({ packet }: LegacyXmlOutput, fork?: string): V1Thread[] {
   fork ??= 'legacy-xml'
 
-  const globalCommentsMap: Record<string, V1GlobalComment> = {}
   const threadsMap: Record<string, V1Thread> = {}
 
-  let chatOnly = false
+  let customThreadId: string | null = null
 
-  if (input.packet.thread && input.packet.global_num_res) {
-    for (const { thread, num_res } of input.packet.global_num_res) {
-      globalCommentsMap[thread] = {
-        id: thread,
-        count: Number(num_res),
-      }
-    }
-  } else {
-    chatOnly = true
-  }
+  if (!packet.thread && !packet.global_num_res) {
+    const threadIds = packet.chat.map((v) => v.thread)
 
-  let threadId: string | null = null
-
-  for (const chat of input.packet.chat) {
-    if (!chat.deleted && !isCommentWithCommand(chat.content)) {
-      let id: string
-
-      if (chatOnly) {
-        threadId ??= chat.thread
-        id = threadId
-      } else {
-        id = chat.thread
-      }
-
-      chat.thread = id
-
-      threadsMap[id] ??= {
-        id,
-        fork,
-        commentCount: 0,
-        comments: [],
-      }
-
-      threadsMap[id]!.comments.push(xmlChatToV1Comment(chat))
+    if (packet.chat.length === new Set(threadIds).size) {
+      customThreadId = uid()
     }
   }
 
-  if (threadId) {
-    globalCommentsMap[threadId] = {
-      id: threadId,
-      count: threadsMap[threadId]?.comments.length ?? 0,
+  for (const chat of packet.chat) {
+    if (chat.deleted || !chat.thread || isCommentWithCommand(chat.content)) continue
+
+    if (customThreadId) {
+      chat.thread = customThreadId
     }
+
+    threadsMap[chat.thread] ??= {
+      id: chat.thread,
+      fork,
+      commentCount: 0,
+      comments: [],
+    }
+
+    const thread = threadsMap[chat.thread]!
+
+    thread.commentCount++
+    thread.comments.push(xmlChatToV1Comment(chat))
   }
 
-  const globalComments = Object.values(globalCommentsMap)
-  const threads = Object.values(threadsMap).map((thread) => ({
-    ...thread,
-    commentCount: thread.comments.length,
-  }))
-
-  return {
-    meta: { status: 200 },
-    data: { globalComments, threads },
-  }
+  return Object.values(threadsMap)
 }

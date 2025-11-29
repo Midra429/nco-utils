@@ -7,6 +7,9 @@ import type {
 } from '@/types/api/jikkyo/kakolog'
 import type { V1Thread, V1Comment } from '@/types/api/niconico/v1/threads'
 
+import * as v from 'valibot'
+
+import { LegacyXmlChatSchema } from '@/types/api/niconico/legacy/xml'
 import { logger } from '@/utils/logger'
 import { toISOStringTz } from '@/utils/toISOStringTz'
 
@@ -78,38 +81,34 @@ export async function kakolog<Format extends JikkyoKakologFormat, Compat extends
           if (options?.compatV1Thread) {
             const starttime_ms = starttime * 1000
 
-            const comments = json.packet
-              .filter(({ chat }) => {
-                return (
-                  !chat.deleted &&
-                  chat.no &&
-                  chat.user_id &&
-                  chat.content &&
-                  !isCommentWithCommand(chat.content)
-                )
-              })
-              .map<V1Comment>(({ chat }) => {
-                const date_ms = Math.trunc(
-                  Number(chat.date) * 1000 + (chat.date_usec ? Number(chat.date_usec) / 1000 : 0)
-                )
-                const vposMs = date_ms - starttime_ms
+            const comments: V1Comment[] = []
 
-                return {
-                  id: `${chat.thread}:${chat.no}`,
-                  no: Number(chat.no),
-                  vposMs: vposMs,
-                  body: chat.content,
-                  commands: chat.mail?.split(' ') ?? [],
-                  userId: chat.user_id,
-                  isPremium: chat.premium === '1',
-                  score: 0,
-                  postedAt: toISOStringTz(new Date(date_ms)),
-                  nicoruCount: 0,
-                  nicoruId: null,
-                  source: 'truck',
-                  isMyPost: false,
-                }
+            for (const { chat: raw } of json.packet) {
+              const { success, output: chat } = v.safeParse(LegacyXmlChatSchema, raw)
+
+              if (!success || chat.deleted || !chat.thread || isCommentWithCommand(chat.content)) {
+                continue
+              }
+
+              const date_ms = Math.trunc(chat.date * 1000 + chat.date_usec / 1000)
+
+              comments.push({
+                id: `${chat.thread}:${chat.no}`,
+                no: chat.no,
+                vposMs: date_ms - starttime_ms,
+                body: chat.content,
+                commands: chat.mail,
+                userId: chat.user_id,
+                isPremium: chat.premium === 1,
+                score: 0,
+                postedAt: toISOStringTz(new Date(date_ms)),
+                nicoruCount: 0,
+                nicoruId: null,
+                source: 'truck',
+                isMyPost: false,
               })
+            }
+
             const commentCount = comments.length
 
             const v1Thread: V1Thread = {
