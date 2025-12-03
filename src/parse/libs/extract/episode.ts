@@ -2,6 +2,7 @@ import type { ExtractedSegment } from '.'
 
 import { nanoid } from 'nanoid'
 import { kanji2number } from '@geolonia/japanese-numeral'
+import equal from 'fast-deep-equal'
 
 import { CERTAINTY } from '@/parse/constants'
 import { KANSUJI, KANSUJI_OLD, ROMAN_NUM_SHORT } from '@/parse/constants/regexps'
@@ -359,17 +360,28 @@ export function extractEpisodes(input: string): ExtractedSegment[] {
     })
   })
 
-  return segments
-    .filter((seg, idx, ary) => {
-      // 確定度の高い方を優先
-      return !ary.some((other, otherIdx) => {
+  return (
+    segments
+      // 重複削除
+      .filter((seg, idx, ary) => {
         return (
-          otherIdx !== idx &&
-          seg.certainty <= other.certainty &&
-          other.indices[0] <= seg.indices[0] &&
-          seg.indices[1] <= other.indices[1]
+          idx ===
+          ary.findIndex((val) => {
+            return val.certainty === seg.certainty && equal(val.indices, seg.indices)
+          })
         )
       })
-    })
-    .sort((a, b) => a.indices[0] - b.indices[0])
+      // 確定度の高い方を優先
+      .filter((seg, idx, ary) => {
+        return !ary.some((other, otherIdx) => {
+          return (
+            otherIdx !== idx &&
+            seg.certainty < other.certainty &&
+            other.indices[0] <= seg.indices[0] &&
+            seg.indices[1] <= other.indices[1]
+          )
+        })
+      })
+      .sort((a, b) => a.indices[0] - b.indices[0])
+  )
 }
