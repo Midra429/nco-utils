@@ -1,24 +1,23 @@
-import fs from 'fs'
-import path from 'path'
-import { globSync } from 'glob'
+import path from 'node:path'
 
 const OUTPUT_DIR = 'dist'
 
 const FILENAME_CHUNK_REGEXP = /^chunk-[A-Z0-9]{8}$/
 
 const packageJsonPath = path.resolve(__dirname, '../package.json')
-const packageJson = require(packageJsonPath)
+const packageJsonFile = Bun.file(packageJsonPath)
+const packageJson = await packageJsonFile.json()
 
 const outDir = path.resolve(__dirname, `../${OUTPUT_DIR}`)
-const files = globSync(path.join(outDir, '/**/*.js'))
+const glob = new Bun.Glob(path.join(outDir, '/**/*.js'))
 
 packageJson.exports = {}
 
-files.forEach((file) => {
+for await (const file of glob.scan()) {
   const dirSplited = path.relative(outDir, file).split('/')
   const fileName = path.basename(dirSplited.pop()!, '.js')
 
-  if (FILENAME_CHUNK_REGEXP.test(fileName)) return
+  if (FILENAME_CHUNK_REGEXP.test(fileName)) continue
 
   let alias: string
   let importPath: string
@@ -54,10 +53,12 @@ files.forEach((file) => {
     import: importPath,
     types: typesPath,
   }
-})
+}
 
 packageJson.exports = Object.fromEntries(
   Object.entries(packageJson.exports).sort(([a], [b]) => a.localeCompare(b))
 )
 
-fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n')
+await packageJsonFile.write(JSON.stringify(packageJson, null, 2) + '\n')
+
+await Bun.$`bun biome format --write ${packageJsonPath}`

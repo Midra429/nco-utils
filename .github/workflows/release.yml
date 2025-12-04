@@ -42,7 +42,7 @@ jobs:
 
       - name: package.jsonのexportsを更新
         run: |
-          bun scripts/generate-exports.ts
+          bun run scripts/generate-exports.ts
           git add package.json
           git commit -m "Update exports"
         continue-on-error: true
