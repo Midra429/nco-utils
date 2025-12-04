@@ -2,8 +2,6 @@ import path from 'node:path'
 
 const OUTPUT_DIR = 'dist'
 
-const FILENAME_CHUNK_REGEXP = /^chunk-[A-Z0-9]{8}$/
-
 const packageJsonPath = path.resolve(__dirname, '../package.json')
 const packageJsonFile = Bun.file(packageJsonPath)
 const packageJson = await packageJsonFile.json()
@@ -17,7 +15,7 @@ for await (const file of glob.scan()) {
   const dirSplited = path.relative(outDir, file).split('/')
   const fileName = path.basename(dirSplited.pop()!, '.js')
 
-  if (FILENAME_CHUNK_REGEXP.test(fileName)) continue
+  if (dirSplited[0] === '_chunks') continue
 
   let alias: string
   let importPath: string
@@ -61,4 +59,4 @@ packageJson.exports = Object.fromEntries(
 
 await packageJsonFile.write(JSON.stringify(packageJson, null, 2) + '\n')
 
-await Bun.$`bun biome format --write ${packageJsonPath}`
+await Bun.$`bun run biome format --write ${packageJsonPath}`

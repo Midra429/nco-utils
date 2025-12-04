@@ -77,7 +77,7 @@
     // "declarationDir": "./",
 
     /* Interop Constraints */
-    // "isolatedModules": true,
+    "isolatedModules": true,
     "verbatimModuleSyntax": true,
     // "isolatedDeclarations": true,
     // "erasableSyntaxOnly": true,
