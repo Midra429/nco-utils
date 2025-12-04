@@ -23,7 +23,9 @@
   "type": "module",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
     "./api": {
       "import": "./dist/api/index.js",
@@ -85,6 +87,10 @@
       "import": "./dist/api/services/unext/index.js",
       "types": "./dist/api/services/unext/index.d.ts"
     },
+    "./common/*": {
+      "import": "./dist/common/*.js",
+      "types": "./dist/common/*.d.ts"
+    },
     "./compare": {
       "import": "./dist/compare/index.js",
       "types": "./dist/compare/index.d.ts"
@@ -124,10 +130,6 @@
     "./types/*": {
       "import": "./dist/types/*.js",
       "types": "./dist/types/*.d.ts"
-    },
-    "./utils/*": {
-      "import": "./dist/utils/*.js",
-      "types": "./dist/utils/*.d.ts"
     }
   },
   "dependencies": {
