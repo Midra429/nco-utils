@@ -1,6 +1,6 @@
 import type {
   SearchQueryFieldKey,
-  SearchData as _SearchData,
+  SearchData as $SearchData,
 } from '@/types/api/niconico/search'
 import type { SearchTarget } from '@/types/search'
 import type { BuildSearchQueryArgs } from '@/search/lib/buildSearchQuery'
@@ -29,7 +29,7 @@ const fields = [
   'tags',
 ] as const satisfies SearchQueryFieldKey[]
 
-type SearchData = _SearchData<(typeof fields)[number]>
+export type SearchData = $SearchData<(typeof fields)[number]>
 
 type SortedSearchData = {
   [key in SearchTarget]: SearchData[]
@@ -39,21 +39,19 @@ function validateChapters(chapters: SearchData[], duration?: number): boolean {
   const total = chapters.reduce((p, c) => p + c.lengthSeconds, 0)
 
   return (
-    chapters.every((_, idx, ary) => ary.at(idx - 1)) &&
+    chapters.every((_, idx, ary) => ary.at(idx - 1) != null) &&
     (!duration || (total - 5 <= duration && duration <= total + 5))
   )
 }
 
 function sortSearchData(
-  args: BuildSearchQueryArgs & {
-    data: SearchData[]
-  }
+  args: BuildSearchQueryArgs,
+  data: SearchData[]
 ): SortedSearchData {
-  args.input = parse(args.input)
+  const { input, targets } = args
+  const parsed = parse(input)
 
-  const { input: parsed, targets, data } = args
-
-  const contents: SortedSearchData = {
+  const results: SortedSearchData = {
     official: [],
     danime: [],
     chapter: [],
@@ -74,7 +72,7 @@ function sortSearchData(
         if (targets.chapter && compare(parsed, groups!['title']!)) {
           const chapterNum = Number(groups!['chapter'])
 
-          contents.chapter[chapterNum - 1] = val
+          results.chapter[chapterNum - 1] = val
         }
 
         continue
@@ -83,7 +81,7 @@ function sortSearchData(
       // dアニメ
       if (val.channelId === DANIME_CHANNEL_ID) {
         if (targets.danime && compare(parsed, val.title)) {
-          contents.danime.push(val)
+          results.danime.push(val)
         }
 
         continue
@@ -91,7 +89,7 @@ function sortSearchData(
 
       // 公式
       if (targets.official && compare(parsed, val.title)) {
-        contents.official.push(val)
+        results.official.push(val)
 
         continue
       }
@@ -99,7 +97,7 @@ function sortSearchData(
       // コメント専用
       if (val.tags && TAG_SZBH_REGEXP.test(val.tags)) {
         if (targets.szbh && compare(parsed, val.title)) {
-          contents.szbh.push(val)
+          results.szbh.push(val)
         }
 
         continue
@@ -107,25 +105,25 @@ function sortSearchData(
     }
   }
 
-  if (!validateChapters(contents.chapter)) {
-    contents.chapter = []
+  if (!validateChapters(results.chapter)) {
+    results.chapter = []
   }
 
   // 最大一致数より多い場合、無効に
-  if (MAX_MATCH_LENGTH < contents.official.length) {
-    contents.official = []
+  if (MAX_MATCH_LENGTH < results.official.length) {
+    results.official = []
   }
-  if (MAX_MATCH_LENGTH < contents.danime.length) {
-    contents.danime = []
+  if (MAX_MATCH_LENGTH < results.danime.length) {
+    results.danime = []
   }
-  if (MAX_MATCH_LENGTH < contents.chapter.length) {
-    contents.chapter = []
+  if (MAX_MATCH_LENGTH < results.chapter.length) {
+    results.chapter = []
   }
-  if (MAX_MATCH_LENGTH < contents.szbh.length) {
-    contents.szbh = []
+  if (MAX_MATCH_LENGTH < results.szbh.length) {
+    results.szbh = []
   }
 
-  return contents
+  return results
 }
 
 export async function niconico(
@@ -151,10 +149,7 @@ export async function niconico(
     }
   }
 
-  const sorted1 = sortSearchData({
-    ...args,
-    data,
-  })
+  const sorted1 = sortSearchData(args, data)
 
   const isOfficialEmpty = !!targets.official && !sorted1.official.length
   const isDAnimeEmpty = !!targets.danime && !sorted1.danime.length
@@ -198,8 +193,5 @@ export async function niconico(
     return ary.findIndex((v) => v.contentId === val.contentId) === idx
   })
 
-  return sortSearchData({
-    ...args,
-    data,
-  })
+  return sortSearchData(args, data)
 }

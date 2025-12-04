@@ -21,9 +21,8 @@ export async function syobocal(args: {
   channelIds?: SyoboCalChannelId[]
   userAgent: string
 }) {
-  args.input = parse(args.input)
-
-  const { input: parsed, channelIds, userAgent } = args
+  const { input, channelIds, userAgent } = args
+  const parsed = parse(input)
 
   if (!parsed.isSingleEpisode || !parsed.title) {
     return null
@@ -198,7 +197,7 @@ export async function syobocal(args: {
 
   return {
     title: searchResultsAll.find((v) => v.TID === tid)!,
-    subtitle: programs[0]?.STSubTitle ?? null,
+    subtitle: programs[0]!.STSubTitle ?? null,
     programs,
   }
 }
