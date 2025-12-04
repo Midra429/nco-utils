@@ -1,6 +1,6 @@
 {
   "name": "@midra/nco-utils",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "NCOverlay用のユーティリティライブラリ",
   "author": "Midra <me@midra.me> (https://github.com/Midra429)",
   "license": "MIT",
