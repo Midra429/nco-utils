@@ -1,6 +1,6 @@
 import type {
   SearchQueryFieldKey,
-  SearchData as $SearchData,
+  SearchData,
 } from '@/types/api/niconico/search'
 import type { SearchTarget } from '@/types/search'
 import type { BuildSearchQueryArgs } from '@/search/lib/buildSearchQuery'
@@ -29,13 +29,16 @@ const fields = [
   'tags',
 ] as const satisfies SearchQueryFieldKey[]
 
-export type SearchData = $SearchData<(typeof fields)[number]>
+export type SearchDataWithFields = SearchData<(typeof fields)[number]>
 
 type SortedSearchData = {
-  [key in SearchTarget]: SearchData[]
+  [key in SearchTarget]: SearchDataWithFields[]
 }
 
-function validateChapters(chapters: SearchData[], duration?: number): boolean {
+function validateChapters(
+  chapters: SearchDataWithFields[],
+  duration?: number
+): boolean {
   const total = chapters.reduce((p, c) => p + c.lengthSeconds, 0)
 
   return (
@@ -46,7 +49,7 @@ function validateChapters(chapters: SearchData[], duration?: number): boolean {
 
 function sortSearchData(
   args: BuildSearchQueryArgs,
-  data: SearchData[]
+  data: SearchDataWithFields[]
 ): SortedSearchData {
   const { input, targets } = args
   const parsed = parse(input)
@@ -133,7 +136,7 @@ export async function niconico(
 
   const { input: parsed, targets } = args
 
-  let data: SearchData[] = []
+  let data: SearchDataWithFields[] = []
 
   // 1回目
   const searchQuery1 = buildSearchQuery(args)
