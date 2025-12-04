@@ -59,4 +59,4 @@ packageJson.exports = Object.fromEntries(
 
 await packageJsonFile.write(JSON.stringify(packageJson, null, 2) + '\n')
 
-await Bun.$`bun run biome format --write ${packageJsonPath}`
+await Bun.$`biome format --write ${packageJsonPath}`.quiet()

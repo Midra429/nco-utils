@@ -16,10 +16,10 @@
     "test:parse": "bun test ./test/parse.test.ts",
     "test:compare": "bun test ./test/compare.test.ts",
     "compile": "tsc --noEmit --skipLibCheck",
-    "check": "bun run biome check --write",
+    "check": "biome check --write",
     "clean": "rm -rf dist",
     "prebuild": "bun run --shell bun clean",
-    "build": "bun run tsdown"
+    "build": "tsdown"
   },
   "type": "module",
   "module": "./dist/index.js",
