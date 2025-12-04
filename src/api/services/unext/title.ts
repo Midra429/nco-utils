@@ -1,6 +1,6 @@
 import type { TitleResponse, TitleStage } from '@/types/api/unext/title'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://cc.unext.jp'
 

@@ -1,6 +1,6 @@
 import type { V1ThreadKeyResponse } from '@/types/api/niconico/v1/threadKey'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://nvapi.nicovideo.jp/v1/comment/keys/thread'
 

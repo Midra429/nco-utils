@@ -1,6 +1,6 @@
 import type { MetadataResponse, Video } from '@/types/api/netflix/metadata'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://www.netflix.com/nq/website/memberapi/release/metadata'
 

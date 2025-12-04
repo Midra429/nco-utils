@@ -10,8 +10,8 @@ import type { V1Thread, V1Comment } from '@/types/api/niconico/v1/threads'
 import * as v from 'valibot'
 
 import { LegacyXmlChatSchema } from '@/types/api/niconico/legacy/xml'
-import { logger } from '@/utils/logger'
-import { toISOStringTz } from '@/utils/toISOStringTz'
+import { logger } from '@/common/logger'
+import { toISOStringTz } from '@/common/toISOStringTz'
 
 const API_BASE_URL = 'https://jikkyo.tsukumijima.net/api/kakolog/'
 

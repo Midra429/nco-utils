@@ -5,7 +5,7 @@ import type {
   SyoboCalResponse,
 } from '@/types/api/syobocal/json'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://cal.syoboi.jp/json.php'
 

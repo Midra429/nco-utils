@@ -4,7 +4,7 @@ import type {
   V1DAnimeLinksResponseOk,
 } from '@/types/api/niconico/v1/channelVideoDAnimeLinks'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://public-api.ch.nicovideo.jp/v1/user/channelVideoDAnimeLinks'
 

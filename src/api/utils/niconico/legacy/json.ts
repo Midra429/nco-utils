@@ -9,7 +9,7 @@ import type {
 import * as v from 'valibot'
 
 import { LegacyJsonChatSchema } from '@/types/api/niconico/legacy/json'
-import { toISOStringTz } from '@/utils/toISOStringTz'
+import { toISOStringTz } from '@/common/toISOStringTz'
 
 function jsonChatToV1Comment(chat: LegacyJsonChatOutput): V1Comment {
   const date_ms = Math.trunc(chat.date * 1000 + chat.date_usec / 1000)

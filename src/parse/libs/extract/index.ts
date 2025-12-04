@@ -1,5 +1,6 @@
 import { CERTAINTY } from '@/parse/constants'
 import { KANSUJI } from '@/parse/constants/regexps'
+
 import { extractSeasons, extractSeasonFromTitle } from './season'
 import { extractEpisodes } from './episode'
 

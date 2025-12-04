@@ -1,6 +1,6 @@
 import type { EpisodeResponse } from '@/types/api/fod/episode'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://i.fod.fujitv.co.jp/apps/api/episode/detail'
 

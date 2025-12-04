@@ -1,6 +1,6 @@
 import type { EPGv2Response, EPGv2Result } from '@/types/api/tver/callEPGv2'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://service-api.tver.jp/api/v1/callEPGv2'
 

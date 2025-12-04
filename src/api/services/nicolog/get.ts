@@ -1,6 +1,6 @@
 import type { GetResponse, GetDataFormatted, RelatedFormatted } from '@/types/api/nicolog/get'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'http://nicolog.ecchi.club/api/fs/get'
 

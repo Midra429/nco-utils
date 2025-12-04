@@ -1,6 +1,6 @@
 import type { VideoResponse, Video } from '@/types/api/dmmTv/video'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://api.tv.dmm.com/graphql'
 

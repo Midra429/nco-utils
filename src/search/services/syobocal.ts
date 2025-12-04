@@ -7,8 +7,8 @@ import { parse } from '@/parse'
 import { normalize, normalizeAll } from '@/parse/libs/normalize'
 import { CHANNEL_IDS_JIKKYO_SYOBOCAL } from '@/api/constants'
 import * as syobocalApi from '@/api/services/syobocal'
-import { similarity } from '@/utils/levenshtein'
-import { removeSymbols } from '@/utils/remove'
+import { similarity } from '@/common/levenshtein'
+import { removeSymbols } from '@/common/remove'
 
 const SIMILARITY_THRESHHOLD = 0.85
 

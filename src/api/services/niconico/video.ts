@@ -1,6 +1,6 @@
 import type { VideoResponse, VideoResponseOk, VideoData } from '@/types/api/niconico/video'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://www.nicovideo.jp/watch/'
 

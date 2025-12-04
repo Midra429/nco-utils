@@ -1,3 +1,5 @@
+import type { JikkyoChannelId, TVerChannelId, SyoboCalChannelId } from '@/types/api/constants'
+
 /**
  * ニコニコ動画のジャンル
  */
@@ -452,10 +454,7 @@ export const SYOBOCAL_CHANNELS = {
 /**
  * ニコニコ実況としょぼいカレンダーのチャンネルIDのペア
  */
-export const CHANNEL_IDS_JIKKYO_SYOBOCAL: [
-  keyof typeof JIKKYO_CHANNELS,
-  keyof typeof SYOBOCAL_CHANNELS
-][] = [
+export const CHANNEL_IDS_JIKKYO_SYOBOCAL: [JikkyoChannelId, SyoboCalChannelId][] = [
   ['jk1', '1'],
   ['jk2', '2'],
   ['jk4', '4'],
@@ -496,42 +495,41 @@ export const CHANNEL_IDS_JIKKYO_SYOBOCAL: [
 /**
  * ニコニコ実況とTVerのチャンネルIDのペア
  */
-export const CHANNEL_IDS_JIKKYO_TVER: [keyof typeof JIKKYO_CHANNELS, keyof typeof TVER_CHANNELS][] =
-  [
-    ['jk1', '120'],
-    ['jk2', '124'],
-    ['jk4', '128'],
-    ['jk5', '138'],
-    ['jk6', '131'],
-    ['jk7', '142'],
-    ['jk8', '134'],
-    ['jk9', '399'],
+export const CHANNEL_IDS_JIKKYO_TVER: [JikkyoChannelId, TVerChannelId][] = [
+  ['jk1', '120'],
+  ['jk2', '124'],
+  ['jk4', '128'],
+  ['jk5', '138'],
+  ['jk6', '131'],
+  ['jk7', '142'],
+  ['jk8', '134'],
+  ['jk9', '399'],
 
-    ['jk10', '426'],
-    ['jk11', '404'],
-    ['jk12', '417'],
-    ['jk13', '593'],
-    ['jk14', '588'],
+  ['jk10', '426'],
+  ['jk11', '404'],
+  ['jk12', '417'],
+  ['jk13', '593'],
+  ['jk14', '588'],
 
-    ['jk101', '1'],
-    ['jk141', '5'],
-    ['jk151', '8'],
-    ['jk161', '11'],
-    ['jk171', '14'],
-    ['jk181', '17'],
-    ['jk191', '20'],
-    ['jk192', '21'],
-    ['jk193', '22'],
-    ['jk200', '23'],
-    ['jk201', '24'],
-    ['jk211', '26'],
-    ['jk222', '27'],
-    ['jk236', '31'],
-    ['jk252', '39'],
-    ['jk260', '260'],
-    ['jk263', '263'],
-    ['jk265', '265'],
-  ]
+  ['jk101', '1'],
+  ['jk141', '5'],
+  ['jk151', '8'],
+  ['jk161', '11'],
+  ['jk171', '14'],
+  ['jk181', '17'],
+  ['jk191', '20'],
+  ['jk192', '21'],
+  ['jk193', '22'],
+  ['jk200', '23'],
+  ['jk201', '24'],
+  ['jk211', '26'],
+  ['jk222', '27'],
+  ['jk236', '31'],
+  ['jk252', '39'],
+  ['jk260', '260'],
+  ['jk263', '263'],
+  ['jk265', '265'],
+]
 
 /** NHKのAPIで使われている地域 */
 export const NHK_AREAS = {

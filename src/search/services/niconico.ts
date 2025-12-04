@@ -7,7 +7,7 @@ import { compare } from '@/compare'
 import { search as niconicoSearch } from '@/api/services/niconico'
 import { DANIME_CHANNEL_ID, REGEXP_DANIME_CHAPTER } from '@/search/constants'
 import { buildSearchQuery } from '@/search/lib/buildSearchQuery'
-import { removeSymbols } from '@/utils/remove'
+import { removeSymbols } from '@/common/remove'
 
 const MAX_MATCH_LENGTH = 3
 

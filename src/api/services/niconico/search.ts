@@ -5,7 +5,7 @@ import type {
   SearchResponseOk,
 } from '@/types/api/niconico/search'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://snapshot.search.nicovideo.jp/api/v2/snapshot/video/contents/search'
 

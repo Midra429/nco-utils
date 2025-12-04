@@ -1,4 +1,4 @@
-import { ROMAN_NUM } from '../constants/regexps'
+import { ROMAN_NUM } from '@/parse/constants/regexps'
 
 const NUMERALS: Record<string, number> = {
   M: 1000,

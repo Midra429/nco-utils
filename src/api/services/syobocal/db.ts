@@ -6,7 +6,8 @@ import type {
 } from '@/types/api/syobocal/db'
 
 import { XMLParser } from 'fast-xml-parser'
-import { logger } from '@/utils/logger'
+
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://cal.syoboi.jp/db.php'
 

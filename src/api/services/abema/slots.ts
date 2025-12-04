@@ -1,6 +1,6 @@
 import type { SlotsResponse, Slot } from '@/types/api/abema/slots'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://api.p-c3-e.abema-tv.com/v1/media/slots/'
 

@@ -3,13 +3,13 @@ import type { SearchTarget } from '@/types/search'
 import type { ParsedResult } from '@/parse'
 
 import { number2kanji } from '@geolonia/japanese-numeral'
-import { zeroPadding } from '@/utils/zeroPadding'
-import { parse } from '@/parse'
 
-import { removeSymbols } from '../../utils/remove'
+import { parse } from '@/parse'
+import { zeroPadding } from '@/common/zeroPadding'
+import { removeSymbols } from '@/common/remove'
+import { similarity } from '@/common/levenshtein'
 
 import titleVariants from '@/compare/title-variants.json'
-import { similarity } from '@/utils/levenshtein'
 
 export interface BuildSearchQueryArgs {
   /** 動画タイトル or 解析結果 */

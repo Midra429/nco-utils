@@ -1,6 +1,6 @@
 import type { ListResponse, ListDataFormatted, ContentFormatted } from '@/types/api/nicolog/list'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'http://nicolog.ecchi.club/api/fs/list'
 

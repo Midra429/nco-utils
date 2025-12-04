@@ -1,6 +1,6 @@
 import type { PartResponse, PartData } from '@/types/api/danime/part'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://animestore.docomo.ne.jp/animestore/rest/WS010105'
 

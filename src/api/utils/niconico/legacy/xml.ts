@@ -9,8 +9,8 @@ import * as v from 'valibot'
 import { XMLParser } from 'fast-xml-parser'
 
 import { LegacyXmlChatSchema } from '@/types/api/niconico/legacy/xml'
-import { uid } from '@/utils/uid'
-import { toISOStringTz } from '@/utils/toISOStringTz'
+import { uid } from '@/common/uid'
+import { toISOStringTz } from '@/common/toISOStringTz'
 
 const xmlParser = new XMLParser({
   textNodeName: 'content',

@@ -2,7 +2,7 @@ import type { GetDataFormatted } from '@/types/api/nicolog/get'
 import type { V1Thread } from '@/types/api/niconico/v1/threads'
 import type { LegacyXml } from '@/types/api/niconico/legacy/xml'
 
-import { logger } from '@/utils/logger'
+import { logger } from '@/common/logger'
 import { parseLegacyXml, legacyXmlToV1Threads } from '@/api/utils/niconico/legacy/xml'
 
 export async function file<Compat extends boolean = false>(

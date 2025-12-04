@@ -6,7 +6,7 @@ import equal from 'fast-deep-equal'
 
 import { CERTAINTY } from '@/parse/constants'
 import { KANSUJI, KANSUJI_OLD, ROMAN_NUM_SHORT } from '@/parse/constants/regexps'
-import { romanToInteger } from '@/parse/utils/roman-num'
+import { romanToInteger } from '@/parse/utils/romanNum'
 
 const DIVIDER = '\\.:'
 const BEFORE_PREFIX = '^.+'
