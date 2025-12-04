@@ -62,7 +62,8 @@ export async function syobocal(args: {
     if (
       scParsed.title &&
       (episodeNumber != null
-        ? SIMILARITY_THRESHHOLD <= similarity(parsed.titleStripped, scParsed.titleStripped)
+        ? SIMILARITY_THRESHHOLD <=
+          similarity(parsed.titleStripped, scParsed.titleStripped)
         : parsed.titleStripped === scParsed.titleStripped)
     ) {
       searchResults.push(val)
@@ -73,7 +74,10 @@ export async function syobocal(args: {
     const scInput = normalizeAll(scParsed.input)
 
     // タイトルが一致 (一部)
-    if (episodeNumber != null && (scInput.includes(title) || title.includes(scInput))) {
+    if (
+      episodeNumber != null &&
+      (scInput.includes(title) || title.includes(scInput))
+    ) {
       searchResultsPartial.push(val)
 
       return

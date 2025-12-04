@@ -4,7 +4,8 @@ import { parse } from '@/parse'
 import { compare } from '@/compare'
 import * as nicologApi from '@/api/services/nicolog'
 
-const FILE_NAME_SUFFIX_REGEXP = /(?:(?:振り返り)?上映会|一挙放送)(?:_raw)?\.xml$/
+const FILE_NAME_SUFFIX_REGEXP =
+  /(?:(?:振り返り)?上映会|一挙放送)(?:_raw)?\.xml$/
 
 export async function nicolog(input: string | ParsedResult) {
   const parsed = parse(input)
@@ -32,13 +33,17 @@ export async function nicolog(input: string | ParsedResult) {
   const fileList = await nicologApi.list({
     path: `${nicologApi.NICO_LIVE_ANIME_ROOT}/${directory.name}`,
   })
-  const files = fileList?.content.filter((v) => !v.is_dir && !v.name.endsWith('_raw.xml'))
+  const files = fileList?.content.filter(
+    (v) => !v.is_dir && !v.name.endsWith('_raw.xml')
+  )
 
   if (!files?.length) {
     return null
   }
 
-  const file = files.find((v) => compare(parsed, v.name.replace(FILE_NAME_SUFFIX_REGEXP, '')))
+  const file = files.find((v) =>
+    compare(parsed, v.name.replace(FILE_NAME_SUFFIX_REGEXP, ''))
+  )
 
   if (!file) {
     return null

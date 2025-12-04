@@ -1,4 +1,6 @@
-export type V1DAnimeLinksResponse = V1DAnimeLinksResponseOk | V1DAnimeLinksResponseError
+export type V1DAnimeLinksResponse =
+  | V1DAnimeLinksResponseOk
+  | V1DAnimeLinksResponseError
 
 export interface V1DAnimeLinksResponseOk {
   meta: {

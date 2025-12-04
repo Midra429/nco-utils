@@ -1,8 +1,10 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "biomejs.biome",
   "editor.formatOnSave": true,
-  "prettier.enable": true,
-
+  "editor.codeActionsOnSave": {
+    "source.fixAll.biome": "explicit"
+  },
+  "biome.enabled": true,
   "json.schemas": [
     {
       "fileMatch": ["title-variants.json"],
@@ -16,5 +18,6 @@
       "fileMatch": ["compare-examples.json"],
       "url": "/schema/compare-examples.schema.json"
     }
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -6,13 +6,18 @@ import type {
 
 import { logger } from '@/common/logger'
 
-const API_BASE_URL = 'https://public-api.ch.nicovideo.jp/v1/user/channelVideoDAnimeLinks'
+const API_BASE_URL =
+  'https://public-api.ch.nicovideo.jp/v1/user/channelVideoDAnimeLinks'
 
-function isResponseOk(json: V1DAnimeLinksResponse): json is V1DAnimeLinksResponseOk {
+function isResponseOk(
+  json: V1DAnimeLinksResponse
+): json is V1DAnimeLinksResponseOk {
   return json.meta.status === 200
 }
 
-export async function channelVideoDAnimeLinks(videoId: string): Promise<V1DAnimeLinksItem | null> {
+export async function channelVideoDAnimeLinks(
+  videoId: string
+): Promise<V1DAnimeLinksItem | null> {
   const url = new URL(API_BASE_URL)
 
   url.searchParams.set('videoId', videoId)

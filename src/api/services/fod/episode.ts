@@ -4,7 +4,10 @@ import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://i.fod.fujitv.co.jp/apps/api/episode/detail'
 
-export async function episode(id: string, token: string): Promise<EpisodeResponse | null> {
+export async function episode(
+  id: string,
+  token: string
+): Promise<EpisodeResponse | null> {
   const url = new URL(API_BASE_URL)
 
   url.searchParams.set('ep_id', id)

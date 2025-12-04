@@ -1,4 +1,12 @@
-import type { JikkyoChannelId, TVerChannelId, SyoboCalChannelId } from '@/types/api/constants'
+import type {
+  JikkyoChannelId,
+  TVerChannelId,
+  SyoboCalChannelId,
+} from '@/types/api/constants'
+
+export const VIDEO_ID_REGEXP = /^[a-z]{2}\d+$/
+export const TAG_ANIME_REGEXP = /(^|\s)アニメ(\s|$)/
+export const TAG_SZBH_REGEXP = /(^|\s)(コメント専用動画|SZBH方式)(\s|$)/i
 
 /**
  * ニコニコ動画のジャンル
@@ -454,7 +462,10 @@ export const SYOBOCAL_CHANNELS = {
 /**
  * ニコニコ実況としょぼいカレンダーのチャンネルIDのペア
  */
-export const CHANNEL_IDS_JIKKYO_SYOBOCAL: [JikkyoChannelId, SyoboCalChannelId][] = [
+export const CHANNEL_IDS_JIKKYO_SYOBOCAL: [
+  JikkyoChannelId,
+  SyoboCalChannelId,
+][] = [
   ['jk1', '1'],
   ['jk2', '2'],
   ['jk4', '4'],

@@ -30,7 +30,8 @@ export interface ListDataFormatted extends Omit<ListData, 'content'> {
   content: ContentFormatted[]
 }
 
-export interface ContentFormatted extends Omit<Content, 'modified' | 'created'> {
+export interface ContentFormatted
+  extends Omit<Content, 'modified' | 'created'> {
   modified: number
   created: number
 }

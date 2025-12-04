@@ -5,7 +5,11 @@ import { kanji2number } from '@geolonia/japanese-numeral'
 import equal from 'fast-deep-equal'
 
 import { CERTAINTY } from '@/parse/constants'
-import { KANSUJI, KANSUJI_OLD, ROMAN_NUM_SHORT } from '@/parse/constants/regexps'
+import {
+  KANSUJI,
+  KANSUJI_OLD,
+  ROMAN_NUM_SHORT,
+} from '@/parse/constants/regexps'
 import { romanToInteger } from '@/parse/utils/romanNum'
 
 const DIVIDER = '\\.:'
@@ -16,6 +20,8 @@ const NUMBER = '\\d{1,2}'
 const LETTER_EP_SEASON = `第話期章幕${KANSUJI}${KANSUJI_OLD}`
 const KANJI = '\\p{sc=Han}'
 const KANJI_AFFIX = `(?![${LETTER_EP_SEASON}])${KANJI}`
+
+const ORDINAL_NUM_SUFFIX = /st|nd|rd|th/
 
 // シーズンの可能性: 高
 const SEASON_PROB_HIGH: RegExp[] = [
@@ -184,11 +190,16 @@ const SEASON_FROM_TITLE: RegExp[] = [
   new RegExp(`(?<=\\S+\\s?)` + `(?<!\\d+)(?<number>\\d)` + `(?=$)`, 'd'),
   // 魔王学院の不適合者 II
   new RegExp(
-    `(?<=[\\p{sc=Hiragana}\\p{sc=Katakana}\\p{sc=Han}]+\\s?)` + `(?<romannum>IV|I{0,3})` + `(?=$)`,
+    `(?<=[\\p{sc=Hiragana}\\p{sc=Katakana}\\p{sc=Han}]+\\s?)` +
+      `(?<romannum>IV|I{0,3})` +
+      `(?=$)`,
     'du'
   ),
   // 真の仲間じゃないと勇者のパーティーを追い出されたので、辺境でスローライフすることにしました 2nd
-  new RegExp(`(?<=\\S+\\s?)` + `(?<number>${NUMBER}(?:st|nd|rd|th))` + `(?=$)`, 'dgu'),
+  new RegExp(
+    `(?<=\\S+\\s?)` + `(?<number>${NUMBER}(?:st|nd|rd|th))` + `(?=$)`,
+    'dgu'
+  ),
 ]
 
 /**
@@ -205,7 +216,7 @@ function convertRegExpExecArray(
 
   if (groups['number']) {
     numberText = groups['number']
-    number = Number(numberText.replace(/st|nd|rd|th/, ''))
+    number = Number(numberText.replace(ORDINAL_NUM_SUFFIX, ''))
   } else if (groups['kansuji']) {
     numberText = groups['kansuji'].replace('ニ', '二')
     number = kanji2number(numberText)
@@ -217,7 +228,9 @@ function convertRegExpExecArray(
     number = ['ファースト', 'セカンド', 'サード'].indexOf(numberText) + 1
   } else if (groups['english']) {
     numberText = groups['english']
-    number = ['final', 'first', 'second', 'third'].indexOf(numberText.toLowerCase()) || -1
+    number =
+      ['final', 'first', 'second', 'third'].indexOf(numberText.toLowerCase()) ||
+      -1
   } else {
     throw new Error()
   }
@@ -335,7 +348,9 @@ export function extractSeasons(input: string): ExtractedSegment[] {
         return (
           idx ===
           ary.findIndex((val) => {
-            return val.certainty === seg.certainty && equal(val.indices, seg.indices)
+            return (
+              val.certainty === seg.certainty && equal(val.indices, seg.indices)
+            )
           })
         )
       })

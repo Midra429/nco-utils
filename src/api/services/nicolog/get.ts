@@ -1,4 +1,8 @@
-import type { GetResponse, GetDataFormatted, RelatedFormatted } from '@/types/api/nicolog/get'
+import type {
+  GetResponse,
+  GetDataFormatted,
+  RelatedFormatted,
+} from '@/types/api/nicolog/get'
 
 import { logger } from '@/common/logger'
 
@@ -11,7 +15,9 @@ export interface GetRequestBody {
   refresh?: boolean
 }
 
-export async function get(body: GetRequestBody): Promise<GetDataFormatted | null> {
+export async function get(
+  body: GetRequestBody
+): Promise<GetDataFormatted | null> {
   const url = new URL(API_BASE_URL)
 
   try {

@@ -77,7 +77,8 @@ interface SyoboCalDb {
   }
 }
 
-export type SyoboCalParameters<Command extends SyoboCalCommand> = SyoboCalDb[Command]['parameters']
+export type SyoboCalParameters<Command extends SyoboCalCommand> =
+  SyoboCalDb[Command]['parameters']
 
 export type SyoboCalResponseXml<Command extends SyoboCalCommand> =
   SyoboCalDb[Command]['response']['xml']

@@ -5,7 +5,11 @@ import { kanji2number } from '@geolonia/japanese-numeral'
 import equal from 'fast-deep-equal'
 
 import { CERTAINTY } from '@/parse/constants'
-import { KANSUJI, KANSUJI_OLD, ROMAN_NUM_SHORT } from '@/parse/constants/regexps'
+import {
+  KANSUJI,
+  KANSUJI_OLD,
+  ROMAN_NUM_SHORT,
+} from '@/parse/constants/regexps'
 import { romanToInteger } from '@/parse/utils/romanNum'
 
 const DIVIDER = '\\._:|\\-★☆'
@@ -20,6 +24,8 @@ const PROLONGED_SOUND_MARK = 'ー〜〰'
 const LETTER_JP = `\\p{sc=Hiragana}\\p{sc=Katakana}${KANJI}`
 const LETTER_JP_AFFIX = `(?![${LETTER_EP_SEASON}])[${LETTER_JP}]`
 const LETTER_JP_EX_AFFIX = `(?![${LETTER_EP_SEASON}])[${LETTER_JP}${PROLONGED_SOUND_MARK}]`
+
+const ALPHABET_REGEXP = /[a-z]+/gi
 
 // 話数の可能性: 高
 const EP_PROB_HIGH: RegExp[] = [
@@ -68,13 +74,18 @@ const EP_PROB_HIGH: RegExp[] = [
   ),
   // #01
   new RegExp(
-    `(?<=${BEFORE_PREFIX})` + `(?<prefix>#)` + `(?<number>${NUMBER})` + `(?=${AFTER_SUFFIX})`,
+    `(?<=${BEFORE_PREFIX})` +
+      `(?<prefix>#)` +
+      `(?<number>${NUMBER})` +
+      `(?=${AFTER_SUFFIX})`,
     'dgu'
   ),
   // #1~3, #1-3
   //    ↑     ↑
   new RegExp(
-    `(?<=(?:${BEFORE_PREFIX})#${NUMBER}[〜~\\-])` + `(?<number>${NUMBER})` + `(?=${AFTER_SUFFIX})`,
+    `(?<=(?:${BEFORE_PREFIX})#${NUMBER}[〜~\\-])` +
+      `(?<number>${NUMBER})` +
+      `(?=${AFTER_SUFFIX})`,
     'dgu'
   ),
 ]
@@ -104,7 +115,10 @@ const EP_SP_PROB_HIGH: RegExp[] = [
 // 話数の可能性: 中
 const EP_PROB_MID: RegExp[] = [
   // タイトル 01「サブタイトル」
-  new RegExp(`(?<=\\S+\\s)` + `(?<number>${NUMBER_SHORT})` + `(?=(?:「.+」|『.+』)$)`, 'dgu'),
+  new RegExp(
+    `(?<=\\S+\\s)` + `(?<number>${NUMBER_SHORT})` + `(?=(?:「.+」|『.+』)$)`,
+    'dgu'
+  ),
 ]
 
 // 話数の可能性 (特殊): 中
@@ -247,7 +261,7 @@ function convertRegExpExecArray(
 
   if (groups['number']) {
     numberText = groups['number']
-    number = Number(numberText.replaceAll(/[a-z]+/gi, ''))
+    number = Number(numberText.replaceAll(ALPHABET_REGEXP, ''))
   } else if (groups['kansuji']) {
     numberText = groups['kansuji'].replace('ニ', '二')
     number = kanji2number(numberText)
@@ -367,7 +381,9 @@ export function extractEpisodes(input: string): ExtractedSegment[] {
         return (
           idx ===
           ary.findIndex((val) => {
-            return val.certainty === seg.certainty && equal(val.indices, seg.indices)
+            return (
+              val.certainty === seg.certainty && equal(val.indices, seg.indices)
+            )
           })
         )
       })

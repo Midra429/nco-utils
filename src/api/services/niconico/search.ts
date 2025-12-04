@@ -7,7 +7,8 @@ import type {
 
 import { logger } from '@/common/logger'
 
-const API_BASE_URL = 'https://snapshot.search.nicovideo.jp/api/v2/snapshot/video/contents/search'
+const API_BASE_URL =
+  'https://snapshot.search.nicovideo.jp/api/v2/snapshot/video/contents/search'
 
 function isResponseOk(json: SearchResponse): json is SearchResponseOk {
   return json.meta.status === 200
@@ -63,7 +64,9 @@ export async function search<FieldKey extends SearchQueryFieldKey = never>(
     const json = (await res.json()) as SearchResponse
 
     if (!isResponseOk(json)) {
-      throw new Error(`${json.meta.status} ${json.meta.errorCode}: ${json.meta.errorMessage}`)
+      throw new Error(
+        `${json.meta.status} ${json.meta.errorCode}: ${json.meta.errorMessage}`
+      )
     }
 
     return json as any

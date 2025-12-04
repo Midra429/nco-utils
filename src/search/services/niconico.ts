@@ -1,9 +1,13 @@
-import type { SearchQueryFieldKey, SearchData as _SearchData } from '@/types/api/niconico/search'
+import type {
+  SearchQueryFieldKey,
+  SearchData as _SearchData,
+} from '@/types/api/niconico/search'
 import type { SearchTarget } from '@/types/search'
 import type { BuildSearchQueryArgs } from '@/search/lib/buildSearchQuery'
 
 import { parse } from '@/parse'
 import { compare } from '@/compare'
+import { TAG_SZBH_REGEXP } from '@/api/constants'
 import { search as niconicoSearch } from '@/api/services/niconico'
 import { DANIME_CHANNEL_ID, REGEXP_DANIME_CHAPTER } from '@/search/constants'
 import { buildSearchQuery } from '@/search/lib/buildSearchQuery'
@@ -93,7 +97,7 @@ function sortSearchData(
       }
     } else if (val.userId) {
       // コメント専用
-      if (val.tags && /(^|\s)(コメント専用動画|SZBH方式)(\s|$)/i.test(val.tags)) {
+      if (val.tags && TAG_SZBH_REGEXP.test(val.tags)) {
         if (targets.szbh && compare(parsed, val.title)) {
           contents.szbh.push(val)
         }
@@ -124,7 +128,9 @@ function sortSearchData(
   return contents
 }
 
-export async function niconico(args: BuildSearchQueryArgs): Promise<SortedSearchData> {
+export async function niconico(
+  args: BuildSearchQueryArgs
+): Promise<SortedSearchData> {
   args.input = parse(args.input)
 
   const { input: parsed, targets } = args

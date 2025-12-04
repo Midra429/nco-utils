@@ -46,20 +46,26 @@ export async function db<Command extends SyoboCalCommand>(
     if (xml) {
       switch (command) {
         case 'TitleLookup': {
-          const titleItem = (xml as SyoboCalResponseXml<'TitleLookup'>).TitleLookupResponse
-            .TitleItems.TitleItem
+          const titleItem = (xml as SyoboCalResponseXml<'TitleLookup'>)
+            .TitleLookupResponse.TitleItems.TitleItem
 
           return Object.fromEntries(
-            (Array.isArray(titleItem) ? titleItem : [titleItem]).map((item) => [item.TID, item])
+            (Array.isArray(titleItem) ? titleItem : [titleItem]).map((item) => [
+              item.TID,
+              item,
+            ])
           )
         }
 
         case 'ProgLookup': {
-          const progItem = (xml as SyoboCalResponseXml<'ProgLookup'>).ProgLookupResponse.ProgItems
-            .ProgItem
+          const progItem = (xml as SyoboCalResponseXml<'ProgLookup'>)
+            .ProgLookupResponse.ProgItems.ProgItem
 
           return Object.fromEntries(
-            (Array.isArray(progItem) ? progItem : [progItem]).map((item) => [item.PID, item])
+            (Array.isArray(progItem) ? progItem : [progItem]).map((item) => [
+              item.PID,
+              item,
+            ])
           )
         }
       }

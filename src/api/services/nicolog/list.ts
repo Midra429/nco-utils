@@ -1,4 +1,8 @@
-import type { ListResponse, ListDataFormatted, ContentFormatted } from '@/types/api/nicolog/list'
+import type {
+  ListResponse,
+  ListDataFormatted,
+  ContentFormatted,
+} from '@/types/api/nicolog/list'
 
 import { logger } from '@/common/logger'
 
@@ -13,7 +17,9 @@ export interface ListRequestBody {
   refresh?: boolean
 }
 
-export async function list(body?: ListRequestBody): Promise<ListDataFormatted | null> {
+export async function list(
+  body?: ListRequestBody
+): Promise<ListDataFormatted | null> {
   body ??= {}
   body.path ||= NICO_LIVE_ANIME_ROOT
 

@@ -4,7 +4,9 @@ import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://nvapi.nicovideo.jp/v1/comment/keys/thread'
 
-function isResponseOk(json: V1ThreadKeyResponse): json is Required<V1ThreadKeyResponse> {
+function isResponseOk(
+  json: V1ThreadKeyResponse
+): json is Required<V1ThreadKeyResponse> {
   return json.meta.status === 200
 }
 

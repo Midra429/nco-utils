@@ -4,6 +4,9 @@ import { KANSUJI } from '@/parse/constants/regexps'
 import { extractSeasons, extractSeasonFromTitle } from './season'
 import { extractEpisodes } from './episode'
 
+const OUTSIDE_BRACKETS_1_REGEXP = /^(?!.*」.*「)「(?<inner>[\s\S]*)」$/
+const OUTSIDE_BRACKETS_2_REGEXP = /^(?!.*』.*『)『(?<inner>[\s\S]*)』$/
+
 /**
  * 抽出した一部分
  */
@@ -187,13 +190,21 @@ export type ExtractedResult =
       subtitleStripped: null
     }
 
-export type ExtractedResultSingleEpisode = Extract<ExtractedResult, { isSingleEpisode: true }>
-export type ExtractedResultMultipleEpisodes = Extract<ExtractedResult, { isSingleEpisode: false }>
+export type ExtractedResultSingleEpisode = Extract<
+  ExtractedResult,
+  { isSingleEpisode: true }
+>
+export type ExtractedResultMultipleEpisodes = Extract<
+  ExtractedResult,
+  { isSingleEpisode: false }
+>
 
 /**
  * `ExtractedSegment` -> `ExtractedResultCommon['season']`
  */
-function segmentToResultSeason(segment: ExtractedSegment): NonNullable<ExtractedResult['season']> {
+function segmentToResultSeason(
+  segment: ExtractedSegment
+): NonNullable<ExtractedResult['season']> {
   return {
     text: segment.text,
     number: segment.number,
@@ -262,13 +273,18 @@ const STRIP_TITLE_REGEXPS: RegExp[] = [
  * 不要な要素を取り除く
  */
 function stripText(input: string): string {
-  return STRIP_TEXT_REGEXPS.reduce((prev, re) => prev.replace(re, ''), input).trim()
+  return STRIP_TEXT_REGEXPS.reduce(
+    (prev, re) => prev.replace(re, ''),
+    input
+  ).trim()
 }
 /**
  * 不要な要素を取り除く (タイトル)
  */
 function stripTitle(title: string): string {
-  return stripText(STRIP_TITLE_REGEXPS.reduce((prev, re) => prev.replace(re, ''), title).trim())
+  return stripText(
+    STRIP_TITLE_REGEXPS.reduce((prev, re) => prev.replace(re, ''), title).trim()
+  )
 }
 
 /**
@@ -286,7 +302,9 @@ export function extract(input: string): ExtractedResult {
     }
   } = {
     get all() {
-      return [...this.season.all, ...this.episode.all].sort((a, b) => a.indices[0] - b.indices[0])
+      return [...this.season.all, ...this.episode.all].sort(
+        (a, b) => a.indices[0] - b.indices[0]
+      )
     },
     season: {
       all: [],
@@ -334,7 +352,9 @@ export function extract(input: string): ExtractedResult {
     }
 
     // 括弧が付属している対象
-    const targetSeg = segments.all.find((v) => [startIdx, startIdx - 1].includes(v.indices[1]))
+    const targetSeg = segments.all.find((v) =>
+      [startIdx, startIdx - 1].includes(v.indices[1])
+    )
 
     segsInsideBracket.forEach((seg) => {
       // 対象のインデックスを更新
@@ -364,10 +384,13 @@ export function extract(input: string): ExtractedResult {
    * シーズンセグメントをエピソードより左側のみに
    */
   function updateSeasonSegments() {
-    const startIdx = episode?.indices[0] ?? episodeAlt?.indices[0] ?? episodes?.[0]?.indices[0]
+    const startIdx =
+      episode?.indices[0] ?? episodeAlt?.indices[0] ?? episodes?.[0]?.indices[0]
 
     if (startIdx) {
-      segments.season.all = segments.season.all.filter((v) => v.indices[1] <= startIdx)
+      segments.season.all = segments.season.all.filter(
+        (v) => v.indices[1] <= startIdx
+      )
     }
   }
   /**
@@ -377,7 +400,9 @@ export function extract(input: string): ExtractedResult {
     const endIdx = seasonAlt?.indices[1] ?? season?.indices[1]
 
     if (endIdx) {
-      segments.episode.all = segments.episode.all.filter((v) => endIdx <= v.indices[0])
+      segments.episode.all = segments.episode.all.filter(
+        (v) => endIdx <= v.indices[0]
+      )
     }
   }
 
@@ -397,8 +422,8 @@ export function extract(input: string): ExtractedResult {
 
     if (title) {
       return title
-        .replace(/^(?!.*」.*「)「(?<inner>[\s\S]*)」$/, '$<inner>')
-        .replace(/^(?!.*』.*『)『(?<inner>[\s\S]*)』$/, '$<inner>')
+        .replace(OUTSIDE_BRACKETS_1_REGEXP, '$<inner>')
+        .replace(OUTSIDE_BRACKETS_2_REGEXP, '$<inner>')
         .trim()
     }
 
@@ -422,8 +447,8 @@ export function extract(input: string): ExtractedResult {
 
     if (subtitle) {
       return subtitle
-        .replace(/^(?!.*」.*「)「(?<inner>[\s\S]*)」$/, '$<inner>')
-        .replace(/^(?!.*』.*『)『(?<inner>[\s\S]*)』$/, '$<inner>')
+        .replace(OUTSIDE_BRACKETS_1_REGEXP, '$<inner>')
+        .replace(OUTSIDE_BRACKETS_2_REGEXP, '$<inner>')
         .trim()
     }
 
@@ -432,34 +457,34 @@ export function extract(input: string): ExtractedResult {
 
   // 複数エピソードの開始と終了セグメント
   const multipleEpisodesSegments = segments.episode.all
-    .map<[ExtractedSegment, ExtractedSegment, ...ExtractedSegment[]] | undefined>(
-      (seg, idx, ary) => {
-        const nextSeg = ary[idx + 1]
-        const divider = input[seg.indices[1]]
+    .map<
+      [ExtractedSegment, ExtractedSegment, ...ExtractedSegment[]] | undefined
+    >((seg, idx, ary) => {
+      const nextSeg = ary[idx + 1]
+      const divider = input[seg.indices[1]]
 
-        if (
-          nextSeg &&
-          divider &&
-          // 1文字分空いている
-          seg.indices[1] === nextSeg.indices[0] - 1 &&
-          // 数字の位置関係が正しい
-          seg.number < nextSeg.number &&
-          // 同じ接辞
-          ((isSameAffix(seg, nextSeg) &&
+      if (
+        nextSeg &&
+        divider &&
+        // 1文字分空いている
+        seg.indices[1] === nextSeg.indices[0] - 1 &&
+        // 数字の位置関係が正しい
+        seg.number < nextSeg.number &&
+        // 同じ接辞
+        ((isSameAffix(seg, nextSeg) &&
+          // 区切り
+          ['〜', '-', '/', '・'].includes(divider)) ||
+          // seg: prefixのみ, nextSeg: affixなし
+          (seg.prefix &&
+            !seg.suffix &&
+            !nextSeg.prefix &&
+            !nextSeg.suffix &&
             // 区切り
-            ['〜', '-', '/', '・'].includes(divider)) ||
-            // seg: prefixのみ, nextSeg: affixなし
-            (seg.prefix &&
-              !seg.suffix &&
-              !nextSeg.prefix &&
-              !nextSeg.suffix &&
-              // 区切り
-              ['〜', '-'].includes(divider)))
-        ) {
-          return [seg, nextSeg]
-        }
+            ['〜', '-'].includes(divider)))
+      ) {
+        return [seg, nextSeg]
       }
-    )
+    })
     .filter((v) => v != null)
 
   // 複数エピソード
@@ -485,11 +510,15 @@ export function extract(input: string): ExtractedResult {
     })
 
     const segs = multipleEpisodesSegments.sort((a, b) => {
-      return a.length === b.length ? a[0].indices[0] - b[0].indices[0] : b.length - a.length
+      return a.length === b.length
+        ? a[0].indices[0] - b[0].indices[0]
+        : b.length - a.length
     })[0]!
     const divider = input[segs[0].indices[1]]!
 
-    episodes = segs.map(segmentToResultEpisode) as ExtractedResultMultipleEpisodes['episodes']
+    episodes = segs.map(
+      segmentToResultEpisode
+    ) as ExtractedResultMultipleEpisodes['episodes']
     episodesDivider = divider
   }
   // 単一エピソード
@@ -498,16 +527,20 @@ export function extract(input: string): ExtractedResult {
     const episodeSeg =
       segments.episode.high[0] ??
       segments.episode.mid[0] ??
-      segments.episode.low.find(
-        ({ indices }) => !seasonSegIndices.some((v) => v[0] === indices[0] && v[1] === indices[1])
-      )
+      segments.episode.low.find(({ indices }) => {
+        return !seasonSegIndices.some(
+          (v) => v[0] === indices[0] && v[1] === indices[1]
+        )
+      })
 
     if (episodeSeg) {
       episode = segmentToResultEpisode(episodeSeg)
 
       // 付属しているセグメント
       const attachedSegs = segments.episode.all.find((seg) => {
-        return seg.type === 'episode' && episodeSeg._attachedIds?.includes(seg._id)
+        return (
+          seg.type === 'episode' && episodeSeg._attachedIds?.includes(seg._id)
+        )
       })
 
       if (attachedSegs) {
@@ -522,7 +555,10 @@ export function extract(input: string): ExtractedResult {
   let seasonSeg: ExtractedSegment | undefined
 
   if (episode || episodes) {
-    seasonSeg = segments.season.high[0] ?? segments.season.mid[0] ?? segments.season.low.at(-1)
+    seasonSeg =
+      segments.season.high[0] ??
+      segments.season.mid[0] ??
+      segments.season.low.at(-1)
   } else if (segments.season.high.length) {
     seasonSeg = segments.season.high[0]
   } else if (2 <= segments.episode.all.length) {
@@ -532,7 +568,9 @@ export function extract(input: string): ExtractedResult {
   if (seasonSeg) {
     if (seasonSeg._attachedTargetId) {
       // 付属している対象
-      const targetSeg = segments.season.all.find((v) => v._id === seasonSeg._attachedTargetId)!
+      const targetSeg = segments.season.all.find(
+        (v) => v._id === seasonSeg._attachedTargetId
+      )!
 
       season = segmentToResultSeason(targetSeg)
       seasonAlt = segmentToResultSeason(seasonSeg)
@@ -541,7 +579,9 @@ export function extract(input: string): ExtractedResult {
 
       // 付属しているセグメント
       const attachedSegs = segments.season.all.find((seg) => {
-        return seg.type === 'season' && seasonSeg._attachedIds?.includes(seg._id)
+        return (
+          seg.type === 'season' && seasonSeg._attachedIds?.includes(seg._id)
+        )
       })
 
       if (attachedSegs) {
@@ -561,7 +601,9 @@ export function extract(input: string): ExtractedResult {
 
       // 付属しているセグメント
       const attachedSegs = segments.episode.all.find((seg) => {
-        return seg.type === 'episode' && episodeSeg._attachedIds?.includes(seg._id)
+        return (
+          seg.type === 'episode' && episodeSeg._attachedIds?.includes(seg._id)
+        )
       })
 
       if (attachedSegs) {

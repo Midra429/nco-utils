@@ -3,6 +3,10 @@ import { removeSymbols, removeSpaces } from '@/common/remove'
 import { normalizeHyphen } from './hyphen'
 import { normalizeTilde } from './tilde'
 
+const INVISIBLE_CHARS_REGEXP = /[\u200B\u2060\uFEFF]/g
+const LINE_BREAK_REGEXP = /\n/g
+const SPACES_REGEXP = /\s+/g
+
 /**
  * 解析用に正規化
  */
@@ -11,10 +15,10 @@ export function normalize(input: string): string {
   input = input.normalize('NFKC')
 
   // 不可視な文字を消す
-  input = input.replace(/[\u200B\u2060\uFEFF]/g, '')
+  input = input.replace(INVISIBLE_CHARS_REGEXP, '')
 
   // 改行 -> 半角空白
-  input = input.replace(/\n/g, ' ')
+  input = input.replace(LINE_BREAK_REGEXP, ' ')
 
   // ハイフンを正規化
   input = normalizeHyphen(input)
@@ -22,7 +26,7 @@ export function normalize(input: string): string {
   input = normalizeTilde(input)
 
   // 連続した空白を1つに
-  input = input.replace(/\s+/g, ' ').trim()
+  input = input.replace(SPACES_REGEXP, ' ').trim()
 
   return input
 }

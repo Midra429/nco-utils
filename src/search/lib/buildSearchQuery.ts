@@ -1,4 +1,7 @@
-import type { SearchQuery, SearchQueryJsonFilter } from '@/types/api/niconico/search'
+import type {
+  SearchQuery,
+  SearchQueryJsonFilter,
+} from '@/types/api/niconico/search'
 import type { SearchTarget } from '@/types/search'
 import type { ParsedResult } from '@/parse'
 
@@ -66,7 +69,7 @@ function getJsonFilterOfficial({
         type: 'and',
         filters: andFilters,
       }
-    : andFilters[0] ?? null
+    : (andFilters[0] ?? null)
 }
 
 /**
@@ -114,13 +117,15 @@ function getJsonFilterSzbh({
         type: 'and',
         filters: andFilters,
       }
-    : andFilters[0] ?? null
+    : (andFilters[0] ?? null)
 }
 
 /**
  * JSONフィルター (dアニメ(分割))
  */
-function getJsonFilterChapter({ targets }: BuildSearchQueryArgs): SearchQueryJsonFilter | null {
+function getJsonFilterChapter({
+  targets,
+}: BuildSearchQueryArgs): SearchQueryJsonFilter | null {
   if (!targets.chapter) {
     return null
   }
@@ -144,7 +149,10 @@ function getJsonFilterChapter({ targets }: BuildSearchQueryArgs): SearchQueryJso
 
 export function buildSearchQuery(
   args: BuildSearchQueryArgs
-): Pick<SearchQuery, 'q' | 'targets' | 'jsonFilter' | '_sort' | '_limit' | '_context'> {
+): Pick<
+  SearchQuery,
+  'q' | 'targets' | 'jsonFilter' | '_sort' | '_limit' | '_context'
+> {
   args.input = parse(args.input)
   args.duration = Math.round(args.duration)
 
@@ -197,7 +205,9 @@ export function buildSearchQuery(
     if (episodes) {
       const episodeText = episodes.map((v) => v.text).join(episodesDivider)
 
-      keywords.push(episodeText.includes(' ') ? `"${episodeText}"` : episodeText)
+      keywords.push(
+        episodeText.includes(' ') ? `"${episodeText}"` : episodeText
+      )
     }
   }
 

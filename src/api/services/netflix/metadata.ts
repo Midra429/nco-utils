@@ -2,9 +2,12 @@ import type { MetadataResponse, Video } from '@/types/api/netflix/metadata'
 
 import { logger } from '@/common/logger'
 
-const API_BASE_URL = 'https://www.netflix.com/nq/website/memberapi/release/metadata'
+const API_BASE_URL =
+  'https://www.netflix.com/nq/website/memberapi/release/metadata'
 
-export async function metadata(movieid: string | number): Promise<Video | null> {
+export async function metadata(
+  movieid: string | number
+): Promise<Video | null> {
   const url = new URL(API_BASE_URL)
 
   url.searchParams.set('movieid', movieid.toString())

@@ -1,4 +1,7 @@
-import type { SyoboCalCategoryId, SyoboCalChannelId } from '@/types/api/constants'
+import type {
+  SyoboCalCategoryId,
+  SyoboCalChannelId,
+} from '@/types/api/constants'
 
 export type SyoboCalReqCommand = keyof SyoboCalJson
 
@@ -25,14 +28,21 @@ export interface SyoboCalTitleFull {
   SubTitles: string
 }
 
-export type SyoboCalTitleLarge = Omit<SyoboCalTitleFull, 'Comment' | 'SubTitles'>
+export type SyoboCalTitleLarge = Omit<
+  SyoboCalTitleFull,
+  'Comment' | 'SubTitles'
+>
 
 export interface SyoboCalTitleMedium
-  extends Omit<SyoboCalTitleLarge, 'Keywords' | 'UserPoint' | 'UserPointRank' | 'TitleViewCount'> {
+  extends Omit<
+    SyoboCalTitleLarge,
+    'Keywords' | 'UserPoint' | 'UserPointRank' | 'TitleViewCount'
+  > {
   Links: [url: string, name: string][]
 }
 
-export interface SyoboCalTitleSearch extends Omit<SyoboCalTitleMedium, 'Links'> {
+export interface SyoboCalTitleSearch
+  extends Omit<SyoboCalTitleMedium, 'Links'> {
   Comment: string
   Search: 1
   Programs?: SyoboCalProgram[]
@@ -172,4 +182,5 @@ export interface SyoboCalJson {
 export type SyoboCalParameters<Command extends SyoboCalReqCommand> =
   SyoboCalJson[Command]['parameters']
 
-export type SyoboCalResponse<Command extends SyoboCalReqCommand> = SyoboCalJson[Command]['response']
+export type SyoboCalResponse<Command extends SyoboCalReqCommand> =
+  SyoboCalJson[Command]['response']

@@ -20,7 +20,9 @@ export interface CallEPGv2Params {
   type?: 'ota' | 'bs'
 }
 
-export async function callEPGv2(params: CallEPGv2Params): Promise<EPGv2Result | null> {
+export async function callEPGv2(
+  params: CallEPGv2Params
+): Promise<EPGv2Result | null> {
   const url = new URL(API_BASE_URL)
 
   url.searchParams.set('date', params.date ?? getCurrentDate())

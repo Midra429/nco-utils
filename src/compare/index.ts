@@ -15,7 +15,9 @@ const SIMILARITY_THRESHOLD = {
 } as const
 
 function compareTitleVariants(titleA: string, titleB: string): boolean {
-  return titleVariants.find((v) => v.includes(titleA))?.includes(titleB) || false
+  return (
+    titleVariants.find((v) => v.includes(titleA))?.includes(titleB) || false
+  )
 }
 
 interface CompareOptions {
@@ -41,7 +43,9 @@ export function compare(
     return false
   }
 
-  const similarityThreshold = strict ? SIMILARITY_THRESHOLD.STRICT : SIMILARITY_THRESHOLD.HIGH
+  const similarityThreshold = strict
+    ? SIMILARITY_THRESHOLD.STRICT
+    : SIMILARITY_THRESHOLD.HIGH
 
   const result: {
     title: boolean
@@ -75,7 +79,9 @@ export function compare(
 
     result.season =
       seasonA.number === seasonB.number ||
-      (!!seasonAltA && !!seasonAltB && seasonAltA.number === seasonAltB.number) ||
+      (!!seasonAltA &&
+        !!seasonAltB &&
+        seasonAltA.number === seasonAltB.number) ||
       (!!seasonAltA && seasonAltA.number === seasonB.number) ||
       (!!seasonAltB && seasonA.number === seasonAltB.number)
   }
@@ -94,8 +100,12 @@ export function compare(
 
       result.episode =
         episodeA.number === episodeB.number ||
-        (!episodeAltA && !!episodeAltB && episodeA.number === episodeAltB.number) ||
-        (!!episodeAltA && !episodeAltB && episodeAltA.number === episodeB.number)
+        (!episodeAltA &&
+          !!episodeAltB &&
+          episodeA.number === episodeAltB.number) ||
+        (!!episodeAltA &&
+          !episodeAltB &&
+          episodeAltA.number === episodeB.number)
     }
     // エピソードなし
     else if (!parsedA.episode && !parsedB.episode) {
@@ -156,7 +166,8 @@ export function compare(
       result.title =
         SIMILARITY_THRESHOLD.MID <= titleScore ||
         (SIMILARITY_THRESHOLD.LOW <= titleScore &&
-          (titleStrippedA.startsWith(titleStrippedB) || titleStrippedB.startsWith(titleStrippedA)))
+          (titleStrippedA.startsWith(titleStrippedB) ||
+            titleStrippedB.startsWith(titleStrippedA)))
     }
 
     // 片方のみシーズンあり

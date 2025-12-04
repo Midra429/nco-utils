@@ -4,7 +4,10 @@ import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://api.p-c3-e.abema-tv.com/v1/video/programs/'
 
-export async function programs(id: string, token: string): Promise<ProgramResponse | null> {
+export async function programs(
+  id: string,
+  token: string
+): Promise<ProgramResponse | null> {
   const url = new URL(id, API_BASE_URL)
 
   url.searchParams.set('division', '0')

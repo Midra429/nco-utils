@@ -1,11 +1,17 @@
-import type { VideoResponse, VideoResponseOk, VideoData } from '@/types/api/niconico/video'
+import type {
+  VideoResponse,
+  VideoResponseOk,
+  VideoData,
+} from '@/types/api/niconico/video'
+
+import { VIDEO_ID_REGEXP } from '@/api/constants'
 
 import { logger } from '@/common/logger'
 
 const API_BASE_URL = 'https://www.nicovideo.jp/watch/'
 
 function isVideoId(id: string): boolean {
-  return /^[a-z]{2}\d+$/.test(id)
+  return VIDEO_ID_REGEXP.test(id)
 }
 
 function isResponseOk(json: VideoResponse): json is VideoResponseOk {
@@ -29,7 +35,9 @@ export async function video(
       const json = (await res.json()) as VideoResponse
 
       if (!isResponseOk(json)) {
-        throw new Error(`${json.meta.status} ${json.meta.code}: ${json.data.response}`)
+        throw new Error(
+          `${json.meta.status} ${json.meta.code}: ${json.data.response}`
+        )
       }
 
       return json.data.response
@@ -45,5 +53,7 @@ export function multipleVideo(
   contentIds: string[],
   credentials?: RequestInit['credentials']
 ): Promise<(VideoData | null)[]> {
-  return Promise.all(contentIds.map((contentId) => video(contentId, credentials)))
+  return Promise.all(
+    contentIds.map((contentId) => video(contentId, credentials))
+  )
 }

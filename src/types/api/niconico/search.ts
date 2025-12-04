@@ -13,58 +13,58 @@ export interface SearchFields {
    * コンテンツID。\
    * `https://nico.ms/`の後に連結することでコンテンツへのURLになります。
    */
-  'contentId': string
+  contentId: string
 
   /** タイトル */
-  'title': string
+  title: string
 
   /** コンテンツの説明文。 */
-  'description': string
+  description: string
 
   /** ユーザー投稿動画の場合、投稿者のユーザーID */
-  'userId': number
+  userId: number
 
   /** チャンネル動画の場合、チャンネルID */
-  'channelId': number
+  channelId: number
 
   /** 再生数 */
-  'viewCounter': number
+  viewCounter: number
 
   /** マイリスト数またはお気に入り数。 */
-  'mylistCounter': number
+  mylistCounter: number
 
   /** いいね！数 */
-  'likeCounter': number
+  likeCounter: number
 
   /** 再生時間(秒) */
-  'lengthSeconds': number
+  lengthSeconds: number
 
   /** サムネイルのURL */
-  'thumbnailUrl': string
+  thumbnailUrl: string
 
   /** コンテンツの投稿時間。 */
-  'startTime': string
+  startTime: string
 
   /** 最新のコメント */
-  'lastResBody': string
+  lastResBody: string
 
   /** コメント数 */
-  'commentCounter': number
+  commentCounter: number
 
   /** 最終コメント時間 */
-  'lastCommentTime': number
+  lastCommentTime: number
 
   /** カテゴリタグ */
-  'categoryTags': string
+  categoryTags: string
 
   /** タグ(空白区切り) */
-  'tags': string
+  tags: string
 
   /** タグ完全一致(空白区切り) */
-  'tagsExact': string
+  tagsExact: string
 
   /** ジャンル */
-  'genre': string
+  genre: string
 
   /** ジャンル完全一致 */
   'genre.keyword': NiconicoGenre
@@ -72,11 +72,19 @@ export interface SearchFields {
 
 export type SearchFieldKey = keyof SearchFields
 
-export type SearchQueryFieldKey = Exclude<SearchFieldKey, 'tagsExact' | 'genre.keyword'>
+export type SearchQueryFieldKey = Exclude<
+  SearchFieldKey,
+  'tagsExact' | 'genre.keyword'
+>
 
 export type SearchQueryFiltersKey = Exclude<
   SearchFieldKey,
-  'title' | 'description' | 'userId' | 'channelId' | 'thumbnailUrl' | 'lastResBody'
+  | 'title'
+  | 'description'
+  | 'userId'
+  | 'channelId'
+  | 'thumbnailUrl'
+  | 'lastResBody'
 >
 
 export type SearchQuerySortKey = Extract<
@@ -224,7 +232,9 @@ export type SearchResponse<FieldKey extends SearchQueryFieldKey = never> =
 /**
  * レスポンス (成功)
  */
-export interface SearchResponseOk<FieldKey extends SearchQueryFieldKey = never> {
+export interface SearchResponseOk<
+  FieldKey extends SearchQueryFieldKey = never,
+> {
   /**
    * レスポンスのメタ情報フィールド
    */

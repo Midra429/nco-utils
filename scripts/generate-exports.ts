@@ -4,6 +4,8 @@ import { globSync } from 'glob'
 
 const OUTPUT_DIR = 'dist'
 
+const FILENAME_CHUNK_REGEXP = /^chunk-[A-Z0-9]{8}$/
+
 const packageJsonPath = path.resolve(__dirname, '../package.json')
 const packageJson = require(packageJsonPath)
 
@@ -16,7 +18,7 @@ files.forEach((file) => {
   const dirSplited = path.relative(outDir, file).split('/')
   const fileName = path.basename(dirSplited.pop()!, '.js')
 
-  if (/^chunk-[A-Z0-9]{8}$/.test(fileName)) return
+  if (FILENAME_CHUNK_REGEXP.test(fileName)) return
 
   let alias: string
   let importPath: string

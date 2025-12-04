@@ -3,7 +3,10 @@ import type { V1Thread } from '@/types/api/niconico/v1/threads'
 import type { LegacyXml } from '@/types/api/niconico/legacy/xml'
 
 import { logger } from '@/common/logger'
-import { parseLegacyXml, legacyXmlToV1Threads } from '@/api/utils/niconico/legacy/xml'
+import {
+  parseLegacyXml,
+  legacyXmlToV1Threads,
+} from '@/api/utils/niconico/legacy/xml'
 
 export async function file<Compat extends boolean = false>(
   { raw_url }: GetDataFormatted,
@@ -11,7 +14,9 @@ export async function file<Compat extends boolean = false>(
     compatV1Thread?: Compat
   }
 ): Promise<
-  (Compat extends true ? V1Thread[] : never) | (Compat extends false ? LegacyXml : never) | null
+  | (Compat extends true ? V1Thread[] : never)
+  | (Compat extends false ? LegacyXml : never)
+  | null
 > {
   try {
     const res = await fetch(raw_url)

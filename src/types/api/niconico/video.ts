@@ -283,7 +283,10 @@ export interface Audio {
   loudnessCollection: LoudnessCollection[]
 }
 
-export type AudioId = 'audio-aac-64kbps' | 'audio-aac-128kbps' | 'audio-aac-192kbps'
+export type AudioId =
+  | 'audio-aac-64kbps'
+  | 'audio-aac-128kbps'
+  | 'audio-aac-192kbps'
 
 export interface LoudnessCollection {
   type: LoudnessCollectionType
@@ -427,24 +430,24 @@ export interface SeriesVideo {
 }
 
 export interface First {
-  'type': string
-  'id': string
-  'title': string
-  'registeredAt': string
-  'count': Count
-  'thumbnail': FirstThumbnail
-  'duration': number
-  'shortDescription': string
-  'latestCommentSummary': string
-  'isChannelVideo': boolean
-  'isPaymentRequired': boolean
-  'playbackPosition': number | null
-  'owner': FirstOwner
-  'requireSensitiveMasking': boolean
-  'videoLive': null
-  'isMuted': boolean
+  type: string
+  id: string
+  title: string
+  registeredAt: string
+  count: Count
+  thumbnail: FirstThumbnail
+  duration: number
+  shortDescription: string
+  latestCommentSummary: string
+  isChannelVideo: boolean
+  isPaymentRequired: boolean
+  playbackPosition: number | null
+  owner: FirstOwner
+  requireSensitiveMasking: boolean
+  videoLive: null
+  isMuted: boolean
   '9d091f87': boolean
-  'acf68865': boolean
+  acf68865: boolean
 }
 
 export interface Count {
@@ -502,23 +505,23 @@ export interface TagItem {
 }
 
 export interface DataVideo {
-  'id': string
-  'title': string
-  'description': string
-  'count': Count
-  'duration': number
-  'thumbnail': VideoThumbnail
-  'rating': Rating
-  'registeredAt': string
-  'isPrivate': boolean
-  'isDeleted': boolean
-  'isNoBanner': boolean
-  'isAuthenticationRequired': boolean
-  'isEmbedPlayerAllowed': boolean
-  'isGiftAllowed': boolean
-  'viewer': VideoViewer | null
-  'watchableUserTypeForPayment': CommentableUserTypeForPayment
-  'commentableUserTypeForPayment': CommentableUserTypeForPayment
+  id: string
+  title: string
+  description: string
+  count: Count
+  duration: number
+  thumbnail: VideoThumbnail
+  rating: Rating
+  registeredAt: string
+  isPrivate: boolean
+  isDeleted: boolean
+  isNoBanner: boolean
+  isAuthenticationRequired: boolean
+  isEmbedPlayerAllowed: boolean
+  isGiftAllowed: boolean
+  viewer: VideoViewer | null
+  watchableUserTypeForPayment: CommentableUserTypeForPayment
+  commentableUserTypeForPayment: CommentableUserTypeForPayment
   '9d091f87': boolean
 }
 

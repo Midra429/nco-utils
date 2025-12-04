@@ -25,7 +25,8 @@ test('parse', () => {
 
     if (
       val.season &&
-      (result.season?.text !== val.season.text || result.season?.number !== val.season.number)
+      (result.season?.text !== val.season.text ||
+        result.season?.number !== val.season.number)
     ) {
       fail('season')
 
@@ -35,7 +36,8 @@ test('parse', () => {
     if (result.isSingleEpisode) {
       if (
         val.episode &&
-        (result.episode?.text !== val.episode.text || result.episode?.number !== val.episode.number)
+        (result.episode?.text !== val.episode.text ||
+          result.episode?.number !== val.episode.number)
       ) {
         fail('episode')
 
@@ -64,7 +66,10 @@ test('parse', () => {
         return
       }
 
-      if (val.episodesDivider && result.episodesDivider !== val.episodesDivider) {
+      if (
+        val.episodesDivider &&
+        result.episodesDivider !== val.episodesDivider
+      ) {
         fail('episodesDivider')
 
         return

@@ -11,6 +11,7 @@ import { XMLParser } from 'fast-xml-parser'
 import { LegacyXmlChatSchema } from '@/types/api/niconico/legacy/xml'
 import { uid } from '@/common/uid'
 import { toISOStringTz } from '@/common/toISOStringTz'
+import { isCommentWithCommand } from '@/api/utils/niconico/isCommentWithCommand'
 
 const xmlParser = new XMLParser({
   textNodeName: 'content',
@@ -18,10 +19,6 @@ const xmlParser = new XMLParser({
   attributeNamePrefix: '',
   parseTagValue: false,
 })
-
-function isCommentWithCommand(cmt: string) {
-  return /^\/[a-z_]+(?:\s|$)/.test(cmt)
-}
 
 function xmlChatToV1Comment(chat: LegacyXmlChatOutput): V1Comment {
   const date_ms = Math.trunc(chat.date * 1000 + chat.date_usec / 1000)
@@ -69,7 +66,10 @@ export function parseLegacyXml(text: string): LegacyXmlOutput {
   }
 }
 
-export function legacyXmlToV1Threads({ packet }: LegacyXmlOutput, fork?: string): V1Thread[] {
+export function legacyXmlToV1Threads(
+  { packet }: LegacyXmlOutput,
+  fork?: string
+): V1Thread[] {
   fork ??= 'legacy-xml'
 
   const threadsMap: Record<string, V1Thread> = {}
@@ -85,7 +85,8 @@ export function legacyXmlToV1Threads({ packet }: LegacyXmlOutput, fork?: string)
   }
 
   for (const chat of packet.chat) {
-    if (chat.deleted || !chat.thread || isCommentWithCommand(chat.content)) continue
+    if (chat.deleted || !chat.thread || isCommentWithCommand(chat.content))
+      continue
 
     if (customThreadId) {
       chat.thread = customThreadId

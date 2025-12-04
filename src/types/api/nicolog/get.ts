@@ -35,14 +35,16 @@ export interface Related {
   hash_info: null
 }
 
-export interface GetDataFormatted extends Omit<GetData, 'modified' | 'created' | 'related'> {
+export interface GetDataFormatted
+  extends Omit<GetData, 'modified' | 'created' | 'related'> {
   id: string
   modified: number
   created: number
   related: RelatedFormatted[] | null
 }
 
-export interface RelatedFormatted extends Omit<Related, 'modified' | 'created'> {
+export interface RelatedFormatted
+  extends Omit<Related, 'modified' | 'created'> {
   modified: number
   created: number
 }
