@@ -503,6 +503,15 @@ export const CHANNEL_IDS_JIKKYO_SYOBOCAL: [
   ['jk333', '20'],
 ]
 
+export const jikkyoSyobocalChIdMap = new Map<
+  JikkyoChannelId,
+  SyoboCalChannelId
+>(CHANNEL_IDS_JIKKYO_SYOBOCAL)
+export const syobocalJikkyoChIdMap = new Map<
+  SyoboCalChannelId,
+  JikkyoChannelId
+>(CHANNEL_IDS_JIKKYO_SYOBOCAL.map(([j, s]) => [s, j]))
+
 /**
  * ニコニコ実況とTVerのチャンネルIDのペア
  */
@@ -541,6 +550,13 @@ export const CHANNEL_IDS_JIKKYO_TVER: [JikkyoChannelId, TVerChannelId][] = [
   ['jk263', '263'],
   ['jk265', '265'],
 ]
+
+export const jikkyoTverChIdMap = new Map<JikkyoChannelId, TVerChannelId>(
+  CHANNEL_IDS_JIKKYO_TVER
+)
+export const tverJikkyoChIdMap = new Map<TVerChannelId, JikkyoChannelId>(
+  CHANNEL_IDS_JIKKYO_TVER.map(([j, t]) => [t, j])
+)
 
 /** NHKのAPIで使われている地域 */
 export const NHK_AREAS = {
