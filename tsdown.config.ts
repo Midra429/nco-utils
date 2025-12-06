@@ -7,6 +7,6 @@ export default defineConfig({
   platform: 'browser',
   dts: true,
   outputOptions: {
-    chunkFileNames: '_chunks/[name]-[hash].js',
+    chunkFileNames: 'chunks/[name]-[hash].js',
   },
 })

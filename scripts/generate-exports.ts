@@ -1,6 +1,7 @@
 import path from 'node:path'
 
 const OUTPUT_DIR = 'dist'
+const CHUNKS_DIR = 'chunks'
 
 const packageJsonPath = path.resolve(__dirname, '../package.json')
 const packageJsonFile = Bun.file(packageJsonPath)
@@ -15,7 +16,7 @@ for await (const file of glob.scan()) {
   const dirSplited = path.relative(outDir, file).split('/')
   const fileName = path.basename(dirSplited.pop()!, '.js')
 
-  if (dirSplited[0] === '_chunks') continue
+  if (dirSplited[0] === CHUNKS_DIR) continue
 
   let alias: string
   let importPath: string
