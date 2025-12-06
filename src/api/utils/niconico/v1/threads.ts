@@ -8,13 +8,15 @@ export function parseV1Threads(text: string): V1ThreadsOk {
   const json: V1ThreadsOk = JSON.parse(text)
 
   for (const thread of json.data.threads) {
-    thread.comments = thread.comments.flatMap<V1Comment>((cmt) => {
+    const comments: V1Comment[] = []
+
+    for (const cmt of thread.comments) {
       try {
-        return v.parse(V1CommentSchema, cmt)
-      } catch {
-        return []
-      }
-    })
+        comments.push(v.parse(V1CommentSchema, cmt))
+      } catch {}
+    }
+
+    thread.comments = comments
   }
 
   return json

@@ -1,7 +1,6 @@
 import type {
   LegacyJson,
   LegacyJsonChatOutput,
-  LegacyJsonItemOutput,
   LegacyJsonOutput,
 } from '@/types/api/niconico/legacy/json'
 import type { V1Comment, V1Thread } from '@/types/api/niconico/v1/threads'
@@ -34,17 +33,21 @@ function jsonChatToV1Comment(chat: LegacyJsonChatOutput): V1Comment {
 export function parseLegacyJson(text: string): LegacyJsonOutput {
   const json: LegacyJson = JSON.parse(text)
 
-  return json.flatMap<LegacyJsonItemOutput>((item) => {
+  const results: LegacyJsonOutput = []
+
+  for (const item of json) {
     if ('chat' in item) {
       try {
-        return { chat: v.parse(LegacyJsonChatSchema, item.chat) }
-      } catch {
-        return []
-      }
+        results.push({
+          chat: v.parse(LegacyJsonChatSchema, item.chat),
+        })
+      } catch {}
     } else {
-      return item
+      results.push(item)
     }
-  })
+  }
+
+  return results
 }
 
 export function legacyJsonToV1Threads(input: LegacyJsonOutput): V1Thread[] {

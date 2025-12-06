@@ -53,13 +53,13 @@ export function parseLegacyXml(text: string): LegacyXmlOutput {
     packet.chat = [packet.chat]
   }
 
-  const chat = packet.chat.flatMap<LegacyXmlChatOutput>((chat) => {
+  const chat: LegacyXmlChatOutput[] = []
+
+  for (const val of packet.chat) {
     try {
-      return v.parse(LegacyXmlChatSchema, chat)
-    } catch {
-      return []
-    }
-  })
+      chat.push(v.parse(LegacyXmlChatSchema, val))
+    } catch {}
+  }
 
   return {
     packet: { ...packet, chat },
