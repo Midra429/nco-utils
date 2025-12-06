@@ -12,14 +12,14 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
+    "prebuild": "bun run --shell bun clean",
+    "build": "tsdown",
+    "clean": "rm -rf dist",
     "test": "conc bun:test:* --max-processes 1",
     "test:parse": "bun test ./test/parse.test.ts",
     "test:compare": "bun test ./test/compare.test.ts",
     "compile": "tsc --noEmit --skipLibCheck",
-    "check": "biome check --write",
-    "clean": "rm -rf dist",
-    "prebuild": "bun run --shell bun clean",
-    "build": "tsdown"
+    "check": "biome check --write"
   },
   "type": "module",
   "module": "./dist/index.js",
