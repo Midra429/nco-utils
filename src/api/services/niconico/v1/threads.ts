@@ -1,7 +1,7 @@
 import type {
   V1Threads,
-  V1ThreadsOk,
   V1ThreadsData,
+  V1ThreadsOk,
 } from '@/types/api/niconico/v1/threads'
 import type { DataComment, NvComment } from '@/types/api/niconico/video'
 

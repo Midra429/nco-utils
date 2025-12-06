@@ -1,4 +1,4 @@
-import type { SlotsResponse, Slot } from '@/types/api/abema/slots'
+import type { Slot, SlotsResponse } from '@/types/api/abema/slots'
 
 import { logger } from '@/common/logger'
 

@@ -1,17 +1,16 @@
+import type { ParsedResult } from '@/parse'
 import type {
   SearchQuery,
   SearchQueryJsonFilter,
 } from '@/types/api/niconico/search'
 import type { SearchTarget } from '@/types/search'
-import type { ParsedResult } from '@/parse'
 
 import { number2kanji } from '@geolonia/japanese-numeral'
 
 import { parse } from '@/parse'
-import { zeroPadding } from '@/common/zeroPadding'
-import { removeSymbols } from '@/common/remove'
 import { similarity } from '@/common/levenshtein'
-
+import { removeSymbols } from '@/common/remove'
+import { zeroPadding } from '@/common/zeroPadding'
 import titleVariants from '@/compare/title-variants.json'
 
 export interface BuildSearchQueryArgs {

@@ -1,4 +1,4 @@
-import type { V1ThreadsOk, V1Comment } from '@/types/api/niconico/v1/threads'
+import type { V1Comment, V1ThreadsOk } from '@/types/api/niconico/v1/threads'
 
 import * as v from 'valibot'
 

@@ -1,16 +1,16 @@
-import type { V1Thread, V1Comment } from '@/types/api/niconico/v1/threads'
 import type {
   LegacyXml,
-  LegacyXmlOutput,
   LegacyXmlChatOutput,
+  LegacyXmlOutput,
 } from '@/types/api/niconico/legacy/xml'
+import type { V1Comment, V1Thread } from '@/types/api/niconico/v1/threads'
 
-import * as v from 'valibot'
 import { XMLParser } from 'fast-xml-parser'
+import * as v from 'valibot'
 
 import { LegacyXmlChatSchema } from '@/types/api/niconico/legacy/xml'
-import { uid } from '@/common/uid'
 import { toISOStringTz } from '@/common/toISOStringTz'
+import { uid } from '@/common/uid'
 import { isCommentWithCommand } from '@/api/utils/niconico/isCommentWithCommand'
 
 const xmlParser = new XMLParser({

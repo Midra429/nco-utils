@@ -1,17 +1,17 @@
+import type { BuildSearchQueryArgs } from '@/search/lib/buildSearchQuery'
 import type {
-  SearchQueryFieldKey,
   SearchData,
+  SearchQueryFieldKey,
 } from '@/types/api/niconico/search'
 import type { SearchTarget } from '@/types/search'
-import type { BuildSearchQueryArgs } from '@/search/lib/buildSearchQuery'
 
-import { parse } from '@/parse'
 import { compare } from '@/compare'
-import { TAG_SZBH_REGEXP } from '@/api/constants'
-import { search as niconicoSearch } from '@/api/services/niconico'
+import { parse } from '@/parse'
+import { removeSymbols } from '@/common/remove'
 import { DANIME_CHANNEL_ID, REGEXP_DANIME_CHAPTER } from '@/search/constants'
 import { buildSearchQuery } from '@/search/lib/buildSearchQuery'
-import { removeSymbols } from '@/common/remove'
+import { TAG_SZBH_REGEXP } from '@/api/constants'
+import { search as niconicoSearch } from '@/api/services/niconico'
 
 const MAX_MATCH_LENGTH = 3
 

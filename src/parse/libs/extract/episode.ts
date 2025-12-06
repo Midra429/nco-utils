@@ -1,8 +1,8 @@
 import type { ExtractedSegment } from '.'
 
-import { nanoid } from 'nanoid'
 import { kanji2number } from '@geolonia/japanese-numeral'
 import equal from 'fast-deep-equal'
+import { nanoid } from 'nanoid'
 
 import { CERTAINTY } from '@/parse/constants'
 import {

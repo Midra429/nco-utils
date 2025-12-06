@@ -1,4 +1,4 @@
-import type { VideoResponse, Video } from '@/types/api/dmmTv/video'
+import type { Video, VideoResponse } from '@/types/api/dmmTv/video'
 
 import { logger } from '@/common/logger'
 

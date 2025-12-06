@@ -1,8 +1,8 @@
 import type { ExtractedResult } from './libs/extract'
 
-import { normalize } from './libs/normalize'
 import { clean } from './libs/clean'
 import { extract } from './libs/extract'
+import { normalize } from './libs/normalize'
 
 /**
  * 解析結果

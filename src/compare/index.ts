@@ -1,9 +1,9 @@
 import type { ParsedResult } from '@/parse'
 
 import { parse } from '@/parse'
-import { normalizeAll } from '@/parse/libs/normalize'
 import { similarity } from '@/common/levenshtein'
 import { removeSpaces } from '@/common/remove'
+import { normalizeAll } from '@/parse/libs/normalize'
 
 import titleVariants from './title-variants.json'
 

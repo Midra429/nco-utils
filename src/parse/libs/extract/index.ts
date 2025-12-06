@@ -1,8 +1,8 @@
 import { CERTAINTY } from '@/parse/constants'
 import { KANSUJI } from '@/parse/constants/regexps'
 
-import { extractSeasons, extractSeasonFromTitle } from './season'
 import { extractEpisodes } from './episode'
+import { extractSeasonFromTitle, extractSeasons } from './season'
 
 const OUTSIDE_BRACKETS_1_REGEXP = /^(?!.*」.*「)「(?<inner>[\s\S]*)」$/
 const OUTSIDE_BRACKETS_2_REGEXP = /^(?!.*』.*『)『(?<inner>[\s\S]*)』$/

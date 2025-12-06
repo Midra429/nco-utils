@@ -1,7 +1,7 @@
 import type { ParsedResult } from '@/parse'
 
-import { parse } from '@/parse'
 import { compare } from '@/compare'
+import { parse } from '@/parse'
 import * as nicologApi from '@/api/services/nicolog'
 
 const FILE_NAME_SUFFIX_REGEXP =

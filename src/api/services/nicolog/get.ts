@@ -1,6 +1,6 @@
 import type {
-  GetResponse,
   GetDataFormatted,
+  GetResponse,
   RelatedFormatted,
 } from '@/types/api/nicolog/get'
 

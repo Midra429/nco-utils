@@ -1,8 +1,8 @@
 import type {
   SyoboCalCommand,
   SyoboCalParameters,
-  SyoboCalResponseXml,
   SyoboCalResponseJson,
+  SyoboCalResponseXml,
 } from '@/types/api/syobocal/db'
 
 import { XMLParser } from 'fast-xml-parser'

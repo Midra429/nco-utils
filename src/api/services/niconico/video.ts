@@ -1,12 +1,11 @@
 import type {
+  VideoData,
   VideoResponse,
   VideoResponseOk,
-  VideoData,
 } from '@/types/api/niconico/video'
 
-import { VIDEO_ID_REGEXP } from '@/api/constants'
-
 import { logger } from '@/common/logger'
+import { VIDEO_ID_REGEXP } from '@/api/constants'
 
 const API_BASE_URL = 'https://www.nicovideo.jp/watch/'
 

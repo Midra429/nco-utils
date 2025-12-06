@@ -1,14 +1,14 @@
-import type { SyoboCalChannelId } from '@/types/api/constants'
-import type { SyoboCalTitleSearch } from '@/types/api/syobocal/json'
-import type { SyoboCalProgramDb } from '@/types/api/syobocal/db'
 import type { ParsedResult } from '@/parse'
+import type { SyoboCalChannelId } from '@/types/api/constants'
+import type { SyoboCalProgramDb } from '@/types/api/syobocal/db'
+import type { SyoboCalTitleSearch } from '@/types/api/syobocal/json'
 
 import { parse } from '@/parse'
+import { similarity } from '@/common/levenshtein'
+import { removeSymbols } from '@/common/remove'
 import { normalize, normalizeAll } from '@/parse/libs/normalize'
 import { CHANNEL_IDS_JIKKYO_SYOBOCAL } from '@/api/constants'
 import * as syobocalApi from '@/api/services/syobocal'
-import { similarity } from '@/common/levenshtein'
-import { removeSymbols } from '@/common/remove'
 
 const SIMILARITY_THRESHHOLD = 0.85
 

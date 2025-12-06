@@ -1,7 +1,7 @@
 import type {
   JikkyoChannelId,
-  TVerChannelId,
   SyoboCalChannelId,
+  TVerChannelId,
 } from '@/types/api/constants'
 
 export const VIDEO_ID_REGEXP = /^[a-z]{2}\d+$/

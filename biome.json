@@ -39,6 +39,14 @@
       "performance": {
         "useTopLevelRegex": "on"
       },
+      "style": {
+        "useImportType": {
+          "level": "on",
+          "options": {
+            "style": "separatedType"
+          }
+        }
+      },
       "suspicious": {
         "noArrayIndexKey": "off"
       }
@@ -50,6 +58,53 @@
     "actions": {
       "recommended": false,
       "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              { "type": true },
+
+              ":BLANK_LINE:",
+
+              [":NODE:", ":BUN:"],
+
+              ":BLANK_LINE:",
+
+              [":PACKAGE:", ":PACKAGE_WITH_PROTOCOL:", "!@midra/*/**"],
+              "@midra/*/*",
+              "@midra/*/**",
+
+              ":BLANK_LINE:",
+
+              [
+                ":ALIAS:",
+                "!@/api/**",
+                "!@/common/**",
+                "!@/compare/**",
+                "!@/parse/**",
+                "!@/search/**",
+                "!@/types/**"
+              ],
+              "@/types/**",
+              "@/common/**",
+              "@/parse",
+              "@/parse/*",
+              "@/parse/**",
+              "@/compare/**",
+              "@/search/**",
+              "@/api/**",
+
+              ":BLANK_LINE:",
+
+              [":PATH:", "!**/*.json"],
+
+              ":BLANK_LINE:",
+
+              "**/*.json"
+            ],
+            "identifierOrder": "lexicographic"
+          }
+        },
         "useSortedProperties": "on"
       }
     }

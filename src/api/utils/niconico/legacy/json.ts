@@ -1,10 +1,10 @@
-import type { V1Thread, V1Comment } from '@/types/api/niconico/v1/threads'
 import type {
   LegacyJson,
-  LegacyJsonOutput,
-  LegacyJsonItemOutput,
   LegacyJsonChatOutput,
+  LegacyJsonItemOutput,
+  LegacyJsonOutput,
 } from '@/types/api/niconico/legacy/json'
+import type { V1Comment, V1Thread } from '@/types/api/niconico/v1/threads'
 
 import * as v from 'valibot'
 

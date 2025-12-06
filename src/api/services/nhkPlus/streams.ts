@@ -1,7 +1,7 @@
 import type { NhkAreaId } from '@/types/api/constants'
 import type {
-  StreamsResponse,
   Body as StreamBody,
+  StreamsResponse,
 } from '@/types/api/nhkPlus/streams'
 
 import { logger } from '@/common/logger'

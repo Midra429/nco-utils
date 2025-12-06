@@ -1,2 +1,2 @@
-export * from './slots'
 export * from './programs'
+export * from './slots'

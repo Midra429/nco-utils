@@ -1,6 +1,6 @@
-import { test, expect } from 'bun:test'
-import equal from 'fast-deep-equal'
+import { expect, test } from 'bun:test'
 
+import equal from 'fast-deep-equal'
 import { parse } from '@midra/nco-utils/parse'
 
 import examples from './parse-examples.json'

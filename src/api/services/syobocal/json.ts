@@ -1,7 +1,7 @@
 import type { UnionToIntersection } from 'utility-types'
 import type {
-  SyoboCalReqCommand,
   SyoboCalParameters,
+  SyoboCalReqCommand,
   SyoboCalResponse,
 } from '@/types/api/syobocal/json'
 

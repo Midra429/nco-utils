@@ -5,7 +5,7 @@ import type {
   JikkyoKakologResponse,
   JikkyoKakologResponseOk,
 } from '@/types/api/jikkyo/kakolog'
-import type { V1Thread, V1Comment } from '@/types/api/niconico/v1/threads'
+import type { V1Comment, V1Thread } from '@/types/api/niconico/v1/threads'
 
 import * as v from 'valibot'
 

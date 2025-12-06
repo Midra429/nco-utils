@@ -1,4 +1,4 @@
-import type { PartResponse, PartData } from '@/types/api/danime/part'
+import type { PartData, PartResponse } from '@/types/api/danime/part'
 
 import { logger } from '@/common/logger'
 

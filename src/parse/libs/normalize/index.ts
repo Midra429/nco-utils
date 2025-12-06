@@ -1,4 +1,4 @@
-import { removeSymbols, removeSpaces } from '@/common/remove'
+import { removeSpaces, removeSymbols } from '@/common/remove'
 
 import { normalizeHyphen } from './hyphen'
 import { normalizeTilde } from './tilde'

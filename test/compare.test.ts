@@ -1,7 +1,7 @@
-import { test, expect } from 'bun:test'
+import { expect, test } from 'bun:test'
 
-import { parse } from '@midra/nco-utils/parse'
 import { compare } from '@midra/nco-utils/compare'
+import { parse } from '@midra/nco-utils/parse'
 
 import examples from './compare-examples.json'
 
