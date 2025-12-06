@@ -1,12 +1,16 @@
 import { defineConfig } from 'tsdown'
 
+export const outDir: string = 'dist'
+export const chunkDir: string = 'chunks'
+
 export default defineConfig({
+  outDir,
   entry: 'src/**/*.ts',
   format: 'esm',
   target: 'esnext',
   platform: 'browser',
   dts: true,
   outputOptions: {
-    chunkFileNames: 'chunks/[name]-[hash].js',
+    chunkFileNames: `${chunkDir}/[name]-[hash].js`,
   },
 })

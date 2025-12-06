@@ -1,22 +1,21 @@
 import path from 'node:path'
 
-const OUTPUT_DIR = 'dist'
-const CHUNKS_DIR = 'chunks'
+import { chunkDir, outDir } from '../tsdown.config'
 
 const packageJsonPath = path.resolve(__dirname, '../package.json')
 const packageJsonFile = Bun.file(packageJsonPath)
 const packageJson = await packageJsonFile.json()
 
-const outDir = path.resolve(__dirname, `../${OUTPUT_DIR}`)
-const glob = new Bun.Glob(path.join(outDir, '/**/*.js'))
+const outDirPath = path.resolve(__dirname, `../${outDir}`)
+const glob = new Bun.Glob(path.join(outDirPath, '/**/*.js'))
 
 packageJson.exports = {}
 
 for await (const file of glob.scan()) {
-  const dirSplited = path.relative(outDir, file).split('/')
+  const dirSplited = path.relative(outDirPath, file).split('/')
   const fileName = path.basename(dirSplited.pop()!, '.js')
 
-  if (dirSplited[0] === CHUNKS_DIR) continue
+  if (dirSplited[0] === chunkDir) continue
 
   let alias: string
   let importPath: string
@@ -40,8 +39,8 @@ for await (const file of glob.scan()) {
     typesPath = `${rootDir}/*.d.ts`
   }
 
-  importPath = `./${OUTPUT_DIR}/${importPath}`
-  typesPath = `./${OUTPUT_DIR}/${typesPath}`
+  importPath = `./${outDir}/${importPath}`
+  typesPath = `./${outDir}/${typesPath}`
 
   if (alias === '.') {
     packageJson.module = importPath
