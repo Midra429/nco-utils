@@ -6,6 +6,7 @@
       "name": "@midra/nco-utils",
       "dependencies": {
         "@geolonia/japanese-numeral": "latest",
+        "fast-deep-equal": "latest",
         "fast-xml-parser": "latest",
         "fastest-levenshtein": "latest",
         "nanoid": "latest",
@@ -16,7 +17,6 @@
         "@biomejs/biome": "latest",
         "@types/bun": "latest",
         "concurrently": "latest",
-        "fast-deep-equal": "latest",
         "tsdown": "latest",
         "typescript": "latest",
         "utility-types": "latest",
