@@ -1,0 +1,77 @@
+query FetchStream(
+  $id: ID!
+  $part: Int
+  $protectionCapabilities: [ProtectionCapability!]!
+  $audioChannelLayouts: [StreamingAudioChannelLayout!]!
+  $device: PlayDevice!
+  $http: Boolean
+  $temporaryDownload: Boolean
+) {
+  stream(
+    id: $id
+    part: $part
+    protectionCapabilities: $protectionCapabilities
+    audioChannelLayouts: $audioChannelLayouts
+    device: $device
+    http: $http
+    temporaryDownload: $temporaryDownload
+  ) {
+    contentTypeDetail
+    purchasedProductId
+    qualities {
+      name
+      displayName
+      __typename
+    }
+    textRenditionType
+    languages {
+      lang
+      displayName
+      __typename
+    }
+    videoRenditions {
+      lang
+      qualityName
+      streamingUrls {
+        systemIds
+        videoCodec
+        format
+        bpc
+        streamSize
+        urls
+        hdcp
+        __typename
+      }
+      __typename
+    }
+    audioRenditions {
+      lang
+      audioChannels
+      audioChannelLayout
+      __typename
+    }
+    textRenditions {
+      lang
+      __typename
+    }
+    chapter {
+      op {
+        start
+        end
+        __typename
+      }
+      ed {
+        start
+        end
+        __typename
+      }
+      skippable {
+        start
+        end
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+}
