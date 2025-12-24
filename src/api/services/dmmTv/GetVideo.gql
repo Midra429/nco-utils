@@ -1,0 +1,679 @@
+query GetVideo(
+  $seasonId: ID!
+  $contentId: ID!
+  $device: Device!
+  $playDevice: PlayDevice!
+  $isLoggedIn: Boolean!
+  $isContentId: Boolean!
+) {
+  video(id: $seasonId) {
+    id
+    seasonType
+    hasBookmark @include(if: $isLoggedIn)
+    titleName
+    seasonName
+    highlight(format: HTML)
+    description(format: HTML)
+    notices(format: HTML)
+    packageImage
+    productionYear
+    isNewArrival
+    customTag
+    isPublic
+    isExclusive
+    isBeingDelivered
+    viewingTypes
+    url
+    startPublicAt
+    campaign {
+      id
+      name
+      endAt
+      isLimitedPremium
+      __typename
+    }
+    rating {
+      category
+      __typename
+    }
+    casts {
+      castName
+      actorName
+      person {
+        id
+        __typename
+      }
+      __typename
+    }
+    staffs {
+      roleName
+      staffName
+      person {
+        id
+        __typename
+      }
+      __typename
+    }
+    categories {
+      name
+      id
+      __typename
+    }
+    genres {
+      name
+      id
+      __typename
+    }
+    copyright
+    relatedItems(device: $device) {
+      videos {
+        seasonId
+        video {
+          id
+          titleName
+          packageImage
+          isNewArrival
+          customTag
+          isExclusive
+          rating {
+            category
+            __typename
+          }
+          __typename
+        }
+        __typename
+      }
+      books {
+        seriesId
+        title
+        thumbnail
+        url
+        __typename
+      }
+      mono {
+        banner
+        url
+        __typename
+      }
+      scratch {
+        banner
+        url
+        __typename
+      }
+      onlineCrane {
+        banner
+        url
+        __typename
+      }
+      __typename
+    }
+    ... on VideoSeason {
+      __typename
+      metaDescription: description(format: PLAIN)
+      keyVisualImage
+      keyVisualWithoutLogoImage
+      reviewSummary {
+        averagePoint
+        reviewerCount
+        reviewCommentCount
+        __typename
+      }
+      relatedSeasons {
+        id
+        title
+        __typename
+      }
+      nextDeliveryEpisode {
+        isBeforeDelivered
+        startDeliveryAt
+        __typename
+      }
+      continueWatching @include(if: $isLoggedIn) {
+        id
+        resumePoint
+        contentId
+        content {
+          episodeImage
+          drmLevel {
+            hasStrictProtection
+            __typename
+          }
+          episodeTitle
+          episodeNumber
+          episodeNumberName
+          freeProduct {
+            contentId
+            __typename
+          }
+          viewingRights(device: $playDevice) {
+            isStreamable
+            __typename
+          }
+          ppvProducts {
+            id
+            contentId
+            isOnSale
+            isBeingDelivered
+            isBundleParent
+            isPurchased @include(if: $isLoggedIn)
+            price {
+              price
+              salePrice
+              __typename
+            }
+            __typename
+          }
+          svodProduct {
+            startDeliveryAt
+            __typename
+          }
+          __typename
+        }
+        __typename
+      }
+      priceSummary {
+        lowestPrice
+        highestPrice
+        discountedLowestPrice
+        isLimitedPremium
+        __typename
+      }
+      episode(id: $contentId) @include(if: $isContentId) {
+        id
+        episodeTitle
+        episodeImage
+        episodeNumber
+        episodeNumberName
+        episodeDetail
+        drmLevel {
+          hasStrictProtection
+          __typename
+        }
+        playInfo {
+          highestQuality
+          isSupportHDR
+          highestAudioChannelLayout
+          duration
+          audioRenditions
+          textRenditions
+          resumePartNumber @include(if: $isLoggedIn)
+          parts {
+            contentId
+            number
+            duration
+            resumePoint @include(if: $isLoggedIn)
+            __typename
+          }
+          __typename
+        }
+        viewingRights(device: $playDevice) {
+          isDownloadable
+          isStreamable
+          __typename
+        }
+        ppvExpiration @include(if: $isLoggedIn) {
+          expirationType
+          viewingExpiration
+          viewingStartExpiration
+          startDeliveryAt
+          __typename
+        }
+        freeProduct {
+          contentId
+          __typename
+        }
+        ppvProducts {
+          id
+          contentId
+          isOnSale
+          isBeingDelivered
+          isBundleParent
+          isPurchased @include(if: $isLoggedIn)
+          price {
+            price
+            salePrice
+            __typename
+          }
+          __typename
+        }
+        svodProduct {
+          startDeliveryAt
+          __typename
+        }
+        priceSummary {
+          lowestPrice
+          highestPrice
+          discountedLowestPrice
+          isLimitedPremium
+          __typename
+        }
+        __typename
+      }
+      episodes(type: MAIN, first: 1) {
+        edges {
+          node {
+            id
+            sampleMovie
+            episodeTitle
+            episodeNumber
+            episodeNumberName
+            drmLevel {
+              hasStrictProtection
+              __typename
+            }
+            playInfo {
+              highestQuality
+              isSupportHDR
+              highestAudioChannelLayout
+              duration
+              audioRenditions
+              textRenditions
+              resumePartNumber @include(if: $isLoggedIn)
+              parts {
+                number
+                resumePoint @include(if: $isLoggedIn)
+                __typename
+              }
+              __typename
+            }
+            viewingRights(device: $playDevice) {
+              isDownloadable
+              isStreamable
+              downloadableFiles @include(if: $isLoggedIn) {
+                quality {
+                  name
+                  displayName
+                  displayPriority
+                  __typename
+                }
+                totalFileSize
+                parts {
+                  partNumber
+                  fileSize
+                  __typename
+                }
+                __typename
+              }
+              __typename
+            }
+            ppvExpiration @include(if: $isLoggedIn) {
+              expirationType
+              viewingExpiration
+              viewingStartExpiration
+              startDeliveryAt
+              __typename
+            }
+            freeProduct {
+              contentId
+              __typename
+            }
+            ppvProducts {
+              id
+              contentId
+              isOnSale
+              isBeingDelivered
+              isBundleParent
+              isPurchased @include(if: $isLoggedIn)
+              price {
+                price
+                salePrice
+                __typename
+              }
+              __typename
+            }
+            svodProduct {
+              startDeliveryAt
+              __typename
+            }
+            priceSummary {
+              lowestPrice
+              highestPrice
+              discountedLowestPrice
+              isLimitedPremium
+              __typename
+            }
+            __typename
+          }
+          __typename
+        }
+        total
+        __typename
+      }
+      purchasedContents(first: 1) @include(if: $isLoggedIn) {
+        edges {
+          node {
+            id
+            __typename
+          }
+          __typename
+        }
+        total
+        __typename
+      }
+      specialEpisode: episodes(type: SPECIAL, first: 1) {
+        total
+        __typename
+      }
+      pvEpisode: episodes(type: PV, first: 1) {
+        edges {
+          node {
+            id
+            sampleMovie
+            playInfo {
+              duration
+              __typename
+            }
+            __typename
+          }
+          __typename
+        }
+        total
+        __typename
+      }
+    }
+    ... on VideoLegacySeason {
+      __typename
+      metaDescription: description(format: PLAIN)
+      packageLargeImage
+      reviewSummary {
+        averagePoint
+        reviewerCount
+        reviewCommentCount
+        __typename
+      }
+      sampleMovie {
+        url
+        thumbnail
+        __typename
+      }
+      samplePictures {
+        image
+        imageLarge
+        __typename
+      }
+      sampleMovie {
+        url
+        thumbnail
+        __typename
+      }
+      reviewSummary {
+        averagePoint
+        __typename
+      }
+      priceSummary {
+        lowestPrice
+        highestPrice
+        discountedLowestPrice
+        isLimitedPremium
+        __typename
+      }
+      continueWatching @include(if: $isLoggedIn) {
+        partNumber
+        resumePoint
+        contentId
+        content {
+          drmLevel {
+            hasStrictProtection
+            __typename
+          }
+          playInfo {
+            parts {
+              contentId
+              __typename
+            }
+            __typename
+          }
+          viewingRights(device: $playDevice) {
+            isStreamable
+            __typename
+          }
+          freeProduct {
+            contentId
+            __typename
+          }
+          __typename
+        }
+        __typename
+      }
+      content {
+        id
+        contentType
+        drmLevel {
+          hasStrictProtection
+          __typename
+        }
+        viewingRights(device: $playDevice) {
+          isStreamable
+          isDownloadable
+          downloadableFiles @include(if: $isLoggedIn) {
+            quality {
+              name
+              displayName
+              displayPriority
+              __typename
+            }
+            totalFileSize
+            parts {
+              partNumber
+              fileSize
+              __typename
+            }
+            __typename
+          }
+          windowsURLSchemes: appURLSchemes(app: WINDOWS_VR)
+            @include(if: $isLoggedIn)
+          {
+            partNumber
+            url
+            __typename
+          }
+          iosURLSchemes: appURLSchemes(app: IOS_VR) @include(if: $isLoggedIn) {
+            partNumber
+            url
+            __typename
+          }
+          androidURLSchemes: appURLSchemes(app: ANDROID_VR)
+            @include(if: $isLoggedIn)
+          {
+            partNumber
+            url
+            __typename
+          }
+          __typename
+        }
+        playInfo {
+          duration
+          audioRenditions
+          textRenditions
+          highestQuality
+          isSupportHDR
+          highestAudioChannelLayout
+          parts {
+            contentId
+            number
+            __typename
+          }
+          __typename
+        }
+        ppvExpiration @include(if: $isLoggedIn) {
+          expirationType
+          viewingExpiration
+          viewingStartExpiration
+          startDeliveryAt
+          __typename
+        }
+        freeProduct {
+          contentId
+          __typename
+        }
+        ppvProducts {
+          id
+          contentId
+          isOnSale
+          isBeingDelivered
+          isBundleParent
+          isPurchased @include(if: $isLoggedIn)
+          price {
+            price
+            salePrice
+            __typename
+          }
+          __typename
+        }
+        svodProduct {
+          startDeliveryAt
+          __typename
+        }
+        priceSummary {
+          lowestPrice
+          highestPrice
+          discountedLowestPrice
+          isLimitedPremium
+          __typename
+        }
+        __typename
+      }
+      series {
+        id
+        name
+        __typename
+      }
+    }
+    ... on VideoStageSeason {
+      id
+      __typename
+      metaDescription: description(format: PLAIN)
+      keyVisualImage
+      keyVisualWithoutLogoImage
+      reviewSummary {
+        averagePoint
+        reviewerCount
+        reviewCommentCount
+        __typename
+      }
+      priceSummary {
+        lowestPrice
+        highestPrice
+        discountedLowestPrice
+        isLimitedPremium
+        __typename
+      }
+      allPerformances {
+        performanceDate
+        contents {
+          id
+          episodeTitle
+          priority
+          startLivePerformanceAt
+          ppvProducts {
+            id
+            contentId
+            isOnSale
+            isBeingDelivered
+            isBundleParent
+            isPurchased @include(if: $isLoggedIn)
+            price {
+              price
+              salePrice
+              __typename
+            }
+            __typename
+          }
+          priceSummary {
+            lowestPrice
+            highestPrice
+            discountedLowestPrice
+            isLimitedPremium
+            __typename
+          }
+          __typename
+        }
+        __typename
+      }
+      purchasedContents(first: 1) @include(if: $isLoggedIn) {
+        edges {
+          node {
+            id
+            __typename
+          }
+          __typename
+        }
+        total
+        __typename
+      }
+    }
+    ... on VideoSpotLiveSeason {
+      __typename
+      metaDescription: description(format: PLAIN)
+      keyVisualImage
+      keyVisualWithoutLogoImage
+      episodes(type: MAIN, first: 1) {
+        edges {
+          node {
+            drmLevel {
+              hasStrictProtection
+              __typename
+            }
+            id
+            episodeTitle
+            episodeNumber
+            episodeNumberName
+            viewingRights(device: $playDevice) {
+              isStreamable
+              __typename
+            }
+            ppvExpiration @include(if: $isLoggedIn) {
+              expirationType
+              viewingExpiration
+              viewingStartExpiration
+              startDeliveryAt
+              __typename
+            }
+            freeProduct {
+              contentId
+              __typename
+            }
+            ppvProducts {
+              id
+              contentId
+              isOnSale
+              isBeingDelivered
+              isBundleParent
+              isPurchased @include(if: $isLoggedIn)
+              price {
+                price
+                salePrice
+                __typename
+              }
+              __typename
+            }
+            svodProduct {
+              startDeliveryAt
+              __typename
+            }
+            playInfo {
+              audioRenditions
+              textRenditions
+              duration
+              highestQuality
+              isSupportHDR
+              highestAudioChannelLayout
+              __typename
+            }
+            priceSummary {
+              lowestPrice
+              highestPrice
+              discountedLowestPrice
+              isLimitedPremium
+              __typename
+            }
+            __typename
+          }
+          __typename
+        }
+        __typename
+      }
+    }
+    __typename
+  }
+}
