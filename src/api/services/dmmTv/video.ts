@@ -36,6 +36,9 @@ query GetVideo($seasonId: ID!, $contentId: ID!, $isContentId: Boolean!) {
         episodeTitle
         episodeNumber
         episodeNumberName
+        playInfo {
+          duration
+        }
       }
     }
   }
