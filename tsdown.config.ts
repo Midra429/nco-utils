@@ -10,6 +10,7 @@ export default defineConfig({
   target: 'esnext',
   platform: 'browser',
   dts: true,
+  inlineOnly: false,
   outputOptions: {
     chunkFileNames: `${chunkDir}/[name]-[hash].js`,
   },
