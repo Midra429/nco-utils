@@ -29,9 +29,9 @@ export function normalizeHyphen(input: string): string {
   input = input.replace(HORIZONTAL_BAR_IN_KATAKANA, 'ー')
 
   // "Hyphen-Minus" に置換
-  HYPHENS.forEach((char) => {
+  for (const char of HYPHENS) {
     input = input.replaceAll(char, '-')
-  })
+  }
 
   return input
 }

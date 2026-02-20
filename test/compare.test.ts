@@ -6,7 +6,7 @@ import { parse } from '@midra/nco-utils/parse'
 import examples from './compare-examples.json'
 
 test('compare', () => {
-  examples.forEach((val) => {
+  for (const val of examples) {
     const parsedA = parse(val[0]!)
     const parsedB = parse(val[1]!)
     const result = compare(parsedA, parsedB)
@@ -19,5 +19,5 @@ test('compare', () => {
 
       expect().fail(`A: ${val[0]}\nB: ${val[1]}`)
     }
-  })
+  }
 })

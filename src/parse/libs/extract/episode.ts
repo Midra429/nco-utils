@@ -294,8 +294,10 @@ export function extractEpisodes(input: string): ExtractedSegment[] {
   const segments: ExtractedSegment[] = []
 
   // 話数の可能性: 高
-  EP_PROB_HIGH.forEach((re) => {
-    input.matchAll(re).forEach((matched) => {
+  for (const re of EP_PROB_HIGH) {
+    const matches = input.matchAll(re)
+
+    for (const matched of matches) {
       try {
         const seg = convertRegExpExecArray(matched, {
           certainty: CERTAINTY.HIGH,
@@ -303,12 +305,14 @@ export function extractEpisodes(input: string): ExtractedSegment[] {
 
         segments.push(seg)
       } catch {}
-    })
-  })
+    }
+  }
 
   // 話数の可能性 (特殊): 高
-  EP_SP_PROB_HIGH.forEach((re) => {
-    input.matchAll(re).forEach((matched) => {
+  for (const re of EP_SP_PROB_HIGH) {
+    const matches = input.matchAll(re)
+
+    for (const matched of matches) {
       try {
         const seg = convertRegExpExecArray(matched, {
           certainty: CERTAINTY.HIGH,
@@ -317,12 +321,14 @@ export function extractEpisodes(input: string): ExtractedSegment[] {
 
         segments.push(seg)
       } catch {}
-    })
-  })
+    }
+  }
 
   // 話数の可能性: 中
-  EP_PROB_MID.forEach((re) => {
-    input.matchAll(re).forEach((matched) => {
+  for (const re of EP_PROB_MID) {
+    const matches = input.matchAll(re)
+
+    for (const matched of matches) {
       try {
         const seg = convertRegExpExecArray(matched, {
           certainty: CERTAINTY.MID,
@@ -330,12 +336,14 @@ export function extractEpisodes(input: string): ExtractedSegment[] {
 
         segments.push(seg)
       } catch {}
-    })
-  })
+    }
+  }
 
   // 話数の可能性 (特殊): 中
-  EP_SP_PROB_MID.forEach((re) => {
-    input.matchAll(re).forEach((matched) => {
+  for (const re of EP_SP_PROB_MID) {
+    const matches = input.matchAll(re)
+
+    for (const matched of matches) {
       try {
         const seg = convertRegExpExecArray(matched, {
           certainty: CERTAINTY.MID,
@@ -344,12 +352,14 @@ export function extractEpisodes(input: string): ExtractedSegment[] {
 
         segments.push(seg)
       } catch {}
-    })
-  })
+    }
+  }
 
   // 話数の可能性: 低
-  EP_PROB_LOW.forEach((re) => {
-    input.matchAll(re).forEach((matched) => {
+  for (const re of EP_PROB_LOW) {
+    const matches = input.matchAll(re)
+
+    for (const matched of matches) {
       try {
         const seg = convertRegExpExecArray(matched, {
           certainty: CERTAINTY.LOW,
@@ -357,12 +367,14 @@ export function extractEpisodes(input: string): ExtractedSegment[] {
 
         segments.push(seg)
       } catch {}
-    })
-  })
+    }
+  }
 
   // 話数の可能性 (特殊): 低
-  EP_SP_PROB_LOW.forEach((re) => {
-    input.matchAll(re).forEach((matched) => {
+  for (const re of EP_SP_PROB_LOW) {
+    const matches = input.matchAll(re)
+
+    for (const matched of matches) {
       try {
         const seg = convertRegExpExecArray(matched, {
           certainty: CERTAINTY.LOW,
@@ -371,8 +383,8 @@ export function extractEpisodes(input: string): ExtractedSegment[] {
 
         segments.push(seg)
       } catch {}
-    })
-  })
+    }
+  }
 
   return (
     segments

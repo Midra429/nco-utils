@@ -14,9 +14,9 @@ const TILDES = [
  */
 export function normalizeTilde(input: string): string {
   // "Wave Dash" に置換
-  TILDES.forEach((char) => {
+  for (const char of TILDES) {
     input = input.replaceAll(char, '〜')
-  })
+  }
 
   return input
 }

@@ -6,6 +6,7 @@ import { extractSeasonFromTitle, extractSeasons } from './season'
 
 const OUTSIDE_BRACKETS_1_REGEXP = /^(?!.*」.*「)「(?<inner>[\s\S]*)」$/
 const OUTSIDE_BRACKETS_2_REGEXP = /^(?!.*』.*『)『(?<inner>[\s\S]*)』$/
+const IN_BRACKETS_REGEXP = /\(.+?\)|\[.+?\]|【.+?】/dg
 
 /**
  * 抽出した一部分
@@ -335,7 +336,9 @@ export function extract(input: string): ExtractedResult {
   segments.season.all = extractSeasons(input)
   segments.episode.all = extractEpisodes(input)
 
-  input.matchAll(/\(.+?\)|\[.+?\]|【.+?】/dg).forEach(({ indices }) => {
+  const inBracketsMatches = input.matchAll(IN_BRACKETS_REGEXP)
+
+  for (const { indices } of inBracketsMatches) {
     const [startIdx, endIdx] = indices![0]!
 
     // 括弧内に含まれるシーズンやエピソード
@@ -348,7 +351,7 @@ export function extract(input: string): ExtractedResult {
       2 <= segsInsideBracket.filter((v) => v.type === 'season').length ||
       2 <= segsInsideBracket.filter((v) => v.type === 'episode').length
     ) {
-      return
+      continue
     }
 
     // 括弧が付属している対象
@@ -356,7 +359,7 @@ export function extract(input: string): ExtractedResult {
       [startIdx, startIdx - 1].includes(v.indices[1])
     )
 
-    segsInsideBracket.forEach((seg) => {
+    for (const seg of segsInsideBracket) {
       // 対象のインデックスを更新
       seg.indices = indices![0]!
       seg._isInsideBracket = true
@@ -366,8 +369,8 @@ export function extract(input: string): ExtractedResult {
         targetSeg._attachedIds.push(seg._id)
         seg._attachedTargetId = targetSeg._id
       }
-    })
-  })
+    }
+  }
 
   let title: ExtractedResult['title'] = null
   let titleStripped: ExtractedResult['titleStripped'] = null
@@ -456,7 +459,7 @@ export function extract(input: string): ExtractedResult {
   }
 
   // 複数エピソードの開始と終了セグメント
-  const multipleEpisodesSegments = segments.episode.all
+  const multipleEpSegs = segments.episode.all
     .map<
       [ExtractedSegment, ExtractedSegment, ...ExtractedSegment[]] | undefined
     >((seg, idx, ary) => {
@@ -486,14 +489,17 @@ export function extract(input: string): ExtractedResult {
       }
     })
     .filter((v) => v != null)
+    .reverse()
+  const multipleEpSegsLen = multipleEpSegs.length
 
   // 複数エピソード
-  if (multipleEpisodesSegments.length) {
+  if (multipleEpSegsLen) {
     // 連続しているものを結合
-    ;[...multipleEpisodesSegments].reverse().forEach((segs, idx, ary) => {
-      const prevSegs = ary[idx + 1]
+    for (let i = 0; i < multipleEpSegsLen; i++) {
+      const segs = multipleEpSegs[i]!
+      const prevSegs = multipleEpSegs[i + 1]
 
-      if (!prevSegs) return
+      if (!prevSegs) continue
 
       const divider = input[segs[0].indices[1]]!
       const prevDivider = input[prevSegs[0].indices[1]]!
@@ -505,11 +511,11 @@ export function extract(input: string): ExtractedResult {
       ) {
         prevSegs.push(...segs.slice(1))
 
-        delete ary[idx]
+        delete multipleEpSegs[i]
       }
-    })
+    }
 
-    const segs = multipleEpisodesSegments.sort((a, b) => {
+    const segs = multipleEpSegs.sort((a, b) => {
       return a.length === b.length
         ? a[0].indices[0] - b[0].indices[0]
         : b.length - a.length

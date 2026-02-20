@@ -261,8 +261,10 @@ export function extractSeasons(input: string): ExtractedSegment[] {
   const segments: ExtractedSegment[] = []
 
   // シーズンの可能性: 高
-  SEASON_PROB_HIGH.forEach((re) => {
-    input.matchAll(re).forEach((matched) => {
+  for (const re of SEASON_PROB_HIGH) {
+    const matches = input.matchAll(re)
+
+    for (const matched of matches) {
       try {
         const seg = convertRegExpExecArray(matched, {
           certainty: CERTAINTY.HIGH,
@@ -270,12 +272,14 @@ export function extractSeasons(input: string): ExtractedSegment[] {
 
         segments.push(seg)
       } catch {}
-    })
-  })
+    }
+  }
 
   // シーズンの可能性 (特殊): 高
-  SEASON_SP_PROB_HIGH.forEach((re) => {
-    input.matchAll(re).forEach((matched) => {
+  for (const re of SEASON_SP_PROB_HIGH) {
+    const matches = input.matchAll(re)
+
+    for (const matched of matches) {
       try {
         const seg = convertRegExpExecArray(matched, {
           certainty: CERTAINTY.HIGH,
@@ -284,12 +288,14 @@ export function extractSeasons(input: string): ExtractedSegment[] {
 
         segments.push(seg)
       } catch {}
-    })
-  })
+    }
+  }
 
   // シーズンの可能性: 中
-  SEASON_PROB_MID.forEach((re) => {
-    input.matchAll(re).forEach((matched) => {
+  for (const re of SEASON_PROB_MID) {
+    const matches = input.matchAll(re)
+
+    for (const matched of matches) {
       try {
         const seg = convertRegExpExecArray(matched, {
           certainty: CERTAINTY.MID,
@@ -297,12 +303,14 @@ export function extractSeasons(input: string): ExtractedSegment[] {
 
         segments.push(seg)
       } catch {}
-    })
-  })
+    }
+  }
 
   // シーズンの可能性 (特殊): 中
-  SEASON_SP_PROB_MID.forEach((re) => {
-    input.matchAll(re).forEach((matched) => {
+  for (const re of SEASON_SP_PROB_MID) {
+    const matches = input.matchAll(re)
+
+    for (const matched of matches) {
       try {
         const seg = convertRegExpExecArray(matched, {
           certainty: CERTAINTY.MID,
@@ -311,12 +319,14 @@ export function extractSeasons(input: string): ExtractedSegment[] {
 
         segments.push(seg)
       } catch {}
-    })
-  })
+    }
+  }
 
   // シーズンの可能性: 低
-  SEASON_PROB_LOW.forEach((re) => {
-    input.matchAll(re).forEach((matched) => {
+  for (const re of SEASON_PROB_LOW) {
+    const matches = input.matchAll(re)
+
+    for (const matched of matches) {
       try {
         const seg = convertRegExpExecArray(matched, {
           certainty: CERTAINTY.LOW,
@@ -324,12 +334,14 @@ export function extractSeasons(input: string): ExtractedSegment[] {
 
         segments.push(seg)
       } catch {}
-    })
-  })
+    }
+  }
 
   // シーズンの可能性 (特殊): 低
-  SEASON_SP_PROB_LOW.forEach((re) => {
-    input.matchAll(re).forEach((matched) => {
+  for (const re of SEASON_SP_PROB_LOW) {
+    const matches = input.matchAll(re)
+
+    for (const matched of matches) {
       try {
         const seg = convertRegExpExecArray(matched, {
           certainty: CERTAINTY.LOW,
@@ -338,8 +350,8 @@ export function extractSeasons(input: string): ExtractedSegment[] {
 
         segments.push(seg)
       } catch {}
-    })
-  })
+    }
+  }
 
   return (
     segments

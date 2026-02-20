@@ -34,7 +34,9 @@ export function clean(input: string): string {
     input = matched[1]
   }
 
-  input.matchAll(IN_BRACKETS_REGEXP).forEach(([str]) => {
+  const inBracketsMatches = input.matchAll(IN_BRACKETS_REGEXP)
+
+  for (const [str] of inBracketsMatches) {
     if (
       // 映画
       MOVIE_SUFFIX_IN_BRACKETS_REGEXP.test(str) ||
@@ -46,7 +48,7 @@ export function clean(input: string): string {
     ) {
       input = input.replace(str, '')
     }
-  })
+  }
 
   // アニメ
   input = input

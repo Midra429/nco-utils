@@ -55,7 +55,7 @@ export async function syobocal(args: {
   const searchResults: SyoboCalTitleSearch[] = []
   const searchResultsPartial: SyoboCalTitleSearch[] = []
 
-  searchResultTitles.forEach((val) => {
+  for (const val of searchResultTitles) {
     const scParsed = parse(`${normalizeScTitle(val.Title)} #0`)
 
     if (
@@ -67,7 +67,7 @@ export async function syobocal(args: {
     ) {
       searchResults.push(val)
 
-      return
+      continue
     }
 
     const scInput = normalizeAll(scParsed.input)
@@ -79,9 +79,9 @@ export async function syobocal(args: {
     ) {
       searchResultsPartial.push(val)
 
-      return
+      continue
     }
-  })
+  }
 
   const searchResultsAll = [...searchResults, ...searchResultsPartial]
 

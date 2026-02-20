@@ -6,7 +6,7 @@ import { parse } from '@midra/nco-utils/parse'
 import examples from './parse-examples.json'
 
 test('parse', () => {
-  examples.forEach((val) => {
+  for (const val of examples) {
     const result = parse(val.input)
 
     function fail(name: string) {
@@ -20,7 +20,7 @@ test('parse', () => {
     if (result.title !== val.title) {
       fail('title')
 
-      return
+      continue
     }
 
     if (
@@ -30,7 +30,7 @@ test('parse', () => {
     ) {
       fail('season')
 
-      return
+      continue
     }
 
     if (result.isSingleEpisode) {
@@ -41,7 +41,7 @@ test('parse', () => {
       ) {
         fail('episode')
 
-        return
+        continue
       }
 
       if (
@@ -51,7 +51,7 @@ test('parse', () => {
       ) {
         fail('episodeAlt')
 
-        return
+        continue
       }
     } else {
       if (
@@ -63,7 +63,7 @@ test('parse', () => {
       ) {
         fail('episodes')
 
-        return
+        continue
       }
 
       if (
@@ -72,14 +72,12 @@ test('parse', () => {
       ) {
         fail('episodesDivider')
 
-        return
+        continue
       }
     }
 
     if (val.subtitle && result.subtitle !== val.subtitle) {
       fail('subtitle')
     }
-
-    return result
-  })
+  }
 })
