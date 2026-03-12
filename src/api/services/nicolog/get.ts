@@ -35,6 +35,7 @@ export async function get(
     }
 
     const id = body.path.split('/').slice(2).join('/')
+    const path = body.path
     const modified = new Date(json.data.modified).getTime()
     const created = new Date(json.data.created).getTime()
     const related =
@@ -48,6 +49,7 @@ export async function get(
     return {
       ...json.data,
       id,
+      path,
       modified,
       created,
       related,
