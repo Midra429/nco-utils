@@ -7,8 +7,7 @@
 
   "vcs": {
     "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
+    "clientKind": "git"
   },
 
   "linter": {
