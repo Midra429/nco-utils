@@ -6,7 +6,7 @@ import type {
 
 import { logger } from '@/common/logger'
 
-const API_BASE_URL = 'http://nicolog.ecchi.club/api/fs/get'
+const API_BASE_URL = 'http://nicolog.oyasumi.today/api/fs/get'
 
 export interface GetRequestBody {
   path: string

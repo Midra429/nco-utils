@@ -6,7 +6,7 @@ import type {
 
 import { logger } from '@/common/logger'
 
-const API_BASE_URL = 'http://nicolog.ecchi.club/api/fs/list'
+const API_BASE_URL = 'http://nicolog.oyasumi.today/api/fs/list'
 
 export const NICO_LIVE_ANIME_ROOT = '/nico-live-anime'
 

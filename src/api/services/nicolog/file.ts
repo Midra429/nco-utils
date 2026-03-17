@@ -8,10 +8,8 @@ import {
   parseLegacyXml,
 } from '@/api/utils/niconico/legacy/xml'
 
-const API_BASE_URL = 'http://nicolog.ecchi.club/p'
-
 export async function file<Compat extends boolean = false>(
-  { path, sign }: GetDataFormatted,
+  { raw_url }: GetDataFormatted,
   options?: {
     compatV1Thread?: Compat
   }
@@ -21,11 +19,7 @@ export async function file<Compat extends boolean = false>(
   | null
 > {
   try {
-    const url = new URL(API_BASE_URL + path)
-
-    url.searchParams.set('sign', sign)
-
-    const res = await fetch(url)
+    const res = await fetch(raw_url)
     const text = await res.text()
 
     const xml = parseLegacyXml(text)
