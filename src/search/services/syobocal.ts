@@ -20,7 +20,11 @@ export async function syobocal(args: {
   input: string | ParsedResult
   channelIds?: SyoboCalChannelId[]
   userAgent: string
-}) {
+}): Promise<{
+  title: SyoboCalTitleSearch
+  subtitle: string | null
+  programs: SyoboCalProgramDb[]
+} | null> {
   const { input, channelIds, userAgent } = args
   const parsed = parse(input)
 

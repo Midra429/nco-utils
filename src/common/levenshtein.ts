@@ -10,4 +10,4 @@ function similarity(a: string, b: string): number {
   return 1
 }
 
-export { distance, closest, similarity }
+export { closest, distance, similarity }
