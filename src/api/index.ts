@@ -5,7 +5,6 @@ import * as fod from './services/fod'
 import * as jikkyo from './services/jikkyo'
 import * as netflix from './services/netflix'
 import * as nhk from './services/nhk'
-import * as nhkPlus from './services/nhkPlus'
 import * as nicolog from './services/nicolog'
 import * as niconico from './services/niconico'
 import * as syobocal from './services/syobocal'
@@ -21,7 +20,6 @@ export const ncoApi = {
   netflix,
   niconico,
   nhk,
-  nhkPlus,
   tver,
   jikkyo,
   syobocal,
