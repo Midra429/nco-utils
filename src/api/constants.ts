@@ -56,8 +56,8 @@ export const JIKKYO_CHANNELS_DTV = {
  * ニコニコ実況のチャンネル一覧 (BS, CS)
  */
 export const JIKKYO_CHANNELS_BS_CS = {
-  jk101: 'NHK BS1',
-  jk103: 'NHK BSプレミアム',
+  jk101: 'NHK BS',
+  jk103: 'NHK BSプレミアム4K',
   jk141: 'BS日テレ',
   jk151: 'BS朝日',
   jk161: 'BS-TBS',
@@ -72,7 +72,7 @@ export const JIKKYO_CHANNELS_BS_CS = {
   jk222: 'BS12 トゥエルビ',
   jk236: 'BSアニマックス',
   jk252: 'WOWOW PLUS',
-  jk260: 'BS松竹東急',
+  jk260: 'J:COM BS',
   jk263: 'BSJapanext',
   jk265: 'BSよしもと',
   jk333: 'AT-X',
@@ -136,7 +136,7 @@ export const TVER_CHANNELS_BS = {
   '40': '日本映画専門ch',
   '41': 'ディズニーch',
   '61': 'スポーツライブ＋',
-  '260': 'BS松竹東急',
+  '260': 'J:COM BS',
   '263': 'BSJapanext',
   '265': 'BSよしもと',
 } as const
