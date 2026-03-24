@@ -3,6 +3,8 @@ import type {
   JIKKYO_CHANNELS_BS_CS,
   JIKKYO_CHANNELS_DTV,
   NHK_AREAS,
+  NHK_CHANNELS,
+  NHK_CHANNELS_20231130,
   NICONICO_GENRES,
   SYOBOCAL_CATEGORIES,
   SYOBOCAL_CHANNELS,
@@ -60,3 +62,10 @@ export type SyoboCalChannelId = keyof typeof SYOBOCAL_CHANNELS
  * NHKのエリアID
  */
 export type NhkAreaId = keyof typeof NHK_AREAS
+
+/**
+ * NHKのチャンネルID
+ */
+export type NhkChannelId =
+  | keyof typeof NHK_CHANNELS_20231130
+  | keyof typeof NHK_CHANNELS

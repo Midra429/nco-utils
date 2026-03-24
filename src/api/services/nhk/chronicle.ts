@@ -1,3 +1,4 @@
+import type { NhkChannelId } from '@/types/api/constants'
 import type { Chronicle, ChronicleResult } from '@/types/api/nhk/chronicle'
 
 import { logger } from '@/common/logger'
@@ -29,14 +30,14 @@ function convertKeyword(keyword: string): string {
 }
 
 export async function chronicle(
-  keyword: string
+  keyword: string,
+  channelIds: NhkChannelId[] = ['21', '31', '11', '10', '44']
 ): Promise<ChronicleResult[] | null> {
   const url = new URL(API_BASE_URL)
 
   const query = [
     `(${convertKeyword(keyword)})`,
-    // デジタル総合1, デジタル教育1
-    'channel1.keyword:(21 OR 31)',
+    `channel1.keyword:(${channelIds.join(' OR ')})`,
     // 2009/11/28以降
     'airdate1:(>=20091128)',
   ].join(' AND ')
