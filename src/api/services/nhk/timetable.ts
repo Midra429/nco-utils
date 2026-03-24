@@ -6,6 +6,8 @@ import { zeroPadding } from '@/common/zeroPadding'
 
 const API_BASE_URL = 'https://api.nhk.jp/r8/pg/date/tv'
 
+const DATE_REGEXP = /^\d{4}-\d{2}-\d{2}$/
+
 export async function timetable(
   date: `${string}-${string}-${string}` | Date,
   areaId: NhkAreaId = '130'
@@ -16,6 +18,10 @@ export async function timetable(
     const day = zeroPadding(date.getDate(), 2)
 
     date = `${year}-${month}-${day}`
+  }
+
+  if (!DATE_REGEXP.test(date)) {
+    return null
   }
 
   const url = `${API_BASE_URL}/${areaId}/${date}.json`
