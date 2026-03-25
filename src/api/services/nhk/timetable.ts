@@ -9,13 +9,14 @@ const API_BASE_URL = 'https://api.nhk.jp/r8/pg/date/tv'
 const DATE_REGEXP = /^\d{4}-\d{2}-\d{2}$/
 
 export async function timetable(
-  date: `${string}-${string}-${string}` | Date,
+  date: `${string}-${string}-${string}` | number,
   areaId: NhkAreaId = '130'
 ): Promise<Timetable | null> {
-  if (date instanceof Date) {
-    const year = date.getFullYear()
-    const month = zeroPadding(date.getMonth() + 1, 2)
-    const day = zeroPadding(date.getDate(), 2)
+  if (typeof date === 'number') {
+    const d = new Date(date)
+    const year = d.getFullYear()
+    const month = zeroPadding(d.getMonth() + 1, 2)
+    const day = zeroPadding(d.getDate(), 2)
 
     date = `${year}-${month}-${day}`
   }
