@@ -5,6 +5,7 @@ import type {
   NHK_AREAS,
   NHK_CHANNELS,
   NHK_CHANNELS_20231130,
+  NHK_SERVICES,
   NICONICO_GENRES,
   SYOBOCAL_CATEGORIES,
   SYOBOCAL_CHANNELS,
@@ -62,6 +63,11 @@ export type SyoboCalChannelId = keyof typeof SYOBOCAL_CHANNELS
  * NHKのエリアID
  */
 export type NhkAreaId = keyof typeof NHK_AREAS
+
+/**
+ * NHKのサービスID
+ */
+export type NhkServiceId = keyof typeof NHK_SERVICES
 
 /**
  * NHKのチャンネルID

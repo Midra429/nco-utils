@@ -519,6 +519,22 @@ export const NHK_AREAS = {
 }
 
 /**
+ * NHKのサービス一覧
+ */
+export const NHK_SERVICES = {
+  g1: 'NHK総合1',
+  g2: 'NHK総合2',
+  e1: 'NHK Eテレ1',
+  e3: 'NHK Eテレ3',
+  s1: 'NHK BS',
+  s2: 'NHK BS(102ch)',
+  s3: 'NHK BSプレミアム',
+  s4: 'NHK BSプレミアム(104ch)',
+  s5: 'NHK BSプレミアム4K',
+  s6: 'NHK BS8K',
+} as const
+
+/**
  * NHKのチャンネルID一覧 (2023/11/30以前)
  */
 export const NHK_CHANNELS_20231130 = {
