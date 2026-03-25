@@ -42,11 +42,11 @@ export async function kakolog<
 
     const starttime =
       params.starttime instanceof Date
-        ? params.starttime.getTime() / 1000
+        ? Math.floor(params.starttime.getTime() / 1000)
         : params.starttime
     const endtime =
       params.endtime instanceof Date
-        ? params.endtime.getTime() / 1000
+        ? Math.floor(params.endtime.getTime() / 1000)
         : params.endtime
     const format = options?.compatV1Thread ? 'json' : params.format
 
