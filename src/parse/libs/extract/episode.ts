@@ -119,6 +119,15 @@ const EP_PROB_MID: RegExp[] = [
     `(?<=\\S+\\s)` + `(?<number>${NUMBER_SHORT})` + `(?=(?:「.+」|『.+』)$)`,
     'dgu'
   ),
+  // タイトル (1)「サブタイトル」
+  new RegExp(
+    `(?<=\\S+\\s)` +
+      `(?<prefix>\\()` +
+      `(?<number>${NUMBER_SHORT})` +
+      `(?<suffix>\\))` +
+      `(?=(?:「.+」|『.+』)$)`,
+    'dgu'
+  ),
 ]
 
 // 話数の可能性 (特殊): 中
@@ -187,6 +196,15 @@ const EP_PROB_LOW: RegExp[] = [
     `(?<=\\S+\\s)` +
       `(?<!(?:[Ss]eason|SEASON|[Pp]art|PART)\\s)` +
       `(?<number>${NUMBER_SHORT})` +
+      `(?=\\s\\S+)`,
+    'dgu'
+  ),
+  // タイトル (1) サブタイトル
+  new RegExp(
+    `(?<=\\S+\\s)` +
+      `(?<prefix>\\()` +
+      `(?<number>${NUMBER_SHORT})` +
+      `(?<suffix>\\))` +
       `(?=\\s\\S+)`,
     'dgu'
   ),
