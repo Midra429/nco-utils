@@ -243,9 +243,9 @@ const TITLE_VERSION_SUFFIX = '(?:版|ver\\.?)'
 
 const STRIP_TEXT_REGEXPS: RegExp[] = [
   // 片翼の･･･堕天使（フォーリン・エンジェル）
-  /(?<=[a-zA-Z\p{sc=Hiragana}\p{sc=Han}]+)\s?\(\p{scx=Katakana}+\)/u,
+  /(?<=[a-zA-Z\p{sc=Hiragana}\p{sc=Han}]+)\s?\(\p{scx=Katakana}+\)/gu,
   // 相生のホメオスタシス (そうせい)
-  /(?<=[a-zA-Z\p{sc=Katakana}\p{sc=Han}]+)\s?\(\p{scx=Hiragana}+\)/u,
+  /(?<=[a-zA-Z\p{sc=Katakana}\p{sc=Han}]+)\s?\(\p{scx=Hiragana}+\)/gu,
   // 始まりと終わりのプロローグ -Turning Point-
   /(?<=^[^\-]+)\s*?\-[a-z][a-z'\s]+\-$/i,
   // 魔王学院の不適合者 ～史上最強の魔王の始祖、転生して子孫たちの学校へ通う～
