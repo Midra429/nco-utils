@@ -35,7 +35,7 @@
     },
     // "rootDirs": [],
     // "typeRoots": [],
-    // "types": [],
+    "types": ["@types/bun"],
     // "allowUmdGlobalAccess": true,
     // "moduleSuffixes": [],
     "allowImportingTsExtensions": true,
