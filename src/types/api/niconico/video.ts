@@ -115,7 +115,7 @@ export interface ThreadId {
   forkLabel: Fork
 }
 
-export type Fork = 'owner' | 'main' | 'easy'
+export type Fork = 'owner' | 'main' | 'easy' | 'ai'
 
 export interface Ng {
   ngScore: NgScore
