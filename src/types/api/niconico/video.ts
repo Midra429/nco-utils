@@ -192,10 +192,12 @@ export interface Thread {
 export type ThreadLabel =
   | 'owner'
   | 'default'
+  | 'main'
   | 'community'
-  | 'easy'
   | 'extra-community'
+  | 'easy'
   | 'extra-easy'
+  | 'ai'
 
 export interface EasyComment {
   phrases: Phrase[]
