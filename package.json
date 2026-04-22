@@ -134,18 +134,18 @@
   "dependencies": {
     "@geolonia/japanese-numeral": "^1.0.2",
     "fast-deep-equal": "^3.1.3",
-    "fast-xml-parser": "^5.5.10",
+    "fast-xml-parser": "^5.7.1",
     "fastest-levenshtein": "^1.0.16",
-    "nanoid": "^5.1.7",
+    "nanoid": "^5.1.9",
     "nanoid-dictionary": "^5.0.0",
     "valibot": "^1.3.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.10",
-    "@types/bun": "^1.3.11",
+    "@biomejs/biome": "^2.4.12",
+    "@types/bun": "^1.3.12",
     "concurrently": "^9.2.1",
-    "tsdown": "^0.21.7",
-    "typescript": "^6.0.2",
+    "tsdown": "^0.21.9",
+    "typescript": "^6.0.3",
     "utility-types": "^3.11.0"
   }
 }
