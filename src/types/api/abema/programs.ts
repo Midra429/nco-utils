@@ -139,4 +139,11 @@ export interface TimelineThumbComponent {
 
 export interface ViewingPoint {
   suggestion: number
+  opening?: OpEd
+  ending?: OpEd
+}
+
+export interface OpEd {
+  start: number
+  end: number
 }
