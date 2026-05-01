@@ -252,10 +252,11 @@ const STRIP_TEXT_REGEXPS: RegExp[] = [
   /(?<=^[^〜]+)\s〜[^〜]+〜$/i,
 ]
 const STRIP_TITLE_REGEXPS: RegExp[] = [
-  // 【オンエア版】, 《あこがれVer.》, ＜Hネルギー解放版＞
+  // 超よわよわver., 【オンエア版】, 《あこがれVer.》, ＜Hネルギー解放版＞
   new RegExp(
     `(?<=.+)\\s?` +
       `(?:${[
+        `\\s.+?${TITLE_VERSION_SUFFIX}`,
         `\\(.+?${TITLE_VERSION_SUFFIX}\\)`,
         `<.+?${TITLE_VERSION_SUFFIX}>`,
         `【.+?${TITLE_VERSION_SUFFIX}】`,
