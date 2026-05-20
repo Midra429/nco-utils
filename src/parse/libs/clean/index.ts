@@ -30,8 +30,15 @@ const SPACES_REGEXP = /\s+/g
 export function clean(input: string): string {
   // dアニメストア（<映画タイトル> 本編 <映画タイトル>）
   const matched = input.match(DANIME_HONPEN_REGEXP)
-  if (matched?.[1] && matched[1] === matched[2]) {
-    input = matched[1]
+  if (matched) {
+    const title1 = matched[1]!
+    const title2 = matched[2]!
+
+    if (title2.startsWith(title1)) {
+      input = title2
+    } else {
+      input = title1
+    }
   }
 
   const inBracketsMatches = input.matchAll(IN_BRACKETS_REGEXP)
