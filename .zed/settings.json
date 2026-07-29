@@ -1,0 +1,24 @@
+{
+  "lsp": {
+    "json-language-server": {
+      "settings": {
+        "json": {
+          "schemas": [
+            {
+              "fileMatch": ["title-variants.json"],
+              "url": "./schema/title-variants.schema.json"
+            },
+            {
+              "fileMatch": ["parse-examples.json"],
+              "url": "./schema/parse-examples.schema.json"
+            },
+            {
+              "fileMatch": ["compare-examples.json"],
+              "url": "./schema/compare-examples.schema.json"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
