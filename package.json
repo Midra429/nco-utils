@@ -15,7 +15,7 @@
     "prebuild": "bun run --shell bun clean",
     "build": "tsdown",
     "clean": "rm -rf dist",
-    "test": "conc bun:test:* --max-processes 1",
+    "test": "bun run --sequential \"test:*\"",
     "test:parse": "bun test ./test/parse.test.ts",
     "test:compare": "bun test ./test/compare.test.ts",
     "compile": "tsc --noEmit --skipLibCheck",
@@ -134,18 +134,18 @@
   "dependencies": {
     "@geolonia/japanese-numeral": "^1.0.2",
     "fast-deep-equal": "^3.1.3",
-    "fast-xml-parser": "^5.8.0",
+    "fast-xml-parser": "^5.10.1",
     "fastest-levenshtein": "^1.0.16",
-    "nanoid": "^5.1.11",
+    "nanoid": "^6.0.0",
     "nanoid-dictionary": "^5.0.0",
-    "valibot": "^1.4.0"
+    "valibot": "^1.4.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.15",
+    "@biomejs/biome": "^2.5.6",
     "@types/bun": "^1.3.14",
-    "concurrently": "^9.2.1",
-    "tsdown": "^0.21.10",
-    "typescript": "^6.0.3",
+    "rolldown": "^1.2.0",
+    "tsdown": "^0.22.14",
+    "typescript": "^7.0.2",
     "utility-types": "^3.11.0"
   }
 }
