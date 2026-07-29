@@ -17,8 +17,14 @@ test('parse', () => {
       expect().fail(`${id}: ${name}`)
     }
 
-    if (result.title !== val.title) {
+    if (val.title && result.title !== val.title) {
       fail('title')
+
+      continue
+    }
+
+    if (val.titleStripped && result.titleStripped !== val.titleStripped) {
+      fail('titleStripped')
 
       continue
     }
@@ -29,6 +35,16 @@ test('parse', () => {
         result.season?.number !== val.season.number)
     ) {
       fail('season')
+
+      continue
+    }
+
+    if (
+      val.seasonAlt &&
+      (result.seasonAlt?.text !== val.seasonAlt.text ||
+        result.seasonAlt?.number !== val.seasonAlt.number)
+    ) {
+      fail('seasonAlt')
 
       continue
     }
@@ -78,6 +94,13 @@ test('parse', () => {
 
     if (val.subtitle && result.subtitle !== val.subtitle) {
       fail('subtitle')
+    }
+
+    if (
+      val.subtitleStripped &&
+      result.subtitleStripped !== val.subtitleStripped
+    ) {
+      fail('subtitleStripped')
     }
   }
 })

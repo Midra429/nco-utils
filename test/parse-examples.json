@@ -178,7 +178,8 @@
       "text": "第1話",
       "number": 1
     },
-    "subtitle": "始まりと終わりのプロローグ -Turning Point-"
+    "subtitle": "始まりと終わりのプロローグ -Turning Point-",
+    "subtitleStripped": "始まりと終わりのプロローグ"
   },
 
   {
@@ -207,6 +208,7 @@
     "id": 18,
     "input": "機動戦士Gundam GQuuuuuuX（ジークアクス） 1話 赤いガンダム",
     "title": "機動戦士Gundam GQuuuuuuX(ジークアクス)",
+    "titleStripped": "機動戦士Gundam GQuuuuuuX",
     "episode": {
       "text": "1話",
       "number": 1
@@ -319,7 +321,8 @@
       "text": "第11話",
       "number": 11
     },
-    "subtitle": "片翼の・・・堕天使(フォーリン・エンジェル)"
+    "subtitle": "片翼の・・・堕天使(フォーリン・エンジェル)",
+    "subtitleStripped": "片翼の・・・堕天使"
   },
 
   {
@@ -330,7 +333,8 @@
       "text": "Episode XI",
       "number": 11
     },
-    "subtitle": "片翼の堕天使(フォーリン・エンジェル)"
+    "subtitle": "片翼の堕天使(フォーリン・エンジェル)",
+    "subtitleStripped": "片翼の堕天使"
   },
 
   {
@@ -538,6 +542,7 @@
     "id": 43,
     "input": "名湯『異世界の湯』開拓記 ～アラフォー温泉マニアの転生先は、のんびり温泉天国でした～ 1番湯 狐少女と温泉の作法",
     "title": "名湯『異世界の湯』開拓記 〜アラフォー温泉マニアの転生先は、のんびり温泉天国でした〜",
+    "titleStripped": "名湯『異世界の湯』開拓記",
     "episode": {
       "text": "1番湯",
       "number": 1
@@ -582,6 +587,7 @@
     "id": 47,
     "input": "ATRI -My Dear Moments- Log 03 「ヒットマン・ザコ・スクール」",
     "title": "ATRI -My Dear Moments-",
+    "titleStripped": "ATRI",
     "episode": {
       "text": "Log 03",
       "number": 3
@@ -679,7 +685,8 @@
       "text": "ページ9",
       "number": 9
     },
-    "subtitle": "獣(けもの)"
+    "subtitle": "獣(けもの)",
+    "subtitleStripped": "獣"
   },
 
   {
@@ -857,6 +864,7 @@
     "id": 68,
     "input": "ポンコツクエスト～魔王と派遣の魔物たち～　シーズン3 第二十五章～第三十章 第3シーズン前半",
     "title": "ポンコツクエスト〜魔王と派遣の魔物たち〜",
+    "titleStripped": "ポンコツクエスト",
     "season": {
       "text": "シーズン3",
       "number": 3
@@ -977,6 +985,7 @@
     "id": 74,
     "input": "SUPER SHIRO（スーパーシロ） #1／#2 シロはスーパーヒーロー／おかしなおかし工場",
     "title": "SUPER SHIRO(スーパーシロ)",
+    "titleStripped": "SUPER SHIRO",
     "episodes": [
       {
         "text": "#1",
@@ -1052,5 +1061,16 @@
       "number": 1
     },
     "subtitle": "ウェンカムイ"
+  },
+
+  {
+    "id": 79,
+    "input": "いたずらぐまのグル～ミ～　第1話　くまのしゅうせい",
+    "titleStripped": "いたずらぐまのグル〜ミ〜",
+    "episode": {
+      "text": "第1話",
+      "number": 1
+    },
+    "subtitle": "くまのしゅうせい"
   }
 ]
