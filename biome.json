@@ -7,7 +7,8 @@
 
   "vcs": {
     "enabled": true,
-    "clientKind": "git"
+    "clientKind": "git",
+    "useIgnoreFile": true
   },
 
   "linter": {
@@ -16,7 +17,7 @@
       "react": "recommended"
     },
     "rules": {
-      "recommended": false,
+      "preset": "none",
       "correctness": {
         "noUnusedFunctionParameters": "warn",
         "noUnusedImports": "warn",
