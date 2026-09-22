@@ -170,6 +170,17 @@ export function compare(
             titleStrippedB.startsWith(titleStrippedA)))
     }
 
+    // タイトル、シーズン、サブタイトルの一致時かつ2期以降のとき、話数を一致したことにする
+    if (
+      result.title &&
+      result.season &&
+      2 <= (parsedA.season ?? parsedB.season)!.number &&
+      result.episode === false &&
+      result.subtitle
+    ) {
+      result.episode = true
+    }
+
     // 片方のみシーズンあり
     if (result.season === undefined) {
       if (result.episode && result.subtitle) {
