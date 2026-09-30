@@ -6,9 +6,14 @@ export interface VideoResponseOk {
     code: string
   }
   data: {
-    metadata: unknown
     googleTagManager: unknown
-    response: VideoData
+    metadata: unknown
+    response: {
+      $watchV4: {
+        data: VideoData
+      }
+      pcweb: unknown
+    }
   }
 }
 
@@ -28,58 +33,30 @@ export interface VideoResponseError {
 }
 
 export interface VideoData {
-  ads: null
-  category: null
-  channel: Channel | null
+  responseType: string
   client: Client
-  comment: DataComment
-  community: null
-  easyComment: EasyComment
-  external: External | null
-  genre: DataGenre
-  marquee: Marquee | null
-  media: Media
-  okReason: OkReason
-  owner: DataOwner | null
-  payment: Payment
-  pcWatchPage: PcWatchPage | null
+  comment: VideoDataComment
+  media: Media | null
   player: Player
-  ppv: Ppv | null
-  ranking: Ranking
-  series: Series | null
-  smartphone: null
+  video: VideoDataVideo
+  genre: Genre
+  tags: Tags
+  lazy: Lazy
   system: System
-  tag: Tag
-  video: DataVideo
+  viewer: VideoDataViewer
   videoAds: VideoAds
-  videoLive: VideoLive | null
-  viewer: DataViewer | null
-  waku: Waku
+  videoLive: null
+  payment: Payment
+  baseVideo: BaseVideo
+  metadata: Metadata
+  okReason: string
 }
 
-export interface Channel {
-  id: string
-  name: string
-  isOfficialAnime: boolean
-  isDisplayAdBanner: boolean
-  thumbnail: ChannelThumbnail
-  viewer: ChannelViewer | null
-}
-
-export interface ChannelThumbnail {
-  url: string
-  smallUrl: string
-}
-
-export interface ChannelViewer {
-  follow: Follow
-}
-
-export interface Follow {
-  isFollowed: boolean
-  isBookmarked: boolean
-  token: string
-  tokenTimestamp: number
+export interface BaseVideo {
+  baseVideoId: null
+  contentType: null
+  title: null
+  thumbnail: null
 }
 
 export interface Client {
@@ -88,40 +65,43 @@ export interface Client {
   watchTrackId: string
 }
 
-export interface DataComment {
-  server: Server
-  keys: Keys
-  layers: Layer[]
+export interface VideoDataComment {
   threads: Thread[]
+  layers: Layer[]
   ng: Ng
   isAttentionRequired: boolean
   nvComment: NvComment
   assist: Assist
 }
 
-export interface Keys {
-  userKey: string
+export interface Assist {
+  sectionDurationSec: number
+  minMatchCharacters: number
+  ignorePostElapsedTimeSec: number
+  ignoreCommentNgScoreThreshold: number
+  commentCountThresholdList: Array<number[]>
+  buttonDisplayDurationSec: number
+  buttonDisplayOffsetSec: number
 }
 
 export interface Layer {
   index: number
   isTranslucent: boolean
-  threadIds: ThreadId[]
+  components: Component[]
 }
 
-export interface ThreadId {
-  id: number
+export interface Component {
+  threadId: number
   fork: number
   forkLabel: Fork
 }
 
-export type Fork = 'owner' | 'main' | 'easy' | 'ai'
+export type Fork = 'owner' | 'main' | 'easy'
 
 export interface Ng {
   ngScore: NgScore
-  channel: []
-  owner: []
-  viewer: NgViewer | null
+  owner: unknown[]
+  viewer: NgViewer
 }
 
 export interface NgScore {
@@ -135,10 +115,12 @@ export interface NgViewer {
 }
 
 export interface ViewerItem {
-  type: 'word' | 'id' | 'command'
+  type: Type
   source: string
-  registeredAt: string
+  registeredAt: Date
 }
+
+export type Type = 'id' | 'command'
 
 export interface NvComment {
   threadKey: string
@@ -146,19 +128,9 @@ export interface NvComment {
   params: Params
 }
 
-export interface Assist {
-  sectionDurationSec: number
-  minMatchCharacters: number
-  ignorePostElapsedTimeSec: number
-  ignoreCommentNgScoreThreshold: number
-  commentCountThresholdList: [number, number][]
-  buttonDisplayDurationSec: number
-  buttonDisplayOffsetSec: number
-}
-
 export interface Params {
   targets: Target[]
-  language: 'ja-jp'
+  language: string
 }
 
 export interface Target {
@@ -166,77 +138,30 @@ export interface Target {
   fork: Fork
 }
 
-export interface Server {
-  url: string
-}
-
 export interface Thread {
   id: number
   fork: number
   forkLabel: Fork
   videoId: string
-  isActive: boolean
-  isDefaultPostTarget: boolean
-  isEasyCommentPostTarget: boolean
-  isLeafRequired: boolean
+  isPostTarget: boolean
   isOwnerThread: boolean
-  isThreadkeyRequired: boolean
-  threadkey: null | string
   is184Forced: boolean
-  hasNicoscript: boolean
-  label: ThreadLabel
-  postkeyStatus: number
-  server: string
+  label: LabelEnum
+  postNgReason: null
+  syncBufferTime: number
 }
 
-export type ThreadLabel =
-  | 'owner'
-  | 'default'
-  | 'main'
-  | 'community'
-  | 'extra-community'
-  | 'easy'
-  | 'extra-easy'
-  | 'ai'
+export type LabelEnum = 'owner' | 'default' | 'community' | 'easy'
 
-export interface EasyComment {
-  phrases: Phrase[]
-}
-
-export interface Phrase {
-  text: string
-  nicodic: Nicodic | null
-}
-
-export interface Nicodic {
-  title: string
-  viewTitle: string
-  summary: string
-  link: string
-}
-
-export interface External {
-  commons: Commons
-  ichiba: Ichiba
-}
-
-export interface Commons {
-  hasContentTree: boolean
-}
-
-export interface Ichiba {
-  isEnabled: boolean
-}
-
-export interface DataGenre {
+export interface Genre {
   key: string
-  label: GenreEnum
+  label: GenreLabelEnum
   isImmoral: boolean
   isDisabled: boolean
   isNotSet: boolean
 }
 
-export type GenreEnum =
+export type GenreLabelEnum =
   | '未設定'
   | 'エンターテイメント'
   | 'ラジオ'
@@ -255,138 +180,123 @@ export type GenreEnum =
   | 'ゲーム'
   | 'その他'
   | 'R-18'
+  | '例のソレ'
 
-export interface Marquee {
-  isDisabled: boolean
-  tagRelatedLead: null
+export interface Lazy {
+  authKey: string
 }
 
 export interface Media {
-  domand: Domand | null
-  delivery: null
-  deliveryLegacy: null
-}
-
-export interface Domand {
-  videos: VideoElement[]
-  audios: Audio[]
+  contents: Contents
   isStoryboardAvailable: boolean
   accessRightKey: string
+  hls: HLS
+  lowDataMode: LowDataMode
+}
+
+export interface Contents {
+  videos: VideoElement[]
+  audios: Audio[]
 }
 
 export interface Audio {
-  id: AudioId
+  id: string
   isAvailable: boolean
+  qualityLevel: number
   bitRate: number
   samplingRate: number
   integratedLoudness: number
   truePeak: number
-  qualityLevel: number
   loudnessCollection: LoudnessCollection[]
+  label: LabelClass
 }
 
-export type AudioId =
-  | 'audio-aac-64kbps'
-  | 'audio-aac-128kbps'
-  | 'audio-aac-192kbps'
+export interface LabelClass {
+  quality: string
+  bitrate: string
+}
 
 export interface LoudnessCollection {
-  type: LoudnessCollectionType
+  type: string
   value: number
 }
 
-export type LoudnessCollectionType =
-  | 'video'
-  | 'pureAdPreroll'
-  | 'houseAdPreroll'
-  | 'networkAdPreroll'
-  | 'pureAdMidroll'
-  | 'houseAdMidroll'
-  | 'networkAdMidroll'
-  | 'pureAdPostroll'
-  | 'houseAdPostroll'
-  | 'networkAdPostroll'
-  | 'nicoadVideoIntroduce'
-  | 'nicoadBillboard'
-  | 'marquee'
-
 export interface VideoElement {
-  id: VideoId
+  id: string
   isAvailable: boolean
-  label: VideoLabel
+  qualityLevel: number
+  label: string
   bitRate: number
   width: number
   height: number
-  qualityLevel: number
-  recommendedHighestAudioQualityLevel: number
 }
 
-export type VideoId =
-  | 'video-h264-144p'
-  | 'video-h264-360p-lowest'
-  | 'video-h264-360p'
-  | 'video-h264-480p'
-  | 'video-h264-720p'
-  | 'video-h264-1080p'
+export interface HLS {
+  url: string
+  outputs: Output[]
+  createdAt: Date
+  expiredAt: Date
+}
 
-export type VideoLabel = '低画質' | '144p' | '360p' | '480p' | '720p' | '1080p'
+export interface Output {
+  assetUnitNames: string[]
+}
 
-export type OkReason = 'PURELY' | 'PAYMENT_PREVIEW_SUPPORTED'
+export interface LowDataMode {
+  videoUpperLimit: number
+  audioUpperLimit: number
+}
 
-export interface DataOwner {
-  id: number
-  nickname: string
+export interface Metadata {
+  jsonLd: JSONLd
+  gtm: Gtm
+}
+
+export interface Gtm {
+  channel: Channel | null
+}
+
+export interface Channel {
+  id: string
+  isMember: boolean
+}
+
+export interface JSONLd {
+  owner: Owner
+  videoObject: VideoObject
+}
+
+export interface Owner {
+  id: string
+  type: string
+  name: string
+  description: string
   iconUrl: string
-  channel: null
-  live: null
-  isVideosPublic: boolean
-  isMylistsPublic: boolean
-  videoLiveNotice: null
-  viewer: null
+}
+
+export interface VideoObject {
+  regionsAllowed: null | string
+  expiresAt: Date | null
 }
 
 export interface Payment {
-  video: PaymentVideo
-  preview: Preview
+  ppv: Admission
+  admission: Admission
+  continuationBenefit: Admission
+  premium: Admission
+  watchableUserType: string
+  commentableUserType: string
+  billingType: string
 }
 
-export interface Preview {
-  ppv: Ichiba
-  admission: Ichiba
-  continuationBenefit: Ichiba
-  premium: Ichiba
-}
-
-export interface PaymentVideo {
-  isPpv: boolean
-  isAdmission: boolean
-  isContinuationBenefit: boolean
-  isPremium: boolean
-  watchableUserType: CommentableUserTypeForPayment
-  commentableUserType: CommentableUserTypeForPayment
-  billingType: BillingType
-}
-
-export type BillingType = 'free' | 'custom'
-
-export type CommentableUserTypeForPayment = 'all' | 'purchaser'
-
-export interface PcWatchPage {
-  tagRelatedBanner: null
-  videoEnd: VideoEnd
-  showOwnerMenu: boolean
-  showOwnerThreadCoEditingLink: boolean
-  showMymemoryEditingLink: boolean
-}
-
-export interface VideoEnd {
-  bannerIn: null
-  overlay: null
+export interface Admission {
+  isEnabled: boolean
+  showPromotion: boolean
 }
 
 export interface Player {
-  initialPlayback: null
   comment: PlayerComment
+  initialPlayback: null
   layerMode: number
 }
 
@@ -394,62 +304,47 @@ export interface PlayerComment {
   isDefaultInvisible: boolean
 }
 
-export interface Ppv {
-  accessFrom: null
+export interface System {
+  serverTime: Date
+  isStellaAlive: boolean
+  channelGtmContainerId: string
 }
 
-export interface Ranking {
-  genre: RankingGenre | null
-  popularTag: PopularTag[]
+export interface Tags {
+  items: TagsItem[]
+  hasR18Tag: boolean
+  isPublishedNicoscript: boolean
+  edit: Edit
 }
 
-export interface RankingGenre {
-  rank: number
-  genre: GenreEnum
-  dateTime: string
+export interface Edit {
+  isEditable: boolean
+  uneditableReason: null | string
+  editKey: null | string
 }
 
-export interface PopularTag {
-  tag: string
-  regularizedTag: string
-  rank: number
-  genre: GenreEnum
-  dateTime: string
+export interface TagsItem {
+  name: string
+  isLocked: boolean
 }
 
-export interface Series {
-  id: number
+export interface VideoDataVideo {
+  id: string
+  contentType: string
   title: string
   description: string
-  thumbnailUrl: string
-  video: SeriesVideo
-}
-
-export interface SeriesVideo {
-  prev: First | null
-  next: First
-  first: First
-}
-
-export interface First {
-  type: string
-  id: string
-  title: string
-  registeredAt: string
+  supplements: unknown[]
   count: Count
-  thumbnail: FirstThumbnail
   duration: number
-  shortDescription: string
-  latestCommentSummary: string
+  thumbnail: Thumbnail
+  registeredAt: Date
+  permission: Permission
+  hasLyrics: boolean
+  isHighRiskVideo: boolean
   isChannelVideo: boolean
-  isPaymentRequired: boolean
-  playbackPosition: number | null
-  owner: FirstOwner
-  requireSensitiveMasking: boolean
-  videoLive: null
-  isMuted: boolean
-  '9d091f87': boolean
-  acf68865: boolean
+  isOwnedByViewer: boolean
+  showOwnerMenu: boolean
+  isLikedByViewer: boolean
 }
 
 export interface Count {
@@ -459,94 +354,27 @@ export interface Count {
   like: number
 }
 
-export interface FirstOwner {
-  ownerType: string
-  type: string
-  visibility: string
-  id: string
-  name: string
-  iconUrl: string
-}
-
-export interface FirstThumbnail {
-  url: string
-  middleUrl: string
-  largeUrl: string
-  listingUrl: string
-  nHdUrl: string
-}
-
-export interface System {
-  serverTime: string
-  isPeakTime: boolean
-  isStellaAlive: boolean
-}
-
-export interface Tag {
-  items: TagItem[]
-  hasR18Tag: boolean
-  isPublishedNicoscript: boolean
-  edit: Edit
-  viewer: Edit | null
-}
-
-export interface Edit {
-  isEditable: boolean
-  uneditableReason: UneditableReason
-  editKey: null | string
-}
-
-export type UneditableReason = 'PREMIUM_ONLY' | 'NEED_LOGIN' | 'USER_FORBIDDEN'
-
-export interface TagItem {
-  name: string
-  isCategory: boolean
-  isCategoryCandidate: boolean
-  isNicodicArticleExists: boolean
-  isLocked: boolean
-}
-
-export interface DataVideo {
-  id: string
-  title: string
-  description: string
-  count: Count
-  duration: number
-  thumbnail: VideoThumbnail
-  rating: Rating
-  registeredAt: string
+export interface Permission {
   isPrivate: boolean
   isDeleted: boolean
-  isNoBanner: boolean
   isAuthenticationRequired: boolean
   isEmbedPlayerAllowed: boolean
   isGiftAllowed: boolean
-  viewer: VideoViewer | null
-  watchableUserTypeForPayment: CommentableUserTypeForPayment
-  commentableUserTypeForPayment: CommentableUserTypeForPayment
-  '9d091f87': boolean
+  isNgForVocacolleApp: boolean
+  rating: Rating
 }
 
 export interface Rating {
   isAdult: boolean
 }
 
-export interface VideoThumbnail {
-  url: string
-  middleUrl: null | string
-  largeUrl: null | string
+export interface Thumbnail {
+  normal: string
+  middle: null | string
+  large: null | string
   player: string
   ogp: string
-}
-
-export interface VideoViewer {
-  isOwner: boolean
-  like: Like
-}
-
-export interface Like {
-  isLiked: boolean
-  count: null
+  short: null
 }
 
 export interface VideoAds {
@@ -562,68 +390,30 @@ export interface VideoAdsAdditionalParams {
   isAuthenticationRequired: boolean
   isR18: boolean
   nicosid: string
-  lang: 'ja-jp'
+  lang: string
   watchTrackId: string
   channelId?: string
   genre?: string
-  gender?: string
-  age?: number
+  gender: string
+  age: number
 }
 
 export interface VideoAdsItem {
-  type: LinearTypeEnum
-  timingMs: number | null
+  type: string
+  timingMs: null
   additionalParams: ItemAdditionalParams
 }
 
 export interface ItemAdditionalParams {
-  linearType: LinearTypeEnum
+  linearType: string
   adIdx: number
   skipType: number
-  skippableType: number
   pod: number
 }
 
-export type LinearTypeEnum = 'preroll' | 'midroll' | 'postroll'
-
-export interface VideoLive {
-  programId: string
-  beginAt: string
-  endAt: string
-}
-
-export interface DataViewer {
+export interface VideoDataViewer {
   id: number
   nickname: string
   isPremium: boolean
   allowSensitiveContents: boolean
-  existence: Existence
 }
-
-export interface Existence {
-  age: number
-  prefecture: string
-  sex: string
-}
-
-export interface Waku {
-  information: null
-  bgImages: any[]
-  addContents: null
-  addVideo: null
-  tagRelatedBanner: TagRelatedBanner
-  tagRelatedMarquee: null
-}
-
-export interface TagRelatedBanner {
-  title: string
-  imageUrl: string
-  description: string
-  isEvent: boolean
-  linkUrl: string
-  linkType: LinkType
-  linkOrigin: string
-  isNewWindow: boolean
-}
-
-export type LinkType = 'video' | 'link' | 'live'

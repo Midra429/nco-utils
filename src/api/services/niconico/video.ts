@@ -39,7 +39,7 @@ export async function video(
         )
       }
 
-      return json.data.response
+      return json.data.response.$watchV4.data
     } catch (err) {
       logger.error('api/niconico/video', err)
     }
