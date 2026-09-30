@@ -5,16 +5,7 @@ export interface VideoResponseOk {
     status: 200
     code: string
   }
-  data: {
-    googleTagManager: unknown
-    metadata: unknown
-    response: {
-      $watchV4: {
-        data: VideoData
-      }
-      pcweb: unknown
-    }
-  }
+  data: VideoResponseData
 }
 
 export interface VideoResponseError {
@@ -28,27 +19,179 @@ export interface VideoResponseError {
       statusCode: number
       errorCode: string
       reasonCode: string
+      deletedMessage: null
+      publishScheduledAt: null
+      dataSet: null
     }
   }
 }
 
-export interface VideoData {
+export interface VideoResponseData {
+  metadata: Metadata
+  googleTagManager: GoogleTagManager
+  response: Response
+}
+
+export interface GoogleTagManager {
+  user: User
+  content: Content
+}
+
+export interface Content {
+  player_type: string
+  genre: string
+  content_type: string
+  channel_id?: string
+  ch_register_status?: string
+  pay_status?: string
+}
+
+export interface User {
+  login_status: string
+  user_id: string
+  member_status: string
+  ui_area: string
+  ui_lang: string
+}
+
+export interface Metadata {
+  title: string
+  linkTags: LinkTag[]
+  metaTags: MetaTag[]
+  jsonLds: JSONLdElement[]
+}
+
+export interface JSONLdElement {
+  '@context': string
+  '@type': JSONLdType
+  '@id'?: string
+  name?: string
+  description?: string
+  caption?: string
+  url?: string
+  duration?: string
+  uploadDate?: Date
+  embedUrl?: string
+  interactionStatistic?: InteractionStatistic[]
+  commentCount?: number
+  thumbnail?: ThumbnailElement[]
+  thumbnailUrl?: string[]
+  requiresSubscription?: boolean
+  isAccessibleForFree?: boolean
+  regionsAllowed?: string
+  expires?: Date
+  keywords?: string
+  genre?: string
+  playerType?: string
+  provider?: Provider
+  author?: Author
+  itemListElement?: ItemListElement[]
+}
+
+export type JSONLdType = 'VideoObject' | 'WebSite' | 'BreadcrumbList'
+
+export interface Author {
+  '@type': string
+  name: string
+  image: string
+  url: string
+  description?: string
+}
+
+export interface InteractionStatistic {
+  '@type': InteractionStatisticType
+  interactionType: string
+  userInteractionCount: number
+}
+
+export type InteractionStatisticType = 'InteractionCounter'
+
+export interface ItemListElement {
+  '@type': ItemListElementType
+  position: number
+  item: string
+  name: string
+}
+
+export type ItemListElementType = 'ListItem'
+
+export interface Provider {
+  '@type': string
+  name: string
+}
+
+export interface ThumbnailElement {
+  '@type': ThumbnailType
+  url: string
+  width?: number
+  height?: number
+}
+
+export type ThumbnailType = 'ImageObject'
+
+export interface LinkTag {
+  rel: Rel
+  href: string
+  attrs: unknown[] | AttrsClass
+}
+
+export interface AttrsClass {
+  type?: AttrsType
+  sizes?: Sizes
+  as?: As
+  class?: Class
+  media?: string
+  fetchpriority?: string
+}
+
+export type As = 'script' | 'image'
+
+export type Class = 'Canonical' | 'Alternate'
+
+export type Sizes = '32x32' | '48x48' | '96x96' | '144x144'
+
+export type AttrsType = 'image/png'
+
+export type Rel =
+  | 'shortcut icon'
+  | 'icon'
+  | 'preconnect'
+  | 'preload'
+  | 'canonical'
+  | 'alternate'
+
+export interface MetaTag {
+  name?: string
+  content: string
+  property?: string
+}
+
+export interface Response {
+  $watchV4: WatchV4
+  pcweb: Pcweb
+}
+
+export interface WatchV4 {
+  data: WatchV4Data
+}
+
+export interface WatchV4Data {
   responseType: string
   client: Client
-  comment: VideoDataComment
+  comment: DataComment
   media: Media | null
   player: Player
-  video: VideoDataVideo
+  video: DataVideo
   genre: Genre
   tags: Tags
   lazy: Lazy
   system: System
-  viewer: VideoDataViewer
+  viewer: DataViewer
   videoAds: VideoAds
   videoLive: null
   payment: Payment
   baseVideo: BaseVideo
-  metadata: Metadata
+  metadata: WatchMetadata
   okReason: string
 }
 
@@ -65,7 +208,7 @@ export interface Client {
   watchTrackId: string
 }
 
-export interface VideoDataComment {
+export interface DataComment {
   threads: Thread[]
   layers: Layer[]
   ng: Ng
@@ -115,12 +258,12 @@ export interface NgViewer {
 }
 
 export interface ViewerItem {
-  type: Type
+  type: PurpleType
   source: string
   registeredAt: Date
 }
 
-export type Type = 'id' | 'command'
+export type PurpleType = 'id' | 'command'
 
 export interface NvComment {
   threadKey: string
@@ -212,9 +355,11 @@ export interface Audio {
 }
 
 export interface LabelClass {
-  quality: string
+  quality: Quality
   bitrate: string
 }
+
+export type Quality = '高音質' | '標準音質' | '低音質'
 
 export interface LoudnessCollection {
   type: string
@@ -247,8 +392,8 @@ export interface LowDataMode {
   audioUpperLimit: number
 }
 
-export interface Metadata {
-  jsonLd: JSONLd
+export interface WatchMetadata {
+  jsonLd: PurpleJSONLd
   gtm: Gtm
 }
 
@@ -261,7 +406,7 @@ export interface Channel {
   isMember: boolean
 }
 
-export interface JSONLd {
+export interface PurpleJSONLd {
   owner: Owner
   videoObject: VideoObject
 }
@@ -328,7 +473,7 @@ export interface TagsItem {
   isLocked: boolean
 }
 
-export interface VideoDataVideo {
+export interface DataVideo {
   id: string
   contentType: string
   title: string
@@ -336,7 +481,7 @@ export interface VideoDataVideo {
   supplements: unknown[]
   count: Count
   duration: number
-  thumbnail: Thumbnail
+  thumbnail: VideoThumbnail
   registeredAt: Date
   permission: Permission
   hasLyrics: boolean
@@ -368,7 +513,7 @@ export interface Rating {
   isAdult: boolean
 }
 
-export interface Thumbnail {
+export interface VideoThumbnail {
   normal: string
   middle: null | string
   large: null | string
@@ -399,21 +544,27 @@ export interface VideoAdsAdditionalParams {
 }
 
 export interface VideoAdsItem {
-  type: string
-  timingMs: null
+  type: LinearTypeEnum
+  timingMs: number | null
   additionalParams: ItemAdditionalParams
 }
 
 export interface ItemAdditionalParams {
-  linearType: string
+  linearType: LinearTypeEnum
   adIdx: number
   skipType: number
   pod: number
 }
 
-export interface VideoDataViewer {
+export type LinearTypeEnum = 'preroll' | 'midroll' | 'postroll'
+
+export interface DataViewer {
   id: number
   nickname: string
   isPremium: boolean
   allowSensitiveContents: boolean
+}
+
+export interface Pcweb {
+  prebidAdSlotName: string
 }
