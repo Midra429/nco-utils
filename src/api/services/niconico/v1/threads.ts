@@ -3,7 +3,7 @@ import type {
   V1ThreadsData,
   V1ThreadsOk,
 } from '@/types/api/niconico/v1/threads'
-import type { DataComment, NvComment } from '@/types/api/niconico/video'
+import type { NvComment, VideoDataComment } from '@/types/api/niconico/video'
 
 import { logger } from '@/common/logger'
 
@@ -23,7 +23,7 @@ export interface ThreadsRequestBody {
 }
 
 export async function threads(
-  comment: DataComment | null,
+  comment: VideoDataComment | null,
   additionals?: ThreadsRequestBody['additionals'],
   refreshThreadKey: boolean = true
 ): Promise<V1ThreadsData | null> {
@@ -76,7 +76,7 @@ export async function threads(
 }
 
 export function multipleThreads(
-  comments: (DataComment | null)[],
+  comments: (VideoDataComment | null)[],
   additionals?: ThreadsRequestBody['additionals']
 ): Promise<(V1ThreadsData | null)[]> {
   return Promise.all(comments.map((comment) => threads(comment, additionals)))
