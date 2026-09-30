@@ -1,7 +1,7 @@
 import type {
-  VideoData,
   VideoResponse,
   VideoResponseOk,
+  WatchV4Data,
 } from '@/types/api/niconico/video'
 
 import { logger } from '@/common/logger'
@@ -20,7 +20,7 @@ function isResponseOk(json: VideoResponse): json is VideoResponseOk {
 export async function video(
   contentId: string,
   credentials?: RequestInit['credentials']
-): Promise<VideoData | null> {
+): Promise<WatchV4Data | null> {
   if (isVideoId(contentId)) {
     const url = new URL(contentId, API_BASE_URL)
 
@@ -51,7 +51,7 @@ export async function video(
 export function multipleVideo(
   contentIds: string[],
   credentials?: RequestInit['credentials']
-): Promise<(VideoData | null)[]> {
+): Promise<(WatchV4Data | null)[]> {
   return Promise.all(
     contentIds.map((contentId) => video(contentId, credentials))
   )
