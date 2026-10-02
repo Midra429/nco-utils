@@ -26,14 +26,14 @@ const fields = [
   'tags',
 ] as const satisfies SnapshotV2.QueryFieldKey[]
 
-export type SearchDataWithFields = SnapshotV2.Data<(typeof fields)[number]>
+export type SnapshotV2DataWithFields = SnapshotV2.Data<(typeof fields)[number]>
 
 type SortedSearchData = {
-  [key in SearchTarget]: SearchDataWithFields[]
+  [key in SearchTarget]: SnapshotV2DataWithFields[]
 }
 
 function validateChapters(
-  chapters: SearchDataWithFields[],
+  chapters: SnapshotV2DataWithFields[],
   duration?: number
 ): boolean {
   const total = chapters.reduce((p, c) => p + c.lengthSeconds, 0)
@@ -46,7 +46,7 @@ function validateChapters(
 
 function sortSearchData(
   args: BuildSearchQueryArgs,
-  data: SearchDataWithFields[]
+  data: SnapshotV2DataWithFields[]
 ): SortedSearchData {
   const { input, targets } = args
   const parsed = parse(input)
@@ -133,7 +133,7 @@ export async function niconico(
 
   const { input: parsed, targets } = args
 
-  let data: SearchDataWithFields[] = []
+  let data: SnapshotV2DataWithFields[] = []
 
   // 1回目
   const searchQuery1 = buildSearchQuery(args)
