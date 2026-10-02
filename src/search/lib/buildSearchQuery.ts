@@ -1,8 +1,5 @@
 import type { ParsedResult } from '@/parse'
-import type {
-  SearchQuery,
-  SearchQueryJsonFilter,
-} from '@/types/api/niconico/search'
+import type * as SnapshotV2 from '@/types/api/niconico/snapshot/v2'
 import type { SearchTarget } from '@/types/search'
 
 import { number2kanji } from '@geolonia/japanese-numeral'
@@ -39,12 +36,12 @@ function getTitleVariants(title: string) {
 function getJsonFilterOfficial({
   duration,
   targets,
-}: BuildSearchQueryArgs): SearchQueryJsonFilter | null {
+}: BuildSearchQueryArgs): SnapshotV2.QueryJsonFilter | null {
   if (!targets.official && !targets.danime) {
     return null
   }
 
-  const andFilters: SearchQueryJsonFilter[] = [
+  const andFilters: SnapshotV2.QueryJsonFilter[] = [
     {
       type: 'equal',
       field: 'genre.keyword',
@@ -77,12 +74,12 @@ function getJsonFilterOfficial({
 function getJsonFilterSzbh({
   duration,
   targets,
-}: BuildSearchQueryArgs): SearchQueryJsonFilter | null {
+}: BuildSearchQueryArgs): SnapshotV2.QueryJsonFilter | null {
   if (!targets.szbh) {
     return null
   }
 
-  const andFilters: SearchQueryJsonFilter[] = [
+  const andFilters: SnapshotV2.QueryJsonFilter[] = [
     {
       type: 'or',
       filters: [
@@ -124,7 +121,7 @@ function getJsonFilterSzbh({
  */
 function getJsonFilterChapter({
   targets,
-}: BuildSearchQueryArgs): SearchQueryJsonFilter | null {
+}: BuildSearchQueryArgs): SnapshotV2.QueryJsonFilter | null {
   if (!targets.chapter) {
     return null
   }
@@ -149,7 +146,7 @@ function getJsonFilterChapter({
 export function buildSearchQuery(
   args: BuildSearchQueryArgs
 ): Pick<
-  SearchQuery,
+  SnapshotV2.QueryParameters<SnapshotV2.QueryFieldKey>,
   'q' | 'targets' | 'jsonFilter' | '_sort' | '_limit' | '_context'
 > {
   args.input = parse(args.input)
@@ -211,16 +208,17 @@ export function buildSearchQuery(
   }
 
   // 検索キーワード
-  const q: SearchQuery['q'] = keywords.join(' ') || removeSymbols(parsed.input)
+  const q: SnapshotV2.QueryParameters['q'] =
+    keywords.join(' ') || removeSymbols(parsed.input)
 
-  const orFilters: SearchQueryJsonFilter[] = [
+  const orFilters: SnapshotV2.QueryJsonFilter[] = [
     getJsonFilterOfficial(args),
     getJsonFilterSzbh(args),
     getJsonFilterChapter(args),
   ].filter((v) => v !== null)
 
   // JSONフィルター
-  const jsonFilter: SearchQuery['jsonFilter'] =
+  const jsonFilter: SnapshotV2.QueryParameters['jsonFilter'] =
     1 < orFilters.length
       ? {
           type: 'or',

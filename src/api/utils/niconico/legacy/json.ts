@@ -3,14 +3,14 @@ import type {
   LegacyJsonChatOutput,
   LegacyJsonOutput,
 } from '@/types/api/niconico/legacy/json'
-import type { V1Comment, V1Thread } from '@/types/api/niconico/v1/threads'
+import type * as ThreadsV1 from '@/types/api/niconico/threads/v1'
 
 import * as v from 'valibot'
 
 import { LegacyJsonChatSchema } from '@/types/api/niconico/legacy/json'
 import { toISOStringTz } from '@/common/toISOStringTz'
 
-function jsonChatToV1Comment(chat: LegacyJsonChatOutput): V1Comment {
+function jsonChatToV1Comment(chat: LegacyJsonChatOutput): ThreadsV1.Comment {
   const date_ms = Math.trunc(chat.date * 1000 + chat.date_usec / 1000)
 
   return {
@@ -50,8 +50,10 @@ export function parseLegacyJson(text: string): LegacyJsonOutput {
   return results
 }
 
-export function legacyJsonToV1Threads(input: LegacyJsonOutput): V1Thread[] {
-  const threadsMap: Record<string, V1Thread> = {}
+export function legacyJsonToV1Threads(
+  input: LegacyJsonOutput
+): ThreadsV1.Thread[] {
+  const threadsMap: Record<string, ThreadsV1.Thread> = {}
 
   for (const item of input) {
     if (!('chat' in item)) continue

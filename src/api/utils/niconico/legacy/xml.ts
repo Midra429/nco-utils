@@ -3,7 +3,7 @@ import type {
   LegacyXmlChatOutput,
   LegacyXmlOutput,
 } from '@/types/api/niconico/legacy/xml'
-import type { V1Comment, V1Thread } from '@/types/api/niconico/v1/threads'
+import type * as ThreadsV1 from '@/types/api/niconico/threads/v1'
 
 import { XMLParser } from 'fast-xml-parser'
 import * as v from 'valibot'
@@ -20,7 +20,7 @@ const xmlParser = new XMLParser({
   parseTagValue: false,
 })
 
-function xmlChatToV1Comment(chat: LegacyXmlChatOutput): V1Comment {
+function xmlChatToV1Comment(chat: LegacyXmlChatOutput): ThreadsV1.Comment {
   const date_ms = Math.trunc(chat.date * 1000 + chat.date_usec / 1000)
 
   return {
@@ -69,10 +69,10 @@ export function parseLegacyXml(text: string): LegacyXmlOutput {
 export function legacyXmlToV1Threads(
   { packet }: LegacyXmlOutput,
   fork?: string
-): V1Thread[] {
+): ThreadsV1.Thread[] {
   fork ??= 'legacy-xml'
 
-  const threadsMap: Record<string, V1Thread> = {}
+  const threadsMap: Record<string, ThreadsV1.Thread> = {}
 
   let customThreadId: string | null = null
 

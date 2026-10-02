@@ -1,8 +1,4 @@
-import type {
-  V1DAnimeLinksItem,
-  V1DAnimeLinksResponse,
-  V1DAnimeLinksResponseOk,
-} from '@/types/api/niconico/v1/channelVideoDAnimeLinks'
+import type * as DAnimeLinksV1 from '@/types/api/niconico/channelVideoDAnimeLinks/v1'
 
 import { logger } from '@/common/logger'
 
@@ -10,14 +6,14 @@ const API_BASE_URL =
   'https://public-api.ch.nicovideo.jp/v1/user/channelVideoDAnimeLinks'
 
 function isResponseOk(
-  json: V1DAnimeLinksResponse
-): json is V1DAnimeLinksResponseOk {
+  json: DAnimeLinksV1.Response
+): json is DAnimeLinksV1.ResponseOk {
   return json.meta.status === 200
 }
 
-export async function channelVideoDAnimeLinks(
+export async function channelVideoDAnimeLinksV1(
   videoId: string
-): Promise<V1DAnimeLinksItem | null> {
+): Promise<DAnimeLinksV1.Item | null> {
   const url = new URL(API_BASE_URL)
 
   url.searchParams.set('videoId', videoId)
@@ -30,13 +26,13 @@ export async function channelVideoDAnimeLinks(
       mode: 'cors',
       credentials: 'include',
     })
-    const json = (await res.json()) as V1DAnimeLinksResponse
+    const json = (await res.json()) as DAnimeLinksV1.Response
 
     if (isResponseOk(json)) {
       return json.data.items[0] ?? null
     }
   } catch (err) {
-    logger.error('api/niconico/channelVideoDAnimeLinks', err)
+    logger.error('api/niconico/channelVideoDAnimeLinks/v1', err)
   }
 
   return null

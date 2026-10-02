@@ -1,8 +1,4 @@
-import type {
-  VideoResponse,
-  VideoResponseOk,
-  WatchV4Data,
-} from '@/types/api/niconico/video'
+import type * as WatchV4 from '@/types/api/niconico/watch/v4'
 
 import { logger } from '@/common/logger'
 import { VIDEO_ID_REGEXP } from '@/api/constants'
@@ -13,14 +9,14 @@ function isVideoId(id: string): boolean {
   return VIDEO_ID_REGEXP.test(id)
 }
 
-function isResponseOk(json: VideoResponse): json is VideoResponseOk {
+function isResponseOk(json: WatchV4.Response): json is WatchV4.ResponseOk {
   return json.meta.status === 200
 }
 
-export async function video(
+export async function watchV4(
   contentId: string,
   credentials?: RequestInit['credentials']
-): Promise<WatchV4Data | null> {
+): Promise<WatchV4.Data | null> {
   if (isVideoId(contentId)) {
     const url = new URL(contentId, API_BASE_URL)
 
@@ -31,7 +27,7 @@ export async function video(
         mode: 'cors',
         credentials,
       })
-      const json = (await res.json()) as VideoResponse
+      const json = (await res.json()) as WatchV4.Response
 
       if (!isResponseOk(json)) {
         throw new Error(
@@ -41,18 +37,9 @@ export async function video(
 
       return json.data.response.$watchV4.data
     } catch (err) {
-      logger.error('api/niconico/video', err)
+      logger.error('api/niconico/watch/v4', err)
     }
   }
 
   return null
-}
-
-export function multipleVideo(
-  contentIds: string[],
-  credentials?: RequestInit['credentials']
-): Promise<(WatchV4Data | null)[]> {
-  return Promise.all(
-    contentIds.map((contentId) => video(contentId, credentials))
-  )
 }

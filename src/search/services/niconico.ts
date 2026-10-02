@@ -1,8 +1,5 @@
 import type { BuildSearchQueryArgs } from '@/search/lib/buildSearchQuery'
-import type {
-  SearchData,
-  SearchQueryFieldKey,
-} from '@/types/api/niconico/search'
+import type * as SnapshotV2 from '@/types/api/niconico/snapshot/v2'
 import type { SearchTarget } from '@/types/search'
 
 import { compare } from '@/compare'
@@ -11,7 +8,7 @@ import { removeSymbols } from '@/common/remove'
 import { DANIME_CHANNEL_ID, REGEXP_DANIME_CHAPTER } from '@/search/constants'
 import { buildSearchQuery } from '@/search/lib/buildSearchQuery'
 import { TAG_SZBH_REGEXP } from '@/api/constants'
-import { search as niconicoSearch } from '@/api/services/niconico'
+import { snapshotV2 } from '@/api/services/niconico/snapshot/v2'
 
 const MAX_MATCH_LENGTH = 3
 
@@ -27,9 +24,9 @@ const fields = [
   'commentCounter',
   'categoryTags',
   'tags',
-] as const satisfies SearchQueryFieldKey[]
+] as const satisfies SnapshotV2.QueryFieldKey[]
 
-export type SearchDataWithFields = SearchData<(typeof fields)[number]>
+export type SearchDataWithFields = SnapshotV2.Data<(typeof fields)[number]>
 
 type SortedSearchData = {
   [key in SearchTarget]: SearchDataWithFields[]
@@ -142,7 +139,7 @@ export async function niconico(
   const searchQuery1 = buildSearchQuery(args)
 
   if (searchQuery1.jsonFilter) {
-    const res = await niconicoSearch({
+    const res = await snapshotV2({
       ...searchQuery1,
       fields,
     })
@@ -180,7 +177,7 @@ export async function niconico(
         .join(' ') || parsed.input
     )
 
-    const res = await niconicoSearch({
+    const res = await snapshotV2({
       ...searchQuery2,
       q,
       fields,

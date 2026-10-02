@@ -1,22 +1,21 @@
-import type {
-  SearchQuery,
-  SearchQueryFieldKey,
-  SearchResponse,
-  SearchResponseOk,
-} from '@/types/api/niconico/search'
+import type * as SnapshotV2 from '@/types/api/niconico/snapshot/v2'
 
 import { logger } from '@/common/logger'
 
 const API_BASE_URL =
   'https://snapshot.search.nicovideo.jp/api/v2/snapshot/video/contents/search'
 
-function isResponseOk(json: SearchResponse): json is SearchResponseOk {
+function isResponseOk(
+  json: SnapshotV2.Response
+): json is SnapshotV2.ResponseOk {
   return json.meta.status === 200
 }
 
-export async function search<FieldKey extends SearchQueryFieldKey = never>(
-  query: SearchQuery<FieldKey>
-): Promise<SearchResponseOk<FieldKey> | null> {
+export async function snapshotV2<
+  FieldKey extends SnapshotV2.QueryFieldKey = never,
+>(
+  query: SnapshotV2.QueryParameters<FieldKey>
+): Promise<SnapshotV2.ResponseOk<FieldKey> | null> {
   const url = new URL(API_BASE_URL)
 
   url.searchParams.set('q', query.q)
@@ -61,7 +60,7 @@ export async function search<FieldKey extends SearchQueryFieldKey = never>(
 
   try {
     const res = await fetch(url)
-    const json = (await res.json()) as SearchResponse
+    const json = (await res.json()) as SnapshotV2.Response
 
     if (!isResponseOk(json)) {
       throw new Error(
@@ -71,7 +70,7 @@ export async function search<FieldKey extends SearchQueryFieldKey = never>(
 
     return json as any
   } catch (err) {
-    logger.error('api/niconico/search', err)
+    logger.error('api/niconico/snapshot/v2', err)
   }
 
   return null

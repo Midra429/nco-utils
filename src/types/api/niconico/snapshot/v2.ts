@@ -6,9 +6,76 @@ import type { NiconicoGenre } from '@/types/api/constants'
  */
 
 /**
+ * レスポンス
+ */
+export type Response<FieldKey extends QueryFieldKey = never> =
+  | ResponseOk<FieldKey>
+  | ResponseError
+
+/**
+ * レスポンス (成功)
+ */
+export interface ResponseOk<FieldKey extends QueryFieldKey = never> {
+  /**
+   * レスポンスのメタ情報フィールド
+   */
+  meta: {
+    /** HTTPステータス */
+    status: 200
+
+    /** リクエストID */
+    id: string
+
+    /** ヒット件数 */
+    totalCount: number
+  }
+
+  /**
+   * ヒットしたコンテンツ。\
+   * 要素の内容はパラメータ`fields`によって異なります
+   */
+  data: Data<FieldKey>[]
+}
+
+/**
+ * レスポンス (エラー)
+ */
+export interface ResponseError {
+  /**
+   * レスポンスのメタ情報フィールド
+   */
+  meta: {
+    /** HTTPステータス */
+    status: number
+
+    /** エラーコード */
+    errorCode: string
+
+    /** エラー内容 */
+    errorMessage: string
+  }
+}
+
+/**
+ * コンテンツ
+ */
+export type Data<FieldKey extends QueryFieldKey = never> = {
+  [key in FieldKey]: key extends
+    | 'userId'
+    | 'channelId'
+    | 'lastResBody'
+    | 'lastCommentTime'
+    | 'categoryTags'
+    | 'tags'
+    | 'genre'
+    ? Fields[key] | null
+    : Fields[key]
+}
+
+/**
  * フィールド
  */
-export interface SearchFields {
+export interface Fields {
   /**
    * コンテンツID。\
    * `https://nico.ms/`の後に連結することでコンテンツへのURLになります。
@@ -68,17 +135,17 @@ export interface SearchFields {
 
   /** ジャンル完全一致 */
   'genre.keyword': NiconicoGenre
+
+  /** 動画の種別 */
+  contentType: 'long' | 'short'
 }
 
-export type SearchFieldKey = keyof SearchFields
+export type FieldKey = keyof Fields
 
-export type SearchQueryFieldKey = Exclude<
-  SearchFieldKey,
-  'tagsExact' | 'genre.keyword'
->
+export type QueryFieldKey = Exclude<FieldKey, 'tagsExact' | 'genre.keyword'>
 
-export type SearchQueryFiltersKey = Exclude<
-  SearchFieldKey,
+export type QueryFiltersKey = Exclude<
+  FieldKey,
   | 'title'
   | 'description'
   | 'userId'
@@ -87,17 +154,17 @@ export type SearchQueryFiltersKey = Exclude<
   | 'lastResBody'
 >
 
-export type SearchQuerySortKey = Extract<
-  SearchFieldKey,
+export type QuerySortKey = Extract<
+  FieldKey,
   `${string}${'Counter' | 'Seconds' | 'Time'}`
 >
 
-export type SearchQuerySort = `${'-' | '+'}${SearchQuerySortKey}`
+export type SearchQuerySort = `${'-' | '+'}${QuerySortKey}`
 
 /**
  * クエリパラメータ
  */
-export interface SearchQuery<FieldKey extends SearchQueryFieldKey = never> {
+export interface QueryParameters<FieldKey extends QueryFieldKey = never> {
   /**
    * 検索キーワードです。
    * @example 'ゲーム'
@@ -111,7 +178,7 @@ export interface SearchQuery<FieldKey extends SearchQueryFieldKey = never> {
    * キーワード無し検索の場合は省略できます。
    * @example ['title', 'description', 'tags']
    */
-  targets?: SearchFieldKey[]
+  targets?: FieldKey[]
 
   /**
    * レスポンスに含みたいヒットしたコンテンツのフィールドです。
@@ -122,13 +189,13 @@ export interface SearchQuery<FieldKey extends SearchQueryFieldKey = never> {
   /**
    * 検索結果をフィルタの条件にマッチするコンテンツだけに絞ります。
    */
-  filters?: SearchQueryFilters
+  filters?: QueryFilters
 
   /**
    * OR や AND の入れ子など複雑なフィルター条件を使う場合のみに使用します。\
    * OR / AND / NOT 単体で使用する場合は`filters`を使ってください。
    */
-  jsonFilter?: SearchQueryJsonFilter
+  jsonFilter?: QueryJsonFilter
 
   /**
    * ソート順をソートの方向の記号とフィールド名を連結したもので指定します。\
@@ -160,27 +227,27 @@ export interface SearchQuery<FieldKey extends SearchQueryFieldKey = never> {
 /**
  * フィルター
  */
-export type SearchQueryFilters = {
-  [key in SearchQueryFiltersKey]?:
-    | SearchFields[key][]
+export type QueryFilters = {
+  [key in QueryFiltersKey]?:
+    | Fields[key][]
     | {
         /** `gt <` (超過) */
-        gt?: SearchFields[key]
+        gt?: Fields[key]
         /** `< lt` (未満) */
-        lt?: SearchFields[key]
+        lt?: Fields[key]
         /** `gte <=` (以上) */
-        gte?: SearchFields[key]
+        gte?: Fields[key]
         /** `<= lte` (以下) */
-        lte?: SearchFields[key]
+        lte?: Fields[key]
       }
 }
 
 /**
  * JSONフィルター
  */
-export type SearchQueryJsonFilter =
+export type QueryJsonFilter =
   | {
-      [key in SearchQueryFiltersKey]:
+      [key in QueryFiltersKey]:
         | {
             type: 'equal'
 
@@ -188,7 +255,7 @@ export type SearchQueryJsonFilter =
             field: key
 
             /** 対象にしたい値 */
-            value: SearchFields[key]
+            value: Fields[key]
           }
         | {
             type: 'range'
@@ -197,10 +264,10 @@ export type SearchQueryJsonFilter =
             field: key
 
             /** 範囲の始点の値 */
-            from: SearchFields[key]
+            from: Fields[key]
 
             /** 範囲の終点の値 */
-            to: SearchFields[key]
+            to: Fields[key]
 
             /** `from`の値を範囲に含めるか */
             include_lower?: boolean
@@ -208,85 +275,16 @@ export type SearchQueryJsonFilter =
             /** `to`の値を範囲に含めるか */
             include_upper?: boolean
           }
-    }[SearchQueryFiltersKey]
+    }[QueryFiltersKey]
   | {
       type: 'or' | 'and'
 
       /** JSONフィルターの配列 */
-      filters: SearchQueryJsonFilter[]
+      filters: QueryJsonFilter[]
     }
   | {
       type: 'not'
 
       /** JSONフィルター */
-      filter: SearchQueryJsonFilter
+      filter: QueryJsonFilter
     }
-
-/**
- * レスポンス
- */
-export type SearchResponse<FieldKey extends SearchQueryFieldKey = never> =
-  | SearchResponseOk<FieldKey>
-  | SearchResponseError
-
-/**
- * レスポンス (成功)
- */
-export interface SearchResponseOk<
-  FieldKey extends SearchQueryFieldKey = never,
-> {
-  /**
-   * レスポンスのメタ情報フィールド
-   */
-  meta: {
-    /** HTTPステータス */
-    status: 200
-
-    /** リクエストID */
-    id: string
-
-    /** ヒット件数 */
-    totalCount: number
-  }
-
-  /**
-   * ヒットしたコンテンツ。\
-   * 要素の内容はパラメータ`fields`によって異なります
-   */
-  data: SearchData<FieldKey>[]
-}
-
-/**
- * レスポンス (エラー)
- */
-export interface SearchResponseError {
-  /**
-   * レスポンスのメタ情報フィールド
-   */
-  meta: {
-    /** HTTPステータス */
-    status: number
-
-    /** エラーコード */
-    errorCode: string
-
-    /** エラー内容 */
-    errorMessage: string
-  }
-}
-
-/**
- * コンテンツ
- */
-export type SearchData<FieldKey extends SearchQueryFieldKey = never> = {
-  [key in FieldKey]: key extends
-    | 'userId'
-    | 'channelId'
-    | 'lastResBody'
-    | 'lastCommentTime'
-    | 'categoryTags'
-    | 'tags'
-    | 'genre'
-    ? SearchFields[key] | null
-    : SearchFields[key]
-}

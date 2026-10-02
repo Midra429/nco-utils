@@ -1,45 +1,40 @@
 import * as v from 'valibot'
 
-export type V1Threads = V1ThreadsOk | V1ThreadsError
+export type Response = ResponseOk | ResponseError
 
-export interface V1ThreadsOk {
+export interface ResponseOk {
   meta: {
     status: 200
     errorCode?: string
   }
-  data: V1ThreadsData
+  data: Data
 }
 
-export interface V1ThreadsError {
+export interface ResponseError {
   meta: {
     status: number
     errorCode?: string
   }
 }
 
-export interface V1ThreadsMeta {
-  status: number
-  errorCode?: string
+export interface Data {
+  globalComments: GlobalComment[]
+  threads: Thread[]
 }
 
-export interface V1ThreadsData {
-  globalComments: V1GlobalComment[]
-  threads: V1Thread[]
-}
-
-export interface V1GlobalComment {
+export interface GlobalComment {
   id: string
   count: number
 }
 
-export interface V1Thread {
+export interface Thread {
   id: string
   fork: string
   commentCount: number
-  comments: V1Comment[]
+  comments: Comment[]
 }
 
-export const V1CommentSchema = v.object({
+export const CommentSchema = v.object({
   id: v.string(),
   no: v.number(),
   vposMs: v.number(),
@@ -54,4 +49,4 @@ export const V1CommentSchema = v.object({
   source: v.string(),
   isMyPost: v.boolean(),
 })
-export type V1Comment = v.InferOutput<typeof V1CommentSchema>
+export type Comment = v.InferOutput<typeof CommentSchema>

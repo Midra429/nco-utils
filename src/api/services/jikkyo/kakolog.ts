@@ -5,7 +5,7 @@ import type {
   JikkyoKakologResponse,
   JikkyoKakologResponseOk,
 } from '@/types/api/jikkyo/kakolog'
-import type { V1Comment, V1Thread } from '@/types/api/niconico/v1/threads'
+import type * as ThreadsV1 from '@/types/api/niconico/threads/v1'
 
 import * as v from 'valibot'
 
@@ -33,7 +33,7 @@ export async function kakolog<
     userAgent?: string
   }
 ): Promise<
-  | (Compat extends true ? V1Thread : never)
+  | (Compat extends true ? ThreadsV1.Thread : never)
   | (Compat extends false ? JikkyoKakologResponseOk<Format> : never)
   | null
 > {
@@ -82,7 +82,7 @@ export async function kakolog<
           if (options?.compatV1Thread) {
             const starttime_ms = starttime * 1000
 
-            const comments: V1Comment[] = []
+            const comments: ThreadsV1.Comment[] = []
 
             for (const { chat: raw } of json.packet) {
               const { success, output: chat } = v.safeParse(
@@ -122,7 +122,7 @@ export async function kakolog<
 
             const commentCount = comments.length
 
-            const v1Thread: V1Thread = {
+            const v1Thread: ThreadsV1.Thread = {
               id: `${jkChId}:${starttime}-${endtime}`,
               fork: 'jikkyo',
               commentCount,
