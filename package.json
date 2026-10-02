@@ -70,9 +70,13 @@
       "import": "./dist/api/services/niconico/index.js",
       "types": "./dist/api/services/niconico/index.d.ts"
     },
-    "./api/services/niconico/v1": {
-      "import": "./dist/api/services/niconico/v1/index.js",
-      "types": "./dist/api/services/niconico/v1/index.d.ts"
+    "./api/services/niconico/threads": {
+      "import": "./dist/api/services/niconico/threads/index.js",
+      "types": "./dist/api/services/niconico/threads/index.d.ts"
+    },
+    "./api/services/niconico/watch": {
+      "import": "./dist/api/services/niconico/watch/index.js",
+      "types": "./dist/api/services/niconico/watch/index.d.ts"
     },
     "./api/services/syobocal": {
       "import": "./dist/api/services/syobocal/index.js",
@@ -129,6 +133,10 @@
     "./types/*": {
       "import": "./dist/types/*.js",
       "types": "./dist/types/*.d.ts"
+    },
+    "./types/api/niconico/watch": {
+      "import": "./dist/types/api/niconico/watch/index.js",
+      "types": "./dist/types/api/niconico/watch/index.d.ts"
     }
   },
   "dependencies": {
