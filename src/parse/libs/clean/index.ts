@@ -13,6 +13,7 @@ const ANIME_PREFIX_2_REGEXP =
   /^(tv|テレビ)?アニメ(ーション)?\s?『(?<title>.+?)』/i
 const ANIME_PREFIX_3_REGEXP = /^(tv|テレビ)?アニメ(ーション)?\s?(?<title>.+)/i
 const ANIME_PREFIX_4_REGEXP = /(tv|テレビ)アニメ(ーション)?(作品)?/i
+const ANIME_SUFFIX_1_REGEXP = /\sthe\sanimation(?=\s)/i
 const MOVIE_HONPEN_SUFFIX_REGEXP = /\s本編$/
 const MOVIE_SUFFIX_REGEXP = /\s(吹き?替え?|字幕)版?$/
 const SZBH_REGEXP = /コメント専?用(動画)?|szbh方式/gi
@@ -63,6 +64,7 @@ export function clean(input: string): string {
     .replace(ANIME_PREFIX_2_REGEXP, '$<title> ')
     .replace(ANIME_PREFIX_3_REGEXP, '$<title> ')
   input = input.replace(ANIME_PREFIX_4_REGEXP, '')
+  input = input.replace(ANIME_SUFFIX_1_REGEXP, '')
   input = input.replace(MOVIE_HONPEN_SUFFIX_REGEXP, '')
 
   // 映画
