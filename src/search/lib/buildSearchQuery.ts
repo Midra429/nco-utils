@@ -211,20 +211,36 @@ export function buildSearchQuery(
   const q: SnapshotV2.QueryParameters['q'] =
     keywords.join(' ') || removeSymbols(parsed.input)
 
+  const andFilters: SnapshotV2.QueryJsonFilter[] = [
+    {
+      type: 'equal',
+      field: 'contentType',
+      value: 'long',
+    },
+  ]
   const orFilters: SnapshotV2.QueryJsonFilter[] = [
     getJsonFilterOfficial(args),
     getJsonFilterSzbh(args),
     getJsonFilterChapter(args),
   ].filter((v) => v !== null)
 
+  if (1 < orFilters.length) {
+    andFilters.push({
+      type: 'or',
+      filters: orFilters,
+    })
+  } else if (orFilters.length) {
+    andFilters.push(orFilters[0]!)
+  }
+
   // JSONフィルター
   const jsonFilter: SnapshotV2.QueryParameters['jsonFilter'] =
-    1 < orFilters.length
+    1 < andFilters.length
       ? {
-          type: 'or',
-          filters: orFilters,
+          type: 'and',
+          filters: andFilters,
         }
-      : orFilters[0]
+      : andFilters[0]
 
   return {
     q,
