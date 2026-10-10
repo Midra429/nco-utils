@@ -2,7 +2,7 @@ import type { EpisodeResponse } from '@/types/api/fod/episode'
 
 import { logger } from '@/common/logger'
 
-const API_BASE_URL = 'https://i.fod.fujitv.co.jp/apps/api/episode/detail'
+const API_BASE_URL = 'https://i.fod.fujitv.co.jp/apps/api/c/v3/episode/detail/'
 
 export async function episode(
   id: string,
