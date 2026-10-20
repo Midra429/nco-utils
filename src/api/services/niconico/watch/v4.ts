@@ -21,6 +21,7 @@ export async function watchV4(
     const url = new URL(contentId, API_BASE_URL)
 
     url.searchParams.set('responseType', 'json')
+    url.searchParams.set('nvpcClientVersion', '1')
 
     try {
       const res = await fetch(url, {
