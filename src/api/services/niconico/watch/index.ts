@@ -50,6 +50,7 @@ export async function watch(
     const url = new URL(videoId, API_BASE_URL)
 
     url.searchParams.set('responseType', 'json')
+    url.searchParams.set('nvpcClientVersion', '1')
 
     try {
       const res = await fetch(url, {
