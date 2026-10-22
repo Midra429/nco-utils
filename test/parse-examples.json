@@ -102,7 +102,11 @@
   {
     "id": 9,
     "input": "DEVIL SURVIVOR 2 the ANIMATION　第1話「1ST DAY 憂鬱の日曜日」",
-    "title": "DEVIL SURVIVOR 2 the ANIMATION",
+    "title": "DEVIL SURVIVOR",
+    "season": {
+      "text": "2",
+      "number": 2
+    },
     "episode": {
       "text": "第1話",
       "number": 1
@@ -1072,5 +1076,17 @@
       "number": 1
     },
     "subtitle": "くまのしゅうせい"
+  },
+
+  {
+    "id": 80,
+    "input": "Re:ゼロから始める異世界生活 新編集版　1話 始まりの終わりと終わりの始まり",
+    "title": "Re:ゼロから始める異世界生活 新編集版",
+    "titleStripped": "Re:ゼロから始める異世界生活 新編集版",
+    "episode": {
+      "text": "1話",
+      "number": 1
+    },
+    "subtitle": "始まりの終わりと終わりの始まり"
   }
 ]

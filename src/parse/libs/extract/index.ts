@@ -239,7 +239,7 @@ function isSameAffix(seg1: ExtractedSegment, seg2: ExtractedSegment): boolean {
   return seg1.prefix === seg2.prefix && seg1.suffix === seg2.suffix
 }
 
-const TITLE_VERSION_SUFFIX = '(?:版|ver\\.?)'
+const TITLE_VERSION_SUFFIX = '(?<!新編集)(?:版|ver\\.?)'
 
 const STRIP_TEXT_REGEXPS: RegExp[] = [
   // 片翼の･･･堕天使（フォーリン・エンジェル）
@@ -258,7 +258,7 @@ const STRIP_TITLE_REGEXPS: RegExp[] = [
   new RegExp(
     `(?<=.+)\\s?` +
       `(?:${[
-        `\\s.+?${TITLE_VERSION_SUFFIX}`,
+        `\\s*[^\\s]+?${TITLE_VERSION_SUFFIX}`,
         `\\(.+?${TITLE_VERSION_SUFFIX}\\)`,
         `<.+?${TITLE_VERSION_SUFFIX}>`,
         `【.+?${TITLE_VERSION_SUFFIX}】`,
