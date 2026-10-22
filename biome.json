@@ -27,17 +27,10 @@
         "useExhaustiveDependencies": "off"
       },
       "nursery": {
-        "useSortedClasses": {
+        "useTailwindSortedClasses": {
           "fix": "safe",
-          "level": "error",
-          "options": {
-            "attributes": ["classNames"],
-            "functions": ["twMerge", "twJoin", "cn", "tv"]
-          }
+          "level": "error"
         }
-      },
-      "performance": {
-        "useTopLevelRegex": "on"
       },
       "style": {
         "useImportType": {
@@ -122,6 +115,10 @@
     "bracketSpacing": true,
     "expand": "auto",
     "useEditorconfig": true
+  },
+
+  "tailwind": {
+    "attributes": ["class", "className", "classNames"]
   },
 
   "javascript": {
